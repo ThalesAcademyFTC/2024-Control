@@ -50,18 +50,18 @@ public  class Goldfish {
     //Encoder ticks for ticks per inch
     //welovebilly
 
-    public Goldfish( OpMode opMode, Drivetrain drivetrain); {
+    public Goldfish(OpMode opMode, Drivetrain drivetrain) {
 
         this.hwMap = opMode.hardwareMap;
 
-        this.drive = Drivetrain;
+        this.drive = drivetrain;
 
         this.telem = opMode.telemetry;
 
         setupHardware();
     }
 
-    public Goldfish( LinearOpMode opmode, Drivetrain type) {
+    public Goldfish(LinearOpMode opmode, Drivetrain type) {
 
         this.auton = opmode;
 
@@ -76,7 +76,7 @@ public  class Goldfish {
 
     RevBlinkinLedDriver lights;
 
-    public Goldfish( HardwareMap hardwareMap, Drivetrain drivetrain) {
+    public Goldfish(HardwareMap hardwareMap, Drivetrain drivetrain) {
 
         this.hwMap = hardwareMap;
 
@@ -99,10 +99,112 @@ public  class Goldfish {
                 motorBR = hwMap.dcMotor.get("motorBR");
 
                 motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
+
+                webcamName = hwMap.get(WebcamName.class, "Webcam 1");
+
+                armMotor = hwMap.dcMotor.get("armMotor");
+                suspensionMotor = hwMap.dcMotor.get("droneMotor");
+                clawServoLeft = hwMap.servo.get("clawServoLeft");
+
+                break;
+
+            default:
+
+                telem.addLine("Invalid type" + drive + "passed to Spark's init function. Nothing has been set up");
+
+                break;
+        }
+    }
+
+    public void rest() {
+        motorBL.setPower(0);
+        motorFL.setPower(0);
+        motorBR.setPower(0);
+        motorFR.setPower(0);
+    }
+
+  public void move(double x, double y, double turn) {
+
+        switch(drive) {
+
+            case MECHANUM:
+
+                double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
+
+                double FLpower = (y + x + turn) / denominator;
+                double BLpower = (y + x - turn) / denominator;
+                double FRpower = (y - x - turn) / denominator;
+                double BRpower = (y + x - turn) / denominator;
+
+                motorFL.setPower(FLpower);
+                motorBL.setPower(BLpower);
+                motorFR.setPower(FRpower);
+                motorBR.setPower(BRpower);
+
+                break; //breakdance
+
 
         }
-
     }
+
+    public void moveLeft(double speed) {
+        move( -speed, 0, 0);
+    }
+
+    public void moveRight(double speed) {
+        move( -speed, 0, 0);
+    }
+
+    public void moveForward(double speed) {
+        move( 0, speed, 0);
+    }
+
+    public void moveBackward( double speed) {
+        move( 0, -speed, 0);
+    }
+
+    public void turnLeft(double speed) {
+        move(0, 0, -speed);
+    }
+
+    public void turnRight(double speed) {
+        move(0, 0, speed);
+    }
+
+    public void liftArm() {
+        armMotor.setPower(0.75);
+    }
+
+    public void lowerArm() {
+        armMotor.setPower(-0.5);
+    }
+
+    public void setArmMotor(double power) {
+        armMotor.setPower(power);
+    }
+    public void setMotorSuspend(double power) {
+        suspensionMotor.setPower( power );
+    }
+
+    public void openClawL() {
+        clawServoLeft.setPosition(.6);
+    }
+
+    public void openClawR() {
+        clawServoLeft.setPosition(.4);
+    }
+
+    public void closeClawL() {
+        clawServoLeft.setPosition(.9);
+    }
+
+    public void closeClawR() {
+        clawServoRight.setPosition(.01);
+    }
+
+  //pee
 
 
 }
