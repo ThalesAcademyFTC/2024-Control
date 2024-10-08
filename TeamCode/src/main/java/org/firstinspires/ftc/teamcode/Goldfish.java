@@ -21,6 +21,8 @@ public  class Goldfish {
 
     public HardwareMap hwMap;
 
+    public LinearOpMode auton;
+
     public enum Drivetrain {
         MECHANUM
     }
@@ -37,7 +39,7 @@ public  class Goldfish {
     //defining global variables
     public DcMotor armMotor, suspensionMotor, motorFL, motorFR, motorBL, motorBR;
 
-    public Servo clawServoLeft, clawServoRight;
+    public Servo clawServo;
 
     public WebcamName webcamName;
 
@@ -188,23 +190,17 @@ public  class Goldfish {
         suspensionMotor.setPower( power );
     }
 
-    public void openClawL() {
-        clawServoLeft.setPosition(.6);
+    public void openClaw() {
+        clawServo.setPosition(.6);
     }
 
-    public void openClawR() {
-        clawServoLeft.setPosition(.4);
+    public void closeClaw() {
+        clawServo.setPosition(.9);
     }
 
-    public void closeClawL() {
-        clawServoLeft.setPosition(.9);
-    }
 
-    public void closeClawR() {
-        clawServoRight.setPosition(.01);
     }
 
  
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         // love billy to death, but he taught us none of this. the stinky beta poopoo head
-}
