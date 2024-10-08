@@ -21,8 +21,6 @@ public  class Goldfish {
 
     public HardwareMap hwMap;
 
-    LinearOpMode auton;
-
     public enum Drivetrain {
         MECHANUM
     }
@@ -98,15 +96,15 @@ public  class Goldfish {
                 motorBL = hwMap.dcMotor.get("motorBL");
                 motorBR = hwMap.dcMotor.get("motorBR");
 
-                motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
-                motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
-                motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
+               // motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
+               // motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
+               // motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
                 webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
                 armMotor = hwMap.dcMotor.get("armMotor");
-                suspensionMotor = hwMap.dcMotor.get("droneMotor");
-                clawServoLeft = hwMap.servo.get("clawServoLeft");
+                suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
+                clawServo = hwMap.servo.get("clawServo");
 
                 break;
 
@@ -148,6 +146,8 @@ public  class Goldfish {
 
         }
     }
+
+   
 
     public void moveLeft(double speed) {
         move( -speed, 0, 0);
@@ -204,7 +204,7 @@ public  class Goldfish {
         clawServoRight.setPosition(.01);
     }
 
-  //pee
+ 
 
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        // love billy to death, but he taught us none of this. the stinky beta poopoo head
 }
