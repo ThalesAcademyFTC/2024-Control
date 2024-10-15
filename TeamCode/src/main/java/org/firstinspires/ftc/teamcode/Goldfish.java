@@ -102,11 +102,11 @@ public  class Goldfish {
                // motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
                // motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-                webcamName = hwMap.get(WebcamName.class, "Webcam 1");
+           //     webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
-                armMotor = hwMap.dcMotor.get("armMotor");
-                suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
-                clawServo = hwMap.servo.get("clawServo");
+//                armMotor = hwMap.dcMotor.get("armMotor");
+//                suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
+//                clawServo = hwMap.servo.get("clawServo");
 
                 break;
 
@@ -134,7 +134,7 @@ public  class Goldfish {
                 double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
 
                 double FLpower = (y + x + turn) / denominator;
-                double BLpower = (y + x - turn) / denominator;
+                double BLpower = (y - x + turn) / denominator;
                 double FRpower = (y - x - turn) / denominator;
                 double BRpower = (y + x - turn) / denominator;
 
@@ -143,7 +143,7 @@ public  class Goldfish {
                 motorFR.setPower(FRpower);
                 motorBR.setPower(BRpower);
 
-                break; //breakdance
+                break; //breakdance fortnite boogie bomb
 
 
         }
@@ -176,7 +176,7 @@ public  class Goldfish {
     }
 
     public void liftArm() {
-        armMotor.setPower(0.75);
+        armMotor.setPower(0.5);
     }
 
     public void lowerArm() {

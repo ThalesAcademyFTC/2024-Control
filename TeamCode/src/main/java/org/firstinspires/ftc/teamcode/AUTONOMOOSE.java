@@ -11,7 +11,7 @@ public class AUTONOMOOSE extends LinearOpMode {
 
     public void runOpMode() {
 
-        Goldfish = new robot(this, Goldfish.Drivetrain.MECHANUM);
+        robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
 
     }
 

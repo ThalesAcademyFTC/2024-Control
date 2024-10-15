@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 public class Teleop extends OpMode {
 
     Goldfish robot;
-    
+
     double rbtSpd = 2;
 
     @Override
@@ -24,11 +24,25 @@ public class Teleop extends OpMode {
         double x = (gamepad1.left_stick_x / rbtSpd);
         double turn = (gamepad1.right_stick_x);
 
-        robot.move(x,y,turn);
-        
+        robot.move(x, y, turn);
+
+        if (gamepad2.right_trigger > 0.25) {
+            robot.openClaw();
+        }
+        if (gamepad2.left_trigger > 0.25) {
+            robot.closeClaw();
+        }
+/*          if (gamepad2.left_stick_y > 0.25) {
+            robot.liftArm();
+        }
+       if (gamepad2.right_stick_y > 0.25) {
+            robot.lowerArm();
+        }
+*/
 
     }
 }
+
 
 /* I wish i was a little bit taller i wish i was a baller i wish i had a girl who looked good i would call her
 i wish i had a rabbit in a hat and a bat and a '64 impala 
