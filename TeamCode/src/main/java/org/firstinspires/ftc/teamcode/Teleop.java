@@ -26,18 +26,18 @@ public class Teleop extends OpMode {
 
         robot.move(x, y, turn);
 
-        if (gamepad2.right_trigger > 0.25) {
+        if (gamepad2.right_trigger > 0.1) {
             robot.openClaw();
-        }
-        if (gamepad2.left_trigger > 0.25) {
+        } else if (gamepad2.left_trigger > 0.1) {
             robot.closeClaw();
         }
+
 /*          if (gamepad2.left_stick_y > 0.25) {
             robot.liftArm();
-        }
-       if (gamepad2.right_stick_y > 0.25) {
+        } else if (gamepad2.right_stick_y > 0.25) {
             robot.lowerArm();
         }
+
 */
 
     }

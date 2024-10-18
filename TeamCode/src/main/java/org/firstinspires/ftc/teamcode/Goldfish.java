@@ -39,9 +39,18 @@ public  class Goldfish {
     //defining global variables
     public DcMotor armMotor, suspensionMotor, motorFL, motorFR, motorBL, motorBR;
 
+    public DcMotor[] allMotors;
+
     public Servo clawServo;
 
     public WebcamName webcamName;
+
+    int inchtick = 50;
+
+    public void waitForMotors() {
+
+    }
+
 
     //constants here
 
@@ -72,6 +81,8 @@ public  class Goldfish {
         drive = type;
 
         setupHardware();
+
+
     }
 
     RevBlinkinLedDriver lights;
@@ -102,11 +113,11 @@ public  class Goldfish {
                // motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
                // motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-           //     webcamName = hwMap.get(WebcamName.class, "Webcam 1");
+                webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
-//                armMotor = hwMap.dcMotor.get("armMotor");
-//                suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
-//                clawServo = hwMap.servo.get("clawServo");
+                armMotor = hwMap.dcMotor.get("armMotor");
+                suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
+                clawServo = hwMap.servo.get("clawServo");
 
                 break;
 
@@ -143,7 +154,7 @@ public  class Goldfish {
                 motorFR.setPower(FRpower);
                 motorBR.setPower(BRpower);
 
-                break; //breakdance fortnite boogie bomb
+                break; //breakdance
 
 
         }
@@ -156,7 +167,7 @@ public  class Goldfish {
     }
 
     public void moveRight(double speed) {
-        move( -speed, 0, 0);
+        move( speed, 0, 0);
     }
 
     public void moveForward(double speed) {
@@ -176,7 +187,7 @@ public  class Goldfish {
     }
 
     public void liftArm() {
-        armMotor.setPower(0.5);
+        armMotor.setPower(0.75);
     }
 
     public void lowerArm() {
@@ -198,8 +209,48 @@ public  class Goldfish {
         clawServo.setPosition(.9);
     }
 
+    public void moveForwardInches( double inches, double speed) {
+        int tickTarget = (int) Math.round( inches*inchtick);
+
+        motorFL.setTargetPosition(tickTarget);
+        motorBR.setTargetPosition(tickTarget);
+        motorBL.setTargetPosition(tickTarget);
+        motorFR.setTargetPosition(tickTarget);
+
+        for (DcMotor x:  allMotors) {
+
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        }
+
+            move( 0, speed, 0);
+
+        for (DcMotor x: allMotors) {
+
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
+        waitForMotors();
+
+
+
+        /*public void waitForMotors() {
+            boolean finished = false;
+            while (auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
+                if (motorFL.isBusy() || motorFR.isBusy() || motorBL.isBusy() || motorBR.isBusy()) {
+
+                }
+            }
+            }
+        }*/
+
 
     }
+
+
+    }
+
 
  
 
