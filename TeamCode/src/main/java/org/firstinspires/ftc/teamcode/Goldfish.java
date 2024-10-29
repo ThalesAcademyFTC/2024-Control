@@ -105,16 +105,18 @@ public  class Goldfish {
                 motorBL = hwMap.dcMotor.get("motorBL");
                 motorBR = hwMap.dcMotor.get("motorBR");
 
-               // motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
-                motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
-               // motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
-                motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
+               // motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
+               // motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
                 //webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
                 armMotor = hwMap.dcMotor.get("armMotor");
                //suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
                 //clawServo = hwMap.servo.get("clawServo");
+
+                allMotors = new DcMotor[] {motorFL, motorFR, motorBL, motorBR};
 
                 break;
 
@@ -126,7 +128,7 @@ public  class Goldfish {
         }
     }
 
-    public void rest() {
+    public void rest(double time) {
         motorFL.setPower(0);
         motorFR.setPower(0);
         motorBL.setPower(0);

@@ -20,12 +20,12 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
 
-        double y = (gamepad1.left_stick_y / rbtSpd);
+        double y = (-gamepad1.left_stick_y / rbtSpd);
         double x = (gamepad1.left_stick_x / rbtSpd);
         double turn = (gamepad1.right_stick_x / rbtSpd);
 
         //robot.move(x, y, turn);
-        robot.move(-x, y, -turn);
+        robot.move(x, y, turn);
 
         if (gamepad2.right_trigger > 0.1) {
             robot.openClaw();
