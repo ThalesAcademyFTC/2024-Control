@@ -47,10 +47,6 @@ public  class Goldfish {
 
     int inchtick = 50;
 
-    public void waitForMotors() {
-
-    }
-
 
     //constants here
 
@@ -110,14 +106,15 @@ public  class Goldfish {
                 motorBR = hwMap.dcMotor.get("motorBR");
 
                // motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
                // motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
-               // motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-                webcamName = hwMap.get(WebcamName.class, "Webcam 1");
+                //webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
                 armMotor = hwMap.dcMotor.get("armMotor");
-                suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
-                clawServo = hwMap.servo.get("clawServo");
+               //suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
+                //clawServo = hwMap.servo.get("clawServo");
 
                 break;
 
@@ -130,10 +127,10 @@ public  class Goldfish {
     }
 
     public void rest() {
-        motorBL.setPower(0);
         motorFL.setPower(0);
-        motorBR.setPower(0);
         motorFR.setPower(0);
+        motorBL.setPower(0);
+        motorBR.setPower(0);
     }
 
   public void move(double x, double y, double turn) {
@@ -210,46 +207,134 @@ public  class Goldfish {
     }
 
     public void moveForwardInches( double inches, double speed) {
-        int tickTarget = (int) Math.round( inches*inchtick);
+        int tickTarget = (int) Math.round(inches * inchtick);
 
         motorFL.setTargetPosition(tickTarget);
         motorBR.setTargetPosition(tickTarget);
         motorBL.setTargetPosition(tickTarget);
         motorFR.setTargetPosition(tickTarget);
 
-        for (DcMotor x:  allMotors) {
+        for (DcMotor x : allMotors) {
 
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
         }
 
-            move( 0, speed, 0);
+        move(0, speed, 0);
 
-        for (DcMotor x: allMotors) {
+        for (DcMotor x : allMotors) {
 
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
         waitForMotors();
 
+        resetDriveEncoders();
 
+    }
 
-        /*public void waitForMotors() {
+    public void moveBackwardInches(double inches, double speed) {
+
+        moveForwardInches( -inches, -speed);
+
+    }
+
+    public void moveRightInches(double inches, double speed) {
+
+        int tickTarget = (int)Math.round(inches * TICKS_PER_INCH);
+
+        resetDriveEncoders();
+
+        motorFL.setTargetPosition( tickTarget);
+        motorFR.setTargetPosition( -tickTarget);
+        motorBL.setTargetPosition( -tickTarget);
+        motorBR.setTargetPosition( tickTarget);
+
+        for(DcMotor x: allMotors) {
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+
+        move(speed, 0, 0);
+
+        for (DcMotor x: allMotors) {
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
+        waitForMotors();
+
+        resetDriveEncoders();
+
+    }
+
+    public void moveLeftInches(double inches, double speed) {
+
+        moveRightInches(-inches, -speed);
+
+    }
+
+    public void turnRightDegrees(int degrees, double speed) {
+
+        int tickTarget = (int)Math.round(degrees * (500/90));
+
+        resetDriveEncoders();
+
+        motorFL.setTargetPosition( tickTarget);
+        motorFR.setTargetPosition( -tickTarget);
+        motorBL.setTargetPosition( tickTarget);
+        motorBR.setTargetPosition( -tickTarget);
+
+        for(DcMotor x: allMotors) {
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+
+        move(0, 0, speed);
+
+        for(DcMotor x: allMotors) {
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
+        waitForMotors();
+
+        resetDriveEncoders();
+
+    }
+
+    public void turnLeftDegrees(int degrees, double speed) {
+
+        turnRightDegrees(-degrees, -speed);
+
+    }
+
+        public void waitForMotors() {
             boolean finished = false;
             while (auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
                 if (motorFL.isBusy() || motorFR.isBusy() || motorBL.isBusy() || motorBR.isBusy()) {
-
+                    telem.addData("front left encoder:", "%7d / % 7d", motorFL.getCurrentPosition(), motorFL.getTargetPosition());
+                    telem.addData("back left encoder:", "%7d / % 7d", motorBL.getCurrentPosition(), motorBL.getTargetPosition());
+                    telem.addData("front right encoder:", "%7d / % 7d", motorFR.getCurrentPosition(), motorFR.getTargetPosition());
+                    telem.addData("back right encoder:", "%7d / % 7d", motorBR.getCurrentPosition(), motorBR.getTargetPosition());
+                    telem.update();
+                } else {
+                    finished = true;
                 }
-            }
-            }
-        }*/
+             }
+        }
+
+    public void resetDriveEncoders() {
+        for (DcMotor x : allMotors) {
+            x.setPower(0);
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            x.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+
+        }
 
 
     }
+//fart
 
 
-    }
 
 
  
