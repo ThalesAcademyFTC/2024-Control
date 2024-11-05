@@ -5,11 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class AUTONOMOOSE extends LinearOpMode {
+public class ParkLeftAuton extends LinearOpMode {
 
     public Goldfish robot;
-    public ElapsedTime runtime = new ElapsedTime();
 
+    public ElapsedTime runtime = new ElapsedTime();
 
     public void runOpMode() {
 
@@ -17,17 +17,10 @@ public class AUTONOMOOSE extends LinearOpMode {
 
         waitForStart();
 
-        robot.moveDiagonalNE(5, .25);
-        robot.rest(100);
-        robot.moveDiagonalSE(5, .25);
-        robot.rest(100);
-        robot.moveDiagonalSW(5, .25);
-        robot.rest(100);
-        robot.moveDiagonalNW(5, .25);
+        robot.moveRightInches(96, .5);
         robot.rest(100);
 
 
 
     }
-
 }
