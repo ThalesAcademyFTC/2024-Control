@@ -45,9 +45,9 @@ public  class Goldfish {
 
     public WebcamName webcamName;
 
-    double inchtick = 36.363636363636;
+    double inchtick = 50;
 
-    double TICKS_PER_INCH = 36.363636363636;
+    double TICKS_PER_INCH = 50 ;
 
 
     //constants here
