@@ -21,7 +21,6 @@ public class bucketRightAuton extends LinearOpMode {
         waitForStart();
 
 
-
         robot.moveLeftInches(60, speed);
         sleep(rest);
         robot.moveForwardInches(12, speed);
