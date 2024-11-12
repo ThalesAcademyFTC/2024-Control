@@ -16,6 +16,10 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import java.util.List;
 
 public  class Goldfish {
 
@@ -49,6 +53,8 @@ public  class Goldfish {
 
     double TICKS_PER_INCH = 50 ;
 
+    private VisionPortal visionPortal;
+    private AprilTagProcessor aprilTag;
 
     //constants here
 
@@ -95,36 +101,100 @@ public  class Goldfish {
     }
 
 
+    public ColorSensor colorSensor;
+
+/*  the public int methods below are for the color sensor to be used in the teleop and auton
+    The return allows it to be used in the if statements in teleop.
+    This would be formatted as: (For exmaple) 
+    if (robot.getRed() > 100 && robot.getGreen() > 100) {
+    robot.openClaw();
+    }           
+*/
+
+    public int inch = 50; //ticks per inch
+
+    public int getRed() {
+        return colorSensor.red();
+    }
+
+    public int getGreen() {
+        return colorSensor.green();
+    }
+
+    public int getBlue() {
+        return colorSensor.blue();
+    }
+//brightness of the color
+    public int getBrightness() {
+        return colorSensor.brightness();
+    }
+
+    public boolean isColor(String color) {
+        int red = getRed();
+        int green = getGreen();
+        int blue = getBlue();
+        
+//      if (robot.isColor("green")) {
+//      robot.moveForward(100, 0.5);
+//      }
+            
+
+    //Detect if a specific color is predominant using isColor("red") (or "green"/"blue")
+        switch(color.toLowerCase()) {
+            case "red":
+                return red > green && red > blue;
+            case "green":
+                return green > red && green > blue;
+            case "blue":
+                return blue > red && blue > green;
+            default:
+                return false;
+        }
+    }
+
     public void setupHardware() {
-
         switch (drive) {
-
             case MECHANUM:
-
+                // Initialize color sensor
+                colorSensor = hwMap.colorSensor.get("colorSensor");
+                
+                // Initialize motors
                 motorFL = hwMap.dcMotor.get("motorFL");
                 motorFR = hwMap.dcMotor.get("motorFR");
                 motorBL = hwMap.dcMotor.get("motorBL");
                 motorBR = hwMap.dcMotor.get("motorBR");
 
                 motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
-               // motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
+                // motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
-               // motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
+                // motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-                //webcamName = hwMap.get(WebcamName.class, "Webcam 1");
+                // Initialize the webcam using the configured name in the Robot Controller
+                webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
                 armMotor = hwMap.dcMotor.get("armMotor");
-               //suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
-                //clawServo = hwMap.servo.get("clawServo");
+                // suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
+                // clawServo = hwMap.servo.get("clawServo");
 
                 allMotors = new DcMotor[] {motorFL, motorFR, motorBL, motorBR};
+
+                // Create and configure the AprilTag processor
+                aprilTag = new AprilTagProcessor.Builder()
+                    .setTagFamily("tag36h11")           // Set which AprilTag family to look for (36h11 is standard)
+                    .setTagLibrary("tag36h11")          // Set the library of tags to detect
+                    .setOutputUnits(AprilTagProcessor.OutputUnits.INCHES)  // Configure for inches instead of meters
+                    .build();
+                
+                // Create and start the VisionPortal which connects camera to processor
+                visionPortal = new VisionPortal.Builder()
+                    .setCamera(webcamName)              // Tell it which camera to use
+                    .addProcessor(aprilTag)             // Add our AprilTag processor to the portal
+                    .build();
 
                 break;
 
             default:
-
                 telem.addLine("Invalid type" + drive + "passed to Spark's init function. Nothing has been set up");
-
                 break;
         }
     }
@@ -399,6 +469,42 @@ public  class Goldfish {
 
         }
 
+    /**
+     * Returns a list of all AprilTags currently visible to the camera
+     * @return List of AprilTagDetection objects, each containing data about a visible tag
+     */
+    public List<AprilTagDetection> getAprilTags() {
+        return aprilTag.getDetections();  // Get all currently detected tags
+    }
+    
+    /**
+     * Searches for and returns a specific AprilTag by its ID number
+     * @param id The ID number of the AprilTag to find
+     * @return AprilTagDetection object if found, null if not found
+     */
+    public AprilTagDetection getSpecificTag(int id) {
+        // Get list of all visible tags
+        List<AprilTagDetection> detections = getAprilTags();
+        // Look through each detected tag
+        for (AprilTagDetection detection : detections) {
+            // If we find the tag ID we're looking for, return it
+            if (detection.id == id) {
+                return detection;
+            }
+        }
+        // If we didn't find the tag, return null
+        return null;
+    }
+    
+    /**
+     * Properly closes the camera and vision processing system
+     * Should be called when OpMode ends
+     */
+    public void stopCamera() {
+        if (visionPortal != null) {
+            visionPortal.close();  // Safely shuts down the camera
+        }
+    }
 
     }
 //fart
