@@ -343,9 +343,10 @@ public  class Goldfish {
 
     public void turnRightDegrees(int degrees, double speed) {
 
-        int tickTarget = (int)Math.round(degrees * (500/90));
+        int tickTarget = (int)Math.round(degrees * (1155/90));
 
         resetDriveEncoders();
+
 
         motorFL.setTargetPosition( tickTarget);
         motorFR.setTargetPosition( -tickTarget);

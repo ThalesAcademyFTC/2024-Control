@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class bucketLeftAuton extends LinearOpMode {
+public class bucketRightAuton extends LinearOpMode {
 
     public Goldfish robot;
     public ElapsedTime runtime = new ElapsedTime();
@@ -20,9 +20,11 @@ public class bucketLeftAuton extends LinearOpMode {
 
         waitForStart();
 
-        robot.moveForwardInches(12, speed);
+
+
+        robot.moveLeftInches(60, speed);
         sleep(rest);
-        robot.moveLeftInches(12, speed);
+        robot.moveForwardInches(12, speed);
         sleep(rest);
         robot.turnLeftDegrees(135, speed);
         sleep(rest);
