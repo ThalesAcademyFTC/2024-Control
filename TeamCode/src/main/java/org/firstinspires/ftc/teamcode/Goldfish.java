@@ -126,8 +126,8 @@ public  class Goldfish {
         return colorSensor.blue();
     }
 //brightness of the color
-    public int getBrightness() {
-        return colorSensor.brightness();
+    public int getAlpha() {
+        return colorSensor.alpha();
     }
 
     public boolean isColor(String color) {
@@ -184,8 +184,8 @@ public  class Goldfish {
 
                 // Create and configure the AprilTag processor
                 aprilTag = new AprilTagProcessor.Builder()
-                    .setTagFamily("tag36h11")           // Set which AprilTag family to look for (36h11 is standard)
-                    .setOutputUnits("Inches")           // Configure for inches instead of meters
+                    .setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)   // Set which AprilTag family to look for
+                    .setDrawTagID(true)                 // Enable tag ID visualization in camera stream
                     .build();
                 
                 // Create and start the VisionPortal which connects camera to processor
