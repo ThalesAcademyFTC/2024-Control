@@ -8,6 +8,9 @@ public class Teleop extends OpMode {
 
     Goldfish robot;
 
+    boolean toggle = true;
+    boolean aReset = true;
+
     double rbtSpd = 2;
 
     @Override
@@ -41,13 +44,38 @@ public class Teleop extends OpMode {
             
         */
 
-/*          if (gamepad2.left_stick_y > 0.25) {
-            robot.liftArm();
-        } else if (gamepad2.right_stick_y > 0.25) {
-            robot.lowerArm();
-        }
 
-*/
+         if (gamepad2.a && toggle && aReset) {
+             robot.basketUp();
+             toggle = false;
+             aReset = false;
+         } else if (gamepad2.a && !toggle && aReset) {
+             robot.basketDown();
+             toggle = true;
+             aReset = false;
+         }
+         if (!gamepad2.a) {
+             aReset = true;
+         }
+
+
+          if (gamepad2.right_stick_y > 0.25) {
+            robot.liftSlide();
+        } else if (gamepad2.right_stick_y < -0.25) {
+            robot.lowerSlide();
+        } else {
+              robot.slideMotor.setPower(0);
+          }
+
+          if (gamepad2.left_stick_y > .25) {
+              robot.armAwayBasket();
+          } else if (gamepad2.left_stick_y < -.25) {
+              robot.armToBasket();
+          } else {
+              robot.armMotor.setPower(0);
+          }
+
+        telemetry.addData("basketServo", robot.basketServo.getPosition());
 
     }
 }
