@@ -32,9 +32,9 @@ public class TestAuton extends LinearOpMode {
             int blue = robot.getBlue();
 
             // \/\/ Display raw color values on driver station \/\/
-            telemetry.addData("R:", "Red Value");
-            telemetry.addData("G:", "Green Value");
-            telemetry.addData("B:", "Blue Value");
+            telemetry.addData(R:,  "Red Value");
+            telemetry.addData(G:, "Green Value");
+            telemetry.addData(B, "Blue Value");
 
             // Determine which color (if any) is dominant and display result    \/\/
             // Uses the isColor() method which compares the RGB values          \/\/

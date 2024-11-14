@@ -10,10 +10,6 @@ public class AUTONOMOOSE extends LinearOpMode {
     public Goldfish robot;
     public ElapsedTime runtime = new ElapsedTime();
 
-    // IMPORTANT
-    // THIS CODE IS FOR TESTING AUTONOMOUS FUNCTIONS
-
-
 
     public void runOpMode() {
 
