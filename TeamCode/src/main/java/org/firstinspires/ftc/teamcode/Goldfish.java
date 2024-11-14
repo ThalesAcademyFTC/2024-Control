@@ -175,8 +175,8 @@ public  class Goldfish {
                 webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
                 armMotor = hwMap.dcMotor.get("armMotor");
-                // suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
-                // clawServo = hwMap.servo.get("clawServo");
+                suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
+                clawServo = hwMap.servo.get("clawServo");
 
                 allMotors = new DcMotor[] {motorFL, motorFR, motorBL, motorBR};
 
