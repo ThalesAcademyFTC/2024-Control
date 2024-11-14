@@ -6,15 +6,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
 public class AUTONOMOOSE extends LinearOpMode {
-<<<<<<< Updated upstream
-
-    public Goldfish robot;
-    public ElapsedTime runtime = new ElapsedTime();
-=======
     private Goldfish robot;
     private ElapsedTime runtime = new ElapsedTime();
->>>>>>> Stashed changes
-
 
     public void runOpMode() {
 

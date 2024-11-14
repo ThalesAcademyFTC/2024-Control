@@ -5,12 +5,12 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.opM
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.ColorSensorV3;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -54,8 +54,8 @@ public  class Goldfish {
 
     double TICKS_PER_INCH = 50 ;
 
-    }
-
+    private VisionPortal visionPortal;
+    private AprilTagProcessor aprilTag;
 
     //constants here
 
@@ -74,10 +74,6 @@ public  class Goldfish {
         setupHardware();
     }
 
-
-
-    
-
     public Goldfish(LinearOpMode opmode, Drivetrain type) {
 
         this.auton = opmode;
@@ -92,8 +88,6 @@ public  class Goldfish {
 
 
     }
-
-
 
     RevBlinkinLedDriver lights;
 
@@ -141,6 +135,7 @@ public  class Goldfish {
         int green = getGreen();
         int blue = getBlue();
         
+        //  EXAMPLE:
 //      if (robot.isColor("green")) {
 //      robot.moveForward(100, 0.5);
 //      }
@@ -158,6 +153,8 @@ public  class Goldfish {
                 return false;
         }
     }
+
+
 
     public void setupHardware() {
         switch (drive) {
@@ -180,8 +177,22 @@ public  class Goldfish {
                 webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
                 armMotor = hwMap.dcMotor.get("armMotor");
-                suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
-                clawServo = hwMap.servo.get("clawServo");
+                // suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
+                // clawServo = hwMap.servo.get("clawServo");
+
+                allMotors = new DcMotor[] {motorFL, motorFR, motorBL, motorBR};
+
+                // Create and configure the AprilTag processor
+                aprilTag = new AprilTagProcessor.Builder()
+                    .setTagFamily("tag36h11")           // Set which AprilTag family to look for (36h11 is standard)
+                    .setOutputUnits("Inches")           // Configure for inches instead of meters
+                    .build();
+                
+                // Create and start the VisionPortal which connects camera to processor
+                visionPortal = new VisionPortal.Builder()
+                    .setCamera(webcamName)              // Tell it which camera to use
+                    .addProcessor(aprilTag)             // Add our AprilTag processor to the portal
+                    .build();
 
                 break;
 
@@ -221,7 +232,6 @@ public  class Goldfish {
 
         }
     }
-
 
    
 
@@ -406,10 +416,9 @@ public  class Goldfish {
 
     public void turnRightDegrees(int degrees, double speed) {
 
-        int tickTarget = (int)Math.round(degrees * (1155/90));
+        int tickTarget = (int)Math.round(degrees * (500/90));
 
         resetDriveEncoders();
-
 
         motorFL.setTargetPosition( tickTarget);
         motorFR.setTargetPosition( -tickTarget);
