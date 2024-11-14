@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -125,15 +126,16 @@ public  class Goldfish {
         return colorSensor.blue();
     }
 //brightness of the color
-    public int getBrightness() {
-        return colorSensor.brightness();
+    public int getAlpha() {
+        return colorSensor.alpha();
     }
 
     public boolean isColor(String color) {
         int red = getRed();
         int green = getGreen();
         int blue = getBlue();
-        
+
+        // EXAMPLE:
 //      if (robot.isColor("green")) {
 //      robot.moveForward(100, 0.5);
 //      }
@@ -180,9 +182,8 @@ public  class Goldfish {
 
                 // Create and configure the AprilTag processor
                 aprilTag = new AprilTagProcessor.Builder()
-                    .setTagFamily("tag36h11")           // Set which AprilTag family to look for (36h11 is standard)
-                    .setTagLibrary("tag36h11")          // Set the library of tags to detect
-                    .setOutputUnits(AprilTagProcessor.OutputUnits.INCHES)  // Configure for inches instead of meters
+                    .setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)           // Set which AprilTag family to look for (36h11 is standard)
+                    .setDrawTagID(true)
                     .build();
                 
                 // Create and start the VisionPortal which connects camera to processor
