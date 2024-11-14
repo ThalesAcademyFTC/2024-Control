@@ -130,7 +130,6 @@ public  class Goldfish {
     public int getAlpha() {
         return colorSensor.alpha();
     }
-
     public boolean isColor(String color) {
         int red = getRed();
         int green = getGreen();
