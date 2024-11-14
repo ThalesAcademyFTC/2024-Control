@@ -6,8 +6,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
 public class AUTONOMOOSE extends LinearOpMode {
-    private Goldfish robot;
-    private ElapsedTime runtime = new ElapsedTime();
+
+    public Goldfish robot;
+    public ElapsedTime runtime = new ElapsedTime();
+
 
     public void runOpMode() {
 
