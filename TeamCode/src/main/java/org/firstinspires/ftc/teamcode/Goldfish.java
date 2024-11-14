@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.opM
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensorV3;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -53,8 +54,8 @@ public  class Goldfish {
 
     double TICKS_PER_INCH = 50 ;
 
-    private VisionPortal visionPortal;
-    private AprilTagProcessor aprilTag;
+    }
+
 
     //constants here
 
@@ -73,6 +74,10 @@ public  class Goldfish {
         setupHardware();
     }
 
+
+
+    
+
     public Goldfish(LinearOpMode opmode, Drivetrain type) {
 
         this.auton = opmode;
@@ -87,6 +92,8 @@ public  class Goldfish {
 
 
     }
+
+
 
     RevBlinkinLedDriver lights;
 
@@ -173,23 +180,8 @@ public  class Goldfish {
                 webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
                 armMotor = hwMap.dcMotor.get("armMotor");
-                // suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
-                // clawServo = hwMap.servo.get("clawServo");
-
-                allMotors = new DcMotor[] {motorFL, motorFR, motorBL, motorBR};
-
-                // Create and configure the AprilTag processor
-                aprilTag = new AprilTagProcessor.Builder()
-                    .setTagFamily("tag36h11")           // Set which AprilTag family to look for (36h11 is standard)
-                    .setTagLibrary("tag36h11")          // Set the library of tags to detect
-                    .setOutputUnits(AprilTagProcessor.OutputUnits.INCHES)  // Configure for inches instead of meters
-                    .build();
-                
-                // Create and start the VisionPortal which connects camera to processor
-                visionPortal = new VisionPortal.Builder()
-                    .setCamera(webcamName)              // Tell it which camera to use
-                    .addProcessor(aprilTag)             // Add our AprilTag processor to the portal
-                    .build();
+                suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
+                clawServo = hwMap.servo.get("clawServo");
 
                 break;
 
@@ -229,6 +221,7 @@ public  class Goldfish {
 
         }
     }
+
 
    
 

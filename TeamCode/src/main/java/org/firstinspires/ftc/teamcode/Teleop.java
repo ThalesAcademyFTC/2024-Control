@@ -33,6 +33,14 @@ public class Teleop extends OpMode {
             robot.closeClaw();
         }
 
+        /* EXAMPLE OF USING THE COLOR SENSOR: 
+
+        if (robot.isColor("green")) {
+            robot.moveForward(0.5);
+        }
+            
+        */
+
 /*          if (gamepad2.left_stick_y > 0.25) {
             robot.liftArm();
         } else if (gamepad2.right_stick_y > 0.25) {
