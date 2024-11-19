@@ -6,6 +6,7 @@ import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -42,11 +43,12 @@ public  class Goldfish {
     public Telemetry telem;
 
     //defining global variables
-    public DcMotor armMotor, suspensionMotor, motorFL, motorFR, motorBL, motorBR;
+    public DcMotor motorFL, motorFR, motorBL, motorBR;
 
+    public DcMotorEx armMotor, slideMotor;
     public DcMotor[] allMotors;
 
-    public Servo clawServo;
+    public Servo clawServo, basketServo;
 
     public WebcamName webcamName;
 
@@ -175,9 +177,10 @@ public  class Goldfish {
                 // Initialize the webcam using the configured name in the Robot Controller
                 webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
-                armMotor = hwMap.dcMotor.get("armMotor");
-                // suspensionMotor = hwMap.dcMotor.get("suspensionMotor");
-                // clawServo = hwMap.servo.get("clawServo");
+                armMotor = (DcMotorEx)hwMap.get("armMotor");
+                slideMotor = (DcMotorEx)hwMap.get("slideMotor");
+                clawServo = hwMap.servo.get("clawServo");
+                basketServo = hwMap.servo.get("bucketServo");
 
                 allMotors = new DcMotor[] {motorFL, motorFR, motorBL, motorBR};
 
@@ -269,8 +272,16 @@ public  class Goldfish {
     public void setArmMotor(double power) {
         armMotor.setPower(power);
     }
+    public void liftSlide() {
+        armMotor.setPower(0.75);
+    }
+
+    public void lowerSlide() {
+        armMotor.setPower(-0.5);
+    }
+
     public void setMotorSuspend(double power) {
-        suspensionMotor.setPower( power );
+        slideMotor.setPower( power );
     }
 
     public void openClaw() {
@@ -279,6 +290,31 @@ public  class Goldfish {
 
     public void closeClaw() {
         clawServo.setPosition(.9);
+    }
+
+    public void basketDown() {
+        basketServo.setPosition(.6);
+    }
+    public void basketUp() {
+        basketServo.setPosition(.9);
+    }
+    public void basketRest() {
+        basketServo.setPosition(0.75);
+    }
+    public void armToBasket() {
+        armMotor.setPower(-.4);
+    }
+    public void armAwayBasket() {
+        armMotor.setPower(.4);
+    }
+
+
+    public void suspendMotorUp() {
+        setMotorSuspend(1);
+    }
+
+    public void suspendMotorDown() {
+        setMotorSuspend(-1);
     }
 
     public void moveForwardInches( double inches, double speed) {

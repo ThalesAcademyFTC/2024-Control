@@ -19,32 +19,24 @@ public class bucketLeftAuton extends LinearOpMode {
         long rest = 100;
 
         waitForStart();
-/*
-        robot.moveForwardInches(foot, speed);
+
+        //IMPORTANT!!!
+        //BUCKET ON THE ROBOT SHOULD BE FACING THE PLAYING FIELD BUCKET
+
+        robot.moveRightInches(12, speed);
         sleep(rest);
-        robot.moveLeftInches(foot, speed);
+        robot.moveForwardInches(12, speed);
         sleep(rest);
-        robot.turnLeftDegrees(135, speed);
+        robot.turnLeftDegrees(45, speed);
         sleep(rest);
-        robot.moveForwardInches(foot, speed);
+        robot.moveForwardInches(12, speed);
         sleep(rest);
         robot.turnLeftDegrees(45,speed);
         sleep(rest);
         robot.moveLeftInches(118, speed);
         sleep(rest);
-*/
 
-        robot.moveForwardInches(12, speed);
-        sleep(rest);
-        robot.lowerArm();
-        sleep(rest);
-        robot.openClaw();
-        sleep(rest);
-        robot.closeClaw();
-        robot.liftArm();
-        robot.moveRightInches(118, speed);
-        sleep(rest);
-        robot.moveBackwardInches(12, speed);
+
 
     }
 

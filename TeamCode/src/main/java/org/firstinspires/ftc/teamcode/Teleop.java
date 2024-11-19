@@ -11,7 +11,7 @@ public class Teleop extends OpMode {
     boolean toggle = true;
     boolean aReset = true;
 
-    double rbtSpd = 2;
+    double rbtSpd = 1.75;
 
     @Override
     public void init() {
@@ -44,18 +44,19 @@ public class Teleop extends OpMode {
             
         */
 
-/*
+
          if (gamepad2.a && toggle && aReset) {
-             robot.bucketUp();
+             robot.basketUp();
              toggle = false;
              aReset = false;
          } else if (gamepad2.a && !toggle && aReset) {
-             robot.bucketDown();
+             robot.basketDown();
              toggle = true;
              aReset = false;
          }
          if (!gamepad2.a) {
              aReset = true;
+             robot.basketRest();
          }
 
 
@@ -76,7 +77,7 @@ public class Teleop extends OpMode {
           }
 
         telemetry.addData("basketServo", robot.basketServo.getPosition());
-*/
+
     }
 }
 
