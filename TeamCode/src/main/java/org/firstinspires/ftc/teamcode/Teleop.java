@@ -44,13 +44,13 @@ public class Teleop extends OpMode {
             
         */
 
-
+/*
          if (gamepad2.a && toggle && aReset) {
-             robot.basketUp();
+             robot.bucketUp();
              toggle = false;
              aReset = false;
          } else if (gamepad2.a && !toggle && aReset) {
-             robot.basketDown();
+             robot.bucketDown();
              toggle = true;
              aReset = false;
          }
@@ -76,7 +76,7 @@ public class Teleop extends OpMode {
           }
 
         telemetry.addData("basketServo", robot.basketServo.getPosition());
-
+*/
     }
 }
 

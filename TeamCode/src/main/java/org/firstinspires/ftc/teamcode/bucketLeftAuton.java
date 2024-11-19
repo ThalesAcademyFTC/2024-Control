@@ -19,21 +19,32 @@ public class bucketLeftAuton extends LinearOpMode {
         long rest = 100;
 
         waitForStart();
-
-        robot.moveForwardInches(12, speed);
+/*
+        robot.moveForwardInches(foot, speed);
         sleep(rest);
-        robot.moveLeftInches(12, speed);
+        robot.moveLeftInches(foot, speed);
         sleep(rest);
         robot.turnLeftDegrees(135, speed);
         sleep(rest);
-        robot.moveForwardInches(12, speed);
+        robot.moveForwardInches(foot, speed);
         sleep(rest);
         robot.turnLeftDegrees(45,speed);
         sleep(rest);
         robot.moveLeftInches(118, speed);
         sleep(rest);
+*/
 
-
+        robot.moveForwardInches(12, speed);
+        sleep(rest);
+        robot.lowerArm();
+        sleep(rest);
+        robot.openClaw();
+        sleep(rest);
+        robot.closeClaw();
+        robot.liftArm();
+        robot.moveRightInches(118, speed);
+        sleep(rest);
+        robot.moveBackwardInches(12, speed);
 
     }
 
