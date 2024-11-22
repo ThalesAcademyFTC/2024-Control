@@ -16,6 +16,7 @@ public class Teleop extends OpMode {
     @Override
     public void init() {
 
+
         robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
 
     }
@@ -36,12 +37,10 @@ public class Teleop extends OpMode {
             robot.closeClaw();
         }
 
-        /* EXAMPLE OF USING THE COLOR SENSOR: 
-
+        /*
         if (robot.isColor("green")) {
             robot.moveForward(0.5);
         }
-            
         */
 
 
@@ -60,12 +59,14 @@ public class Teleop extends OpMode {
          }
 
 
+
           if (gamepad2.right_stick_y > 0.25) {
             robot.liftSlide();
         } else if (gamepad2.right_stick_y < -0.25) {
-            robot.lowerSlide();
-        } else {
+              robot.lowerSlide();
+          } else {
               robot.slideMotor.setPower(0);
+              robot.slideMotor2.setPower(0);
           }
 
           if (gamepad2.left_stick_y > .25) {
@@ -74,6 +75,14 @@ public class Teleop extends OpMode {
               robot.armToBasket();
           } else {
               robot.armMotor.setPower(0);
+          }
+
+          if (gamepad2.b) {
+              robot.basketServo.setPosition(.75);
+          }
+
+          if (gamepad1.left_stick_x == 0 && gamepad1.left_stick_y == 0) {
+             robot.move(0, 0, 0);
           }
 
         telemetry.addData("basketServo", robot.basketServo.getPosition());
