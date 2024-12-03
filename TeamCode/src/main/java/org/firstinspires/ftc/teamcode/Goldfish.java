@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.opMode;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -104,7 +105,7 @@ public  class Goldfish {
     }
 
 
-    public ColorSensor colorSensor;
+    public RevColorSensorV3 colorSensor;
 
 /*  the public int methods below are for the color sensor to be used in the teleop and auton
     The return allows it to be used in the if statements in teleop.
@@ -115,19 +116,16 @@ public  class Goldfish {
 */
 
     public int inch = 50; //ticks per inch
-
     public int getRed() {
         return colorSensor.red();
     }
-
     public int getGreen() {
         return colorSensor.green();
     }
-
     public int getBlue() {
         return colorSensor.blue();
     }
-//brightness of the color
+//brightness of the color \/
     public int getAlpha() {
         return colorSensor.alpha();
     }
@@ -136,6 +134,8 @@ public  class Goldfish {
         int red = getRed();
         int green = getGreen();
         int blue = getBlue();
+
+
         
         //  EXAMPLE:
 //      if (robot.isColor("green")) {
@@ -153,6 +153,7 @@ public  class Goldfish {
                 return blue > red && blue > green;
             default:
                 return false;
+
         }
     }
 
