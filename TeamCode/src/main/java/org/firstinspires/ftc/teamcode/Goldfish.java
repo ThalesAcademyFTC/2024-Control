@@ -45,10 +45,10 @@ public  class Goldfish {
     //defining global variables
     public DcMotor motorFL, motorFR, motorBL, motorBR;
 
-    public DcMotorEx armMotor, slideMotor;
+    public DcMotor armMotor, slideMotor, slideMotor2;
     public DcMotor[] allMotors;
 
-    public Servo clawServo, basketServo;
+    public Servo clawServo, basketServo, clawMoveServo;
 
     public WebcamName webcamName;
 
@@ -161,7 +161,7 @@ public  class Goldfish {
         switch (drive) {
             case MECHANUM:
                 // Initialize color sensor
-                colorSensor = hwMap.colorSensor.get("colorSensor");
+              //  colorSensor = hwMap.colorSensor.get("colorSensor");
                 
                 // Initialize motors
                 motorFL = hwMap.dcMotor.get("motorFL");
@@ -175,27 +175,29 @@ public  class Goldfish {
                 // motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
                 // Initialize the webcam using the configured name in the Robot Controller
-                webcamName = hwMap.get(WebcamName.class, "Webcam 1");
+              //  webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
-                armMotor = (DcMotorEx)hwMap.get("armMotor");
-                slideMotor = (DcMotorEx)hwMap.get("slideMotor");
+                armMotor = hwMap.dcMotor.get("armMotor");
+                slideMotor = hwMap.dcMotor.get("slideMotor");
+                slideMotor2 = hwMap.dcMotor.get("slideMotor2");
                 clawServo = hwMap.servo.get("clawServo");
-                basketServo = hwMap.servo.get("bucketServo");
+               // clawMoveServo = hwMap.servo.get("clawMoveServo");
+                basketServo = hwMap.servo.get("basketServo");
 
                 allMotors = new DcMotor[] {motorFL, motorFR, motorBL, motorBR};
 
                 // Create and configure the AprilTag processor
-                aprilTag = new AprilTagProcessor.Builder()
+              /*  aprilTag = new AprilTagProcessor.Builder()
                     .setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)   // Set which AprilTag family to look for
                     .setDrawTagID(true)
                     .build();
-                
+
                 // Create and start the VisionPortal which connects camera to processor
                 visionPortal = new VisionPortal.Builder()
                     .setCamera(webcamName)              // Tell it which camera to use
                     .addProcessor(aprilTag)             // Add our AprilTag processor to the portal
                     .build();
-
+        */
                 break;
 
             default:
@@ -273,16 +275,15 @@ public  class Goldfish {
         armMotor.setPower(power);
     }
     public void liftSlide() {
-        armMotor.setPower(0.75);
+        slideMotor.setPower(-1);
+        slideMotor2.setPower(1);
     }
 
     public void lowerSlide() {
-        armMotor.setPower(-0.5);
+        slideMotor.setPower(.4);
+        slideMotor2.setPower(-.4);
     }
 
-    public void setMotorSuspend(double power) {
-        slideMotor.setPower( power );
-    }
 
     public void openClaw() {
         clawServo.setPosition(.6);
@@ -308,14 +309,6 @@ public  class Goldfish {
         armMotor.setPower(.4);
     }
 
-
-    public void suspendMotorUp() {
-        setMotorSuspend(1);
-    }
-
-    public void suspendMotorDown() {
-        setMotorSuspend(-1);
-    }
 
     public void moveForwardInches( double inches, double speed) {
         int tickTarget = (int) Math.round(inches * inchtick);
@@ -507,10 +500,10 @@ public  class Goldfish {
 
         }
 
-    /**
+    /*
      * Returns a list of all AprilTags currently visible to the camera
      * @return List of AprilTagDetection objects, each containing data about a visible tag
-     */
+
     public List<AprilTagDetection> getAprilTags() {
         return aprilTag.getDetections();  // Get all currently detected tags
     }
@@ -519,7 +512,7 @@ public  class Goldfish {
      * Searches for and returns a specific AprilTag by its ID number
      * @param id The ID number of the AprilTag to find
      * @return AprilTagDetection object if found, null if not found
-     */
+
     public AprilTagDetection getSpecificTag(int id) {
         // Get list of all visible tags
         List<AprilTagDetection> detections = getAprilTags();
@@ -537,12 +530,14 @@ public  class Goldfish {
     /**
      * Properly closes the camera and vision processing system
      * Should be called when OpMode ends
-     */
+
     public void stopCamera() {
         if (visionPortal != null) {
             visionPortal.close();  // Safely shuts down the camera
         }
     }
+
+     */
 
     }
 //fart

@@ -44,22 +44,6 @@ public class Teleop extends OpMode {
         */
 
 
-         if (gamepad2.a && toggle && aReset) {
-             robot.basketUp();
-             toggle = false;
-             aReset = false;
-         } else if (gamepad2.a && !toggle && aReset) {
-             robot.basketDown();
-             toggle = true;
-             aReset = false;
-         }
-         if (!gamepad2.a) {
-             aReset = true;
-             robot.basketRest();
-         }
-
-
-
           if (gamepad2.right_stick_y > 0.25) {
             robot.liftSlide();
         } else if (gamepad2.right_stick_y < -0.25) {
@@ -77,8 +61,18 @@ public class Teleop extends OpMode {
               robot.armMotor.setPower(0);
           }
 
-          if (gamepad2.b) {
+          if (gamepad2.y) {
               robot.basketServo.setPosition(.75);
+          }
+          if (gamepad1.b) {
+              robot.basketServo.setPosition(.5);
+          }
+          if (gamepad1.a) {
+              robot.basketServo.setPosition(.25);
+          }
+
+          if (gamepad1.x) {
+              robot.clawMoveServo.setPosition(.25);
           }
 
           if (gamepad1.left_stick_x == 0 && gamepad1.left_stick_y == 0) {
