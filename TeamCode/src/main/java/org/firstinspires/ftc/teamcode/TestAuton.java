@@ -50,6 +50,7 @@ public class TestAuton extends LinearOpMode {
             int green = robot.getGreen();
             int blue = robot.getBlue();
 
+            // \/\/ Display raw color values on driver station \/\/
             telemetry.addData("R:", red);
             telemetry.addData("G:", green);
             telemetry.addData("B:", blue);

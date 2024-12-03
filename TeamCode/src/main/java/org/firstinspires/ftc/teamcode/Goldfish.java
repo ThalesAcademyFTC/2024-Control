@@ -115,19 +115,16 @@ public  class Goldfish {
 */
 
     public int inch = 50; //ticks per inch
-
     public int getRed() {
         return colorSensor.red();
     }
-
     public int getGreen() {
         return colorSensor.green();
     }
-
     public int getBlue() {
         return colorSensor.blue();
     }
-//brightness of the color
+//brightness of the color \/
     public int getAlpha() {
         return colorSensor.alpha();
     }
