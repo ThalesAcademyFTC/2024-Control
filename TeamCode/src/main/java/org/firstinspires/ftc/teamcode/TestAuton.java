@@ -46,11 +46,10 @@ public class TestAuton extends LinearOpMode {
 
         while (opModeIsActive()) { // Main robot loop - runs continuously until the stop button is pressed
             // \/\/ Gets current color sensor values \/\/
-         //   int red = robot.getRed();
-         //   int green = robot.getGreen();
-           // int blue = robot.getBlue();
-    /*
-            // \/\/ Display raw color values on driver station \/\/
+            int red = robot.getRed();
+            int green = robot.getGreen();
+            int blue = robot.getBlue();
+
             telemetry.addData("R:", red);
             telemetry.addData("G:", green);
             telemetry.addData("B:", blue);
@@ -75,7 +74,7 @@ public class TestAuton extends LinearOpMode {
             
             telemetry.update(); // Sends the updated telemetry data to the driver station
         
-    */
+
         
         }
     }

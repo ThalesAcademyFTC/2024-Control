@@ -136,6 +136,8 @@ public  class Goldfish {
         int red = getRed();
         int green = getGreen();
         int blue = getBlue();
+
+
         
         //  EXAMPLE:
 //      if (robot.isColor("green")) {
