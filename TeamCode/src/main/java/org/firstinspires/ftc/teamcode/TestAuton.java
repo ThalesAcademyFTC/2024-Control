@@ -29,9 +29,9 @@ public class TestAuton extends LinearOpMode {
         // \/\/ Before the start button is pressed, continuously display color sensor values \/\/
         // \/\/ This helps with debugging and calibration \/\/
         while (!isStarted()) {
-          //  telemetry.addData("Red", robot.getRed());     // Display red value
-        //    telemetry.addData("Green", robot.getGreen()); // Display green value
-         //   telemetry.addData("Blue", robot.getBlue());   // Display blue value
+            telemetry.addData("Red", robot.getRed());     // Display red value
+            telemetry.addData("Green", robot.getGreen()); // Display green value
+            telemetry.addData("Blue", robot.getBlue());   // Display blue value
             telemetry.addData("Status", "Initialized");   // Show robot is ready
             telemetry.addLine("\nApril Tags detected:");
             for (AprilTagDetection detection : aprilTag.getDetections()) {
