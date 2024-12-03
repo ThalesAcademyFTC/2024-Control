@@ -55,6 +55,7 @@ public class TestAuton extends LinearOpMode {
             telemetry.addData("G:", green);
             telemetry.addData("B:", blue);
 
+
             // Determine which color (if any) is dominant and display result    \/\/
             // Uses the isColor() method which compares the RGB values          \/\/
             if (robot.isColor("red")) {
@@ -66,7 +67,7 @@ public class TestAuton extends LinearOpMode {
             } else {
                 telemetry.addLine("No dominant color detected");
             }
-            
+
             telemetry.addLine("\nApril Tags detected:");
             for (AprilTagDetection detection : aprilTag.getDetections()) {
                 telemetry.addData("Tag ID", detection.id);
