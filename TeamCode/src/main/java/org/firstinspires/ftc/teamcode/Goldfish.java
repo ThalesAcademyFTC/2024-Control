@@ -181,7 +181,7 @@ public  class Goldfish {
                 slideMotor = hwMap.dcMotor.get("slideMotor");
                 slideMotor2 = hwMap.dcMotor.get("slideMotor2");
                 clawServo = hwMap.servo.get("clawServo");
-               // clawMoveServo = hwMap.servo.get("clawMoveServo");
+                clawMoveServo = hwMap.servo.get("clawMoveServo");
                 basketServo = hwMap.servo.get("basketServo");
 
                 allMotors = new DcMotor[] {motorFL, motorFR, motorBL, motorBR};
