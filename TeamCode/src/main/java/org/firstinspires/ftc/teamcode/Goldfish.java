@@ -16,6 +16,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -29,6 +30,7 @@ public  class Goldfish {
     public HardwareMap hwMap;
 
     public LinearOpMode auton;
+    public double ElapsedTime;
 
     public enum Drivetrain {
         MECHANUM
@@ -276,13 +278,13 @@ public  class Goldfish {
         armMotor.setPower(power);
     }
     public void liftSlide() {
-        slideMotor.setPower(-1);
-        slideMotor2.setPower(1);
+        slideMotor.setPower(.5);
+        slideMotor2.setPower(-.5);
     }
 
     public void lowerSlide() {
-        slideMotor.setPower(.4);
-        slideMotor2.setPower(-.4);
+        slideMotor.setPower(-.3);
+        slideMotor2.setPower(.3);
     }
 
 
@@ -474,6 +476,50 @@ public  class Goldfish {
     public void turnLeftDegrees(int degrees, double speed) {
 
         turnRightDegrees(-degrees, -speed);
+
+    }
+
+
+
+   /* public void setArmMotorTime(double power, double time) {
+
+        resetDriveEncoders();
+
+        armMotor.setPower(power);
+
+        if (ElapsedTime >= time) {
+            armMotor.setPower(0);
+        }
+
+        for(DcMotor x: allMotors) {
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+
+        for(DcMotor x: allMotors) {
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
+    }
+*/
+    public void moveArmTicks(int inches, double speed) {
+
+        double tickTarget = (int)Math.round(inches * TICKS_PER_INCH);
+
+        resetDriveEncoders();
+
+        armMotor.setTargetPosition(inches);
+
+        for(DcMotor x: allMotors) {
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+
+        for(DcMotor x: allMotors) {
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
+        waitForMotors();
+
+        resetDriveEncoders();
 
     }
 

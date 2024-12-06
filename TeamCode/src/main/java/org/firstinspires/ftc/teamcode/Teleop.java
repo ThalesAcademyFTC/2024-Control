@@ -21,12 +21,16 @@ public class Teleop extends OpMode {
 
     }
 
+    double start = 0.5;
+
     @Override
     public void loop() {
 
         double y = (-gamepad1.left_stick_y / rbtSpd);
         double x = (gamepad1.left_stick_x / rbtSpd);
         double turn = (gamepad1.right_stick_x / rbtSpd);
+
+
 
         //robot.move(x, y, turn);
         robot.move(x, y, turn);
@@ -45,9 +49,9 @@ public class Teleop extends OpMode {
 
 
           if (gamepad2.right_stick_y > 0.25) {
-            robot.liftSlide();
-        } else if (gamepad2.right_stick_y < -0.25) {
               robot.lowerSlide();
+        } else if (gamepad2.right_stick_y < -0.25) {
+              robot.liftSlide();
           } else {
               robot.slideMotor.setPower(0);
               robot.slideMotor2.setPower(0);
@@ -68,18 +72,34 @@ public class Teleop extends OpMode {
               robot.basketServo.setPosition(.6);
           }
           if (gamepad2.a) {
-              robot.basketServo.setPosition(.35);
+              robot.basketServo.setPosition(.45);
           }
 
-          if (gamepad2.x) {
+          if (gamepad2.dpad_down) {
               robot.clawMoveServo.setPosition(.25);
+          }
+
+          if (gamepad2.dpad_up) {
+            robot.clawMoveServo.setPosition(1);
           }
 
           if (gamepad2.left_stick_x == 0 && gamepad1.left_stick_y == 0) {
              robot.move(0, 0, 0);
           }
 
+          if (gamepad1.dpad_down) {
+            start -= 0.01;
+            robot.clawMoveServo.setPosition(start);
+          }
+
+          if (gamepad1.dpad_up) {
+            start += 0.01;
+            robot.clawMoveServo.setPosition(start);
+          }
+
+
         telemetry.addData("basketServo", robot.basketServo.getPosition());
+          telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
 
     }
 }
