@@ -313,6 +313,13 @@ public  class Goldfish {
     }
 
 
+    public void moveSlideInches( double inches, double speed) {
+        int tickTarget = (int) Math.round(inches * inchtick);
+
+
+
+    }
+
     public void moveForwardInches( double inches, double speed) {
         int tickTarget = (int) Math.round(inches * inchtick);
 
@@ -384,33 +391,31 @@ public  class Goldfish {
 
         int tickTarget = (int)Math.round(inches * TICKS_PER_INCH);
 
-        resetDriveEncoders();
-
-        motorFL.setTargetPosition( tickTarget);
-        motorFR.setTargetPosition(0);
-        motorBL.setTargetPosition(0);
-        motorBR.setTargetPosition( tickTarget);
+        //resetDriveEncoders();
 
         for(DcMotor x: allMotors) {
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
-
-        move(speed, speed, 0);
+        motorFL.setTargetPosition(tickTarget);
+        motorFR.setTargetPosition(0);
+        motorBL.setTargetPosition(0);
+        motorBR.setTargetPosition(tickTarget);
 
         for (DcMotor x: allMotors) {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
+        for (DcMotor x: allMotors) {
+            x.setPower(speed);
+        }
+        //resetDriveEncoders();
+
         waitForMotors();
-
-        resetDriveEncoders();
-
     }
 
     public void moveDiagonalSW(double inches, double speed) {
 
-        moveDiagonalNE(-inches, -speed);
-
+        moveDiagonalNE(-inches, speed);
     }
 
     public void moveDiagonalNW(double inches, double speed) {
@@ -435,7 +440,7 @@ public  class Goldfish {
 
         waitForMotors();
 
-        resetDriveEncoders();
+        //resetDriveEncoders();
 
     }
 
@@ -447,7 +452,7 @@ public  class Goldfish {
 
     public void turnRightDegrees(int degrees, double speed) {
 
-        int tickTarget = (int)Math.round(degrees * (500/90));
+        int tickTarget = (int)Math.round(degrees * (500/45));
 
         resetDriveEncoders();
 
