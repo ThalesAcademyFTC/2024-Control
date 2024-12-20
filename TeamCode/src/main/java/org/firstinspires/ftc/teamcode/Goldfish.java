@@ -313,10 +313,29 @@ public  class Goldfish {
     }
 
 
-    public void moveSlideInches( double inches, double speed) {
+    public void moveSlideInches( int inches, double speed) {
         int tickTarget = (int) Math.round(inches * inchtick);
 
+        setArmMotor(speed);
+        armMotor.setTargetPosition(inches);
 
+        for (DcMotor x : allMotors) {
+
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        }
+
+        move(0, speed, 0);
+
+        for (DcMotor x : allMotors) {
+
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+
+        waitForMotors();
+
+        resetDriveEncoders();
 
     }
 

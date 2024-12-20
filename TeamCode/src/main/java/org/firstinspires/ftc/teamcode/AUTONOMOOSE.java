@@ -17,10 +17,7 @@ public class AUTONOMOOSE extends LinearOpMode {
 
         waitForStart();
 
-        robot.moveDiagonalNE(25, .25);
-        robot.rest(100);
-        robot.moveDiagonalSW(25, .25);
-
+        robot.moveSlideInches(12, .5);
 
     }
 
