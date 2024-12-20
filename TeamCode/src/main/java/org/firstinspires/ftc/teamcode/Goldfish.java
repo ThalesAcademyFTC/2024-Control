@@ -48,7 +48,7 @@ public  class Goldfish {
     //defining global variables
     public DcMotor motorFL, motorFR, motorBL, motorBR;
 
-    public DcMotor armMotor, slideMotor, slideMotor2;
+    public DcMotorEx armMotor, slideMotor, slideMotor2;
     public DcMotor[] allMotors;
 
     public Servo clawServo, basketServo, clawMoveServo;
@@ -57,7 +57,11 @@ public  class Goldfish {
 
     double inchtick = 50;
 
-    double TICKS_PER_INCH = 50 ;
+    double armInchTick = 116.27907;
+
+    double TICKS_PER_INCH = 50;
+
+
 
     private VisionPortal visionPortal;
     private AprilTagProcessor aprilTag;
@@ -118,16 +122,20 @@ public  class Goldfish {
 */
 
     public int inch = 50; //ticks per inch
+
     public int getRed() {
         return colorSensor.red();
     }
+
     public int getGreen() {
         return colorSensor.green();
     }
+
     public int getBlue() {
         return colorSensor.blue();
     }
-//brightness of the color \/
+
+    //brightness of the color \/
     public int getAlpha() {
         return colorSensor.alpha();
     }
@@ -138,15 +146,14 @@ public  class Goldfish {
         int blue = getBlue();
 
 
-        
         //  EXAMPLE:
 //      if (robot.isColor("green")) {
 //      robot.moveForward(100, 0.5);
 //      }
-            
 
-    //Detect if a specific color is predominant using isColor("red") (or "green"/"blue")
-        switch(color.toLowerCase()) {
+
+        //Detect if a specific color is predominant using isColor("red") (or "green"/"blue")
+        switch (color.toLowerCase()) {
             case "red":
                 return red > green && red > blue;
             case "green":
@@ -164,8 +171,8 @@ public  class Goldfish {
         switch (drive) {
             case MECHANUM:
                 // Initialize color sensor
-              //  colorSensor = hwMap.colorSensor.get("colorSensor");
-                
+                //  colorSensor = hwMap.colorSensor.get("colorSensor");
+
                 // Initialize motors
                 motorFL = hwMap.dcMotor.get("motorFL");
                 motorFR = hwMap.dcMotor.get("motorFR");
@@ -177,17 +184,21 @@ public  class Goldfish {
                 motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
                 // motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-                // Initialize the webcam using the configured name in the Robot Controller
-              //  webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
-                armMotor = hwMap.dcMotor.get("armMotor");
-                slideMotor = hwMap.dcMotor.get("slideMotor");
-                slideMotor2 = hwMap.dcMotor.get("slideMotor2");
+
+                // Initialize the webcam using the configured name in the Robot Controller
+                //  webcamName = hwMap.get(WebcamName.class, "Webcam 1");
+
+                armMotor = (DcMotorEx) hwMap.dcMotor.get("armMotor");
+                slideMotor = (DcMotorEx) hwMap.dcMotor.get("slideMotor");
+                slideMotor2 = (DcMotorEx) hwMap.dcMotor.get("slideMotor2");
                 clawServo = hwMap.servo.get("clawServo");
                 clawMoveServo = hwMap.servo.get("clawMoveServo");
                 basketServo = hwMap.servo.get("basketServo");
 
-                allMotors = new DcMotor[] {motorFL, motorFR, motorBL, motorBR};
+                slideMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
+
+                allMotors = new DcMotor[]{motorFL, motorFR, motorBL, motorBR};
 
                 // Create and configure the AprilTag processor
               /*  aprilTag = new AprilTagProcessor.Builder()
@@ -216,9 +227,9 @@ public  class Goldfish {
         motorBR.setPower(0);
     }
 
-  public void move(double x, double y, double turn) {
+    public void move(double x, double y, double turn) {
 
-        switch(drive) {
+        switch (drive) {
 
             case MECHANUM:
 
@@ -240,22 +251,21 @@ public  class Goldfish {
         }
     }
 
-   
 
     public void moveLeft(double speed) {
-        move( -speed, 0, 0);
+        move(-speed, 0, 0);
     }
 
     public void moveRight(double speed) {
-        move( speed, 0, 0);
+        move(speed, 0, 0);
     }
 
     public void moveForward(double speed) {
-        move( 0, speed, 0);
+        move(0, speed, 0);
     }
 
-    public void moveBackward( double speed) {
-        move( 0, -speed, 0);
+    public void moveBackward(double speed) {
+        move(0, -speed, 0);
     }
 
     public void turnLeft(double speed) {
@@ -277,14 +287,19 @@ public  class Goldfish {
     public void setArmMotor(double power) {
         armMotor.setPower(power);
     }
+
+    public void setSlideMotor(double power) {slideMotor.setPower(power);}
+
+    public void setSlideMotor2(double power) {slideMotor2.setPower(power);}
+
     public void liftSlide() {
         slideMotor.setPower(.5);
-        slideMotor2.setPower(-.5);
+        slideMotor2.setPower(.5);
     }
 
     public void lowerSlide() {
         slideMotor.setPower(-.3);
-        slideMotor2.setPower(.3);
+        slideMotor2.setPower(-.3);
     }
 
 
@@ -299,44 +314,53 @@ public  class Goldfish {
     public void basketDown() {
         basketServo.setPosition(.6);
     }
+
     public void basketUp() {
         basketServo.setPosition(.9);
     }
+
     public void basketRest() {
         basketServo.setPosition(0.75);
     }
+
     public void armToBasket() {
         armMotor.setPower(-.4);
     }
+
     public void armAwayBasket() {
         armMotor.setPower(.4);
     }
 
 
-    public void moveSlideInches( int inches, double speed) {
+    public void moveSlideInches(int inches, double speed) {
+        int tickTarget = (int) Math.round(inches * armInchTick);
+
+        slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        slideMotor.setTargetPosition(tickTarget);
+        slideMotor2.setTargetPosition(tickTarget);
+
+        setSlideMotor(speed);
+        setSlideMotor2(speed);
+
+        slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slideMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+       // waitForSlideMotors();
+    }
+
+    public void moveArmInches( int inches, double speed) {
         int tickTarget = (int) Math.round(inches * inchtick);
 
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        armMotor.setTargetPosition(tickTarget);
         setArmMotor(speed);
-        armMotor.setTargetPosition(inches);
 
-        for (DcMotor x : allMotors) {
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        }
-
-        move(0, speed, 0);
-
-        for (DcMotor x : allMotors) {
-
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        }
-
-        waitForMotors();
-
-        resetDriveEncoders();
-
+       // waitForArmMotor();
     }
 
     public void moveForwardInches( double inches, double speed) {
@@ -525,27 +549,32 @@ public  class Goldfish {
 
     }
 */
-    public void moveArmTicks(int inches, double speed) {
 
-        double tickTarget = (int)Math.round(inches * TICKS_PER_INCH);
-
-        resetDriveEncoders();
-
-        armMotor.setTargetPosition(inches);
-
-        for(DcMotor x: allMotors) {
-            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        public void waitForArmMotor() {
+            boolean finished = false;
+            while (auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
+                if (armMotor.isBusy()) {
+                    telem.addData("arm motor", "%7d / % 7d", armMotor.getCurrentPosition(), armMotor.getTargetPosition());
+                    telem.update();
+                } else {
+                    finished = true;
+                }
+            }
         }
 
-        for(DcMotor x: allMotors) {
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        public void waitForSlideMotors() {
+            boolean finished = false;
+            while (auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
+                if (slideMotor.isBusy() || slideMotor2.isBusy()) {
+                    telem.addData("slide motor 1", "%7d / % 7d", slideMotor.getCurrentPosition(), slideMotor.getTargetPosition());
+                    telem.addData("slide motor 2", "%7d / % 7d", slideMotor2.getCurrentPosition(), slideMotor2.getTargetPosition());
+                    telem.update();
+                } else {
+                    finished = true;
+                }
+            }
         }
 
-        waitForMotors();
-
-        resetDriveEncoders();
-
-    }
 
         public void waitForMotors() {
             boolean finished = false;
