@@ -63,8 +63,9 @@ public  class Goldfish {
 
 
     //constants for arm and slide
-    double SLIDE_LOW_BUCKET = 0;
+    int SLIDE_LOW_BUCKET = 2456;
 
+    int SLIDE_HIGH_BUCKET = 4302;
     private VisionPortal visionPortal;
     private AprilTagProcessor aprilTag;
 
@@ -295,13 +296,13 @@ public  class Goldfish {
     public void setSlideMotor2(double power) {slideMotor2.setPower(power);}
 
     public void liftSlide() {
-        slideMotor.setPower(.5);
-        slideMotor2.setPower(.5);
+        slideMotor.setPower(1);
+        slideMotor2.setPower(1);
     }
 
     public void lowerSlide() {
-        slideMotor.setPower(-.3);
-        slideMotor2.setPower(-.3);
+        slideMotor.setPower(-1);
+        slideMotor2.setPower(-1);
     }
 
 
@@ -334,8 +335,7 @@ public  class Goldfish {
     }
 
 
-    public void setSlideInches(int inches, double speed) {
-        int tickTarget = (int) Math.round(inches * armInchTick);
+    public void setSlideInches(int tickTarget, double speed) {
 
         //slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //slideMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -355,6 +355,16 @@ public  class Goldfish {
     public void resetSlide() {
         setSlideInches(0, 0.5);
     }
+
+    public void lowSlideBucket() {
+        setSlideInches(SLIDE_LOW_BUCKET, 0.5);
+    }
+
+    public void highSlideBucket() {
+        setSlideInches(SLIDE_HIGH_BUCKET, 0.5);
+    }
+
+
 
     public void moveArmInches( int inches, double speed) {
         int tickTarget = (int) Math.round(inches * inchtick);

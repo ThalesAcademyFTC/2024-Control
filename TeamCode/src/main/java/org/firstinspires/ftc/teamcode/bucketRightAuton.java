@@ -33,7 +33,7 @@ public class bucketRightAuton extends LinearOpMode {
         sleep(rest);
         robot.moveLeftInches(118, speed);
         sleep(rest);
-*/
+*//*
         robot.moveForwardInches(24, speed);
         sleep(rest);
         robot.lowerArm();
@@ -45,7 +45,11 @@ public class bucketRightAuton extends LinearOpMode {
         robot.moveLeftInches(118, speed);
         sleep(rest);
         robot.moveBackwardInches(12, speed);
+*/
 
+        robot.moveDiagonalSW(24, speed);
+        robot.moveBackwardInches(72, speed);
+        sleep(rest);
     }
 
 }
