@@ -21,15 +21,15 @@ public class AUTONOMOOSE extends LinearOpMode {
 
         waitForStart();
 
-        robot.moveArmInches(-8, .3);
-            robot.waitForArmMotor();
-        robot.moveSlideInches(37, .4);
+        robot.moveArmInches(8, .3);
+        robot.waitForArmMotor();
+        robot.setSlideInches(37, .4);
         robot.moveArmInches(-10, .3);
-            robot.waitForSlideMotors(); // waiting for slide to be at topmost position
+        robot.waitForSlideMotors(); // waiting for slide to be at topmost position
             sleep(100);
-            robot.basketUp();
+        robot.basketUp();
             sleep(500);
-        robot.moveSlideInches(-37, .2);
+        robot.setSlideInches(-37, .2);
             robot.waitForSlideMotors();
 
 
