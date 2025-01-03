@@ -30,7 +30,7 @@ public class AUTONOMOOSE extends LinearOpMode {
         robot.basketUp();
             sleep(500);
         robot.setSlideInches(-37, .2);
-            robot.waitForSlideMotors();
+        robot.waitForSlideMotors();
 
 
 

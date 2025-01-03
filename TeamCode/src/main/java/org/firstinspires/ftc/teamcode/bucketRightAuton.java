@@ -20,36 +20,49 @@ public class bucketRightAuton extends LinearOpMode {
 
         waitForStart();
 
-/*
-        robot.moveLeftInches(60, speed);
-        sleep(rest);
-        robot.moveForwardInches(12, speed);
-        sleep(rest);
-        robot.turnLeftDegrees(135, speed);
-        sleep(rest);
-        robot.moveForwardInches(12, speed);
-        sleep(rest);
-        robot.turnLeftDegrees(45,speed);
-        sleep(rest);
-        robot.moveLeftInches(118, speed);
-        sleep(rest);
-*//*
-        robot.moveForwardInches(24, speed);
-        sleep(rest);
-        robot.lowerArm();
-        sleep(rest);
-        robot.openClaw();
-        sleep(rest);
-        robot.closeClaw();
-        robot.liftArm();
-        robot.moveLeftInches(118, speed);
-        sleep(rest);
-        robot.moveBackwardInches(12, speed);
-*/
+//IMPORTANT!!!
+        //BUCKET ON THE ROBOT SHOULD BE FACING THE PLAYING FIELD BUCKET
 
-        robot.moveDiagonalSW(24, speed);
-        robot.moveBackwardInches(72, speed);
+        //Moves to bucket
+        robot.moveLeftInches(48, speed);
         sleep(rest);
+        robot.moveDiagonalSW(24, speed);
+        sleep(rest);
+        robot.turnLeftDegrees(45, speed);
+        sleep(rest);
+
+        //FIRST ROTATION
+        //Robot prepares to dump a sample
+        robot.highSlideBucket();
+        robot.moveBackwardInches(8, speed);
+        robot.waitForSlideMotors();
+        sleep(rest);
+
+        //Robot places a sample
+        robot.basketDown();
+        sleep(rest);
+
+        //Robot limbs reset and robot turns
+        robot.resetSlide();
+        robot.basketRest();
+        robot.turnLeftDegrees(45,speed);
+        robot.waitForSlideMotors();
+        sleep(rest);
+
+        //SECOND ROTATION
+
+        //PARKING
+        //Robot can park in two places. COMMENT OUT whichever one you don't need.
+
+
+        //robot parks in the corner
+        robot.moveRightInches(118, speed);
+
+        //robot parks near the sample prison
+        robot.moveDiagonalNE(32, speed);
+        robot.moveForwardInches(24, speed);
+        robot.moveRightInches(8, speed);
+
     }
 
 }

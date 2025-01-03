@@ -198,6 +198,7 @@ public  class Goldfish {
                 clawServo = hwMap.servo.get("clawServo");
                 clawMoveServo = hwMap.servo.get("clawMoveServo");
                 basketServo = hwMap.servo.get("basketServo");
+                //hangServo = hwMap.servo.get("hangServo");
 
                 slideMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
 
