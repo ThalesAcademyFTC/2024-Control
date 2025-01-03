@@ -36,15 +36,28 @@ public class bucketLeftAuton extends LinearOpMode {
             sleep(rest);
 
         //Robot places a sample
+        robot.moveForwardInches(1, speed);
         robot.basketDown();
-            sleep(rest);
+        robot.basketUp();
+            sleep(850);
 
-        //Robot limbs reset and robot turns
+        //Robot backs up and limbs reset
+        robot.moveForwardInches(2,speed);
         robot.resetSlide();
         robot.basketRest();
-        robot.turnLeftDegrees(45,speed);
         robot.waitForSlideMotors();
             sleep(rest);
+
+        //SECOND CYCLE
+        //Robot turns and moves to the middle sample
+        robot.turnLeftDegrees(45,speed);
+        robot.moveForwardInches(44,speed);
+
+        //Robot picks up middle sample
+        robot.openClaw();
+        robot.armAwayBasket();
+        robot.moveForwardInches(2,speed);
+        robot.closeClaw();
 
         //Robot parks
         //Robot can park in two places. COMMENT OUT whichever one you don't need.

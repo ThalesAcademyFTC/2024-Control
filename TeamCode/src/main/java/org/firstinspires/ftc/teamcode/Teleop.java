@@ -135,7 +135,12 @@ public class Teleop extends OpMode {
             start += 0.01;
             robot.clawMoveServo.setPosition(start);
         }
-
+        if (gamepad2.left_bumper) {
+            robot.setSuspensionServo(.15);
+        } else if (gamepad2.right_bumper) {
+            robot.setSuspensionServo(.8);
+        }
+        telemetry.update();
     }
 }
 
