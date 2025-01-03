@@ -67,26 +67,28 @@ public class Teleop extends OpMode {
 
         int basketPos = 0; //Basket Position
 
-        if (gamepad2.a && basketPos > 0)
+        if (gamepad2.a && basketPos > 0) {
             basketPos = basketPos - 1;
-            if (basketPos == 2) {
+            /*if (basketPos == 2) {
                 robot.basketServo.setPosition(0.85);
             } else if (basketPos == 1) {
                 robot.basketServo.setPosition(0.6);
             } else {
                 robot.basketServo.setPosition(0.45);
             }
-
-        if (gamepad2.y && basketPos < 2)
+            }
+*/
+        if (gamepad2.y && basketPos < 2) {
             basketPos = basketPos + 1;
-            if (basketPos == 2) {
+  /*          if (basketPos == 2) {
                 robot.basketServo.setPosition(0.85);
             } else if (basketPos == 1) {
                 robot.basketServo.setPosition(0.6);
             } else {
                 robot.basketServo.setPosition(0.45);
             }
-
+            }
+*/
 
 
         if (gamepad2.y) {
