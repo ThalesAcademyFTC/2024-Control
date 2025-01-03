@@ -31,7 +31,6 @@ public class Teleop extends OpMode {
         double turn = (gamepad1.right_stick_x / rbtSpd);
 
 
-
         //robot.move(x, y, turn);
         robot.move(x, y, turn);
 
@@ -65,67 +64,80 @@ public class Teleop extends OpMode {
             robot.armMotor.setPower(0);
         }
 
-        int basketPos = 0; //Basket Position
+        int basketPos = 1; //Basket Position
+        boolean buttonPressed = false;
 
-        if (gamepad2.a && basketPos > 0)
-            basketPos = basketPos - 1;
-            if (basketPos == 2) {
-                robot.basketServo.setPosition(0.85);
+        if (gamepad2.y && buttonPressed == false && basketPos < 3) {
+            buttonPressed = true;
+            basketPos += 1;
+
+            if (basketPos == 3) {
+                robot.highSlideBucket();
+            } else if (basketPos == 2) {
+                robot.lowSlideBucket();
             } else if (basketPos == 1) {
-                robot.basketServo.setPosition(0.6);
-            } else {
-                robot.basketServo.setPosition(0.45);
+                robot.resetSlide();
             }
+        } else {
+            buttonPressed = false;
+        }
 
-        if (gamepad2.y && basketPos < 2)
-            basketPos = basketPos + 1;
-            if (basketPos == 2) {
-                robot.basketServo.setPosition(0.85);
+
+        if (gamepad2.a && buttonPressed == false && basketPos > 1) {
+            buttonPressed = true;
+            basketPos -= 1;
+
+            if (basketPos == 3) {
+                robot.highSlideBucket();
+            } else if (basketPos == 2) {
+                robot.lowSlideBucket();
             } else if (basketPos == 1) {
-                robot.basketServo.setPosition(0.6);
-            } else {
-                robot.basketServo.setPosition(0.45);
+                robot.resetSlide();
             }
-
-
-
-        if (gamepad2.y) {
-            robot.basketServo.setPosition(.85);
-        }
-        if (gamepad2.b) {
-            robot.basketServo.setPosition(.6);
-        }
-        if (gamepad2.a) {
-            robot.basketServo.setPosition(.45);
+        } else {
+            buttonPressed = false;
         }
 
-        if (gamepad2.dpad_down) {
-            robot.clawMoveServo.setPosition(.25);
+/*
+                if (gamepad2.y) {
+                    robot.basketServo.setPosition(.85);
+                }
+                if (gamepad2.b) {
+                    robot.basketServo.setPosition(.6);
+                }
+                if (gamepad2.a) {
+                    robot.basketServo.setPosition(.45);
+                }
+*/
+                if (gamepad2.dpad_down) {
+                    robot.clawMoveServo.setPosition(.25);
+                }
+
+                if (gamepad2.dpad_up) {
+                    robot.clawMoveServo.setPosition(1);
+                }
+
+                if (gamepad2.left_stick_x == 0 && gamepad1.left_stick_y == 0) {
+                    robot.move(0, 0, 0);
+                }
+
+                if (gamepad1.dpad_down) {
+                    start -= 0.01;
+                    robot.clawMoveServo.setPosition(start);
+                }
+
+                if (gamepad1.dpad_up) {
+                    start += 0.01;
+                    robot.clawMoveServo.setPosition(start);
+                }
+
+
+                telemetry.addData("basketServo", robot.basketServo.getPosition());
+                telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
+                telemetry.addData("BasketPosition", basketPos);
+
+            }
         }
-
-        if (gamepad2.dpad_up) {
-            robot.clawMoveServo.setPosition(1);
-        }
-
-        if (gamepad2.left_stick_x == 0 && gamepad1.left_stick_y == 0) {
-            robot.move(0, 0, 0);
-        }
-
-        if (gamepad1.dpad_down) {
-            start -= 0.01;
-            robot.clawMoveServo.setPosition(start);
-        }
-
-        if (gamepad1.dpad_up) {
-            start += 0.01;
-            robot.clawMoveServo.setPosition(start);
-        }
-
-
-        telemetry.addData("basketServo", robot.basketServo.getPosition());
-        telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
-        telemetry.addData("BasketPosition", basketPos);
-
     }
 }
 
