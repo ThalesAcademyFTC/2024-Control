@@ -51,7 +51,9 @@ public class bucketLeftAuton extends LinearOpMode {
         //SECOND CYCLE
         //Robot turns and moves to the middle sample
         robot.turnLeftDegrees(45,speed);
-        robot.moveForwardInches(44,speed);
+        robot.moveDiagonalNW(2, speed);
+        robot.moveForwardInches(40,speed);
+        robot.moveRightInches(5, speed);
 
         //Robot picks up middle sample
         robot.openClaw();
@@ -59,17 +61,40 @@ public class bucketLeftAuton extends LinearOpMode {
         robot.moveForwardInches(2,speed);
         robot.closeClaw();
 
+        //Robot returns to the bucket while placing sample in the basket
+        robot.turnRightDegrees(45, speed);
+        robot.openClaw();
+        robot.armAwayBasket();
+        robot.basketRest();
+        robot.armToBasket();
+        robot.moveBackwardInches(38, speed);
+        sleep(rest);
+
+        //Robot prepares to dump a sample
+        robot.highSlideBucket();
+        robot.moveBackwardInches(2, speed);
+        robot.waitForSlideMotors();
+        sleep(rest);
+
+        //Robot places a sample
+        robot.basketDown();
+        robot.basketUp();
+        sleep(850);
+        robot.moveForwardInches(2, speed);
+        sleep(rest);
+        robot.turnRightDegrees(45, speed);
+
         //Robot parks
         //Robot can park in two places. COMMENT OUT whichever one you don't need.
 
 
-        //robot parks in the corner
+        //robot parks in the inspection zone
         robot.moveRightInches(118, speed);
 
         //robot parks near the sample prison
-        robot.moveDiagonalNE(32, speed);
+        /*robot.moveDiagonalNE(32, speed);
         robot.moveForwardInches(24, speed);
-        robot.moveRightInches(8, speed);
+        robot.moveRightInches(8, speed);*/
 
 
     }
