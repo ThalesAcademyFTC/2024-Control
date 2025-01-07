@@ -18,6 +18,8 @@ public class bucketLeftAuton extends LinearOpMode {
         double speed = 0.7;
         long rest = 100;
 
+        robot.basketServo.setPosition(.5);
+
         waitForStart();
 
         //IMPORTANT!!!
@@ -45,8 +47,7 @@ public class bucketLeftAuton extends LinearOpMode {
         robot.moveForwardInches(2,speed);
         robot.resetSlide();
         robot.basketRest();
-        robot.waitForSlideMotors();
-            sleep(rest);
+        sleep(rest);
 
         //SECOND CYCLE
         //Robot turns and moves to the middle sample

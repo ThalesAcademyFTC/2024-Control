@@ -316,9 +316,7 @@ public  class Goldfish {
         clawServo.setPosition(.9);
     }
 
-    public void basketDown() {
-        basketServo.setPosition(.6);
-    }
+    public void basketDown() {basketServo.setPosition(.2);}
 
     public void basketUp() {
         basketServo.setPosition(.9);
