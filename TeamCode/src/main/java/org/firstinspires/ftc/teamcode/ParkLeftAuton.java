@@ -17,11 +17,15 @@ public class ParkLeftAuton extends LinearOpMode {
 
         robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
 
+        double speed = 0.7;
+        long rest = 100;
+
         waitForStart();
 
-        robot.moveRightInches(96, .5);
-        robot.rest(100);
-
+        //robot parks near the sample prison
+        robot.moveLeftInches(6, speed);
+        robot.moveForwardInches(48, speed);
+        robot.moveRightInches(8, speed);
 
 
     }
