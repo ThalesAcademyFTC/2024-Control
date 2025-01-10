@@ -103,25 +103,25 @@ public class Teleop extends OpMode {
             buttonPressed = false;
         }
 
-/*
-                if (gamepad2.y) {
+
+                if (gamepad2.dpad_up) {
                     robot.basketServo.setPosition(.85);
                 }
-                if (gamepad2.b) {
+                if (gamepad2.dpad_right) {
                     robot.basketServo.setPosition(.6);
                 }
-                if (gamepad2.a) {
+                if (gamepad2.dpad_down) {
                     robot.basketServo.setPosition(.45);
                 }
-*/
-        if (gamepad2.dpad_down) {
+
+     /*   if (gamepad2.) {
             robot.clawMoveServo.setPosition(.25);
         }
 
         if (gamepad2.dpad_up) {
             robot.clawMoveServo.setPosition(1);
         }
-
+*/
         if (gamepad2.left_stick_x == 0 && gamepad1.left_stick_y == 0) {
             robot.move(0, 0, 0);
         }

@@ -16,17 +16,23 @@ public class bucketLeftAuton extends LinearOpMode {
         robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
 
         double speed = 0.7;
-        long rest = 100;
+        long rest = 50;
+
+        robot.basketDown();
 
         waitForStart();
 
         //IMPORTANT!!!
         //BUCKET ON THE ROBOT SHOULD BE FACING THE PLAYING FIELD BUCKET
 
+
         //Moves to bucket
+        robot.moveArmInches(7, 1);
+        robot.basketServo.setPosition(0.65);
         robot.moveDiagonalSW(24, speed);
             sleep(rest);
         robot.turnLeftDegrees(45, speed);
+        robot.basketRest();
             sleep(rest);
 
         //Robot prepares to dump a sample
@@ -36,10 +42,11 @@ public class bucketLeftAuton extends LinearOpMode {
             sleep(rest);
 
         //Robot places a sample
-        robot.moveForwardInches(1, speed);
+        robot.moveBackwardInches(1, speed);
         robot.basketDown();
         robot.basketUp();
-            sleep(850);
+        robot.waitForMotors();
+            sleep(rest);
 
         //Robot backs up and limbs reset
         robot.moveForwardInches(2,speed);

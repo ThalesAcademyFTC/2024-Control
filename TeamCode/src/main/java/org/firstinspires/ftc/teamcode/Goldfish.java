@@ -317,15 +317,13 @@ public  class Goldfish {
     }
 
     public void basketDown() {
-        basketServo.setPosition(.6);
+        basketServo.setPosition(0);
     }
 
-    public void basketUp() {
-        basketServo.setPosition(.9);
-    }
+    public void basketUp() {basketServo.setPosition(.9);}
 
     public void basketRest() {
-        basketServo.setPosition(0.75);
+        basketServo.setPosition(0.5);
     }
 
     public void armToBasket() {
@@ -355,7 +353,7 @@ public  class Goldfish {
     }
 
     public void resetSlide() {
-        setSlideInches(0, 0.5);
+        setSlideInches(1, 0.5);
     }
 
     public void lowSlideBucket() {
