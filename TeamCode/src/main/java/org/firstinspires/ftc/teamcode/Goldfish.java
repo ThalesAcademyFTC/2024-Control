@@ -64,9 +64,9 @@ public  class Goldfish {
 
 
     //constants for arm and slide
-    int SLIDE_LOW_BUCKET = 2456;
+    int SLIDE_LOW_BUCKET = 2400;
 
-    int SLIDE_HIGH_BUCKET = 4302;
+    int SLIDE_HIGH_BUCKET = 4300;
     private VisionPortal visionPortal;
     private AprilTagProcessor aprilTag;
 
@@ -317,13 +317,15 @@ public  class Goldfish {
     }
 
     public void basketDown() {
-        basketServo.setPosition(0);
+        basketServo.setPosition(.6);
     }
 
-    public void basketUp() {basketServo.setPosition(.9);}
+    public void basketUp() {
+        basketServo.setPosition(.9);
+    }
 
     public void basketRest() {
-        basketServo.setPosition(0.5);
+        basketServo.setPosition(0.75);
     }
 
     public void armToBasket() {
@@ -353,15 +355,15 @@ public  class Goldfish {
     }
 
     public void resetSlide() {
-        setSlideInches(1, 0.5);
+        setSlideInches(0, 0.75);
     }
 
     public void lowSlideBucket() {
-        setSlideInches(SLIDE_LOW_BUCKET, 0.5);
+        setSlideInches(SLIDE_LOW_BUCKET, 0.75);
     }
 
     public void highSlideBucket() {
-        setSlideInches(SLIDE_HIGH_BUCKET, 0.5);
+        setSlideInches(SLIDE_HIGH_BUCKET, 0.75);
     }
 
     public void setSuspensionServo(double position) {
