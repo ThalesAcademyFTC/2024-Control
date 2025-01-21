@@ -51,34 +51,23 @@ public class TestTeleIG extends OpMode {
 
 
                     //Slide motor code below//
-        if (gamepad2.y && slidePos == 1 && buttonPressed == false) {
+        if (gamepad2.y && slidePos == 1) {
             slidePos += 1;
-            buttonPressed = true;
             //robot.lowSlideBucket();
-        } else if (gamepad2.y && slidePos == 2 && buttonPressed == false) {
+        } else if (gamepad2.y && slidePos == 2) {
             slidePos += 1;
             //robot.highSlideBucket();
-            buttonPressed = true;
         } else {
         }
 
-        if (buttonPressed = true && !gamepad2.y) {
-            buttonPressed = false;
-        }
-
-        if (gamepad2.a && slidePos == 3 && buttonPressed == false) {
+        if (gamepad2.a && slidePos == 3) {
             slidePos -= 1;
             //robot.lowSlideBucket();
-            buttonPressed = true;
-        } else if (gamepad2.y && slidePos == 2 && !buttonPressed) {
+        } else if (gamepad2.y && slidePos == 2) {
             slidePos -= 1;
             //robot.resetSlide();
-            buttonPressed = true;
         } else { }
 
-        if (buttonPressed = true && !gamepad2.a) {
-            buttonPressed = false;
-        }
 
         telemetry.update();
     }
