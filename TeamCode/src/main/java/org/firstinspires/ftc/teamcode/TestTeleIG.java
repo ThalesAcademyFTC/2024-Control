@@ -57,24 +57,23 @@ public class TestTeleIG extends OpMode {
 
         // Slide motor code below
 
-        if (gamepad2.y && slidePos == SlidePosition.RESET && !buttonPressed) {
+        if (gamepad2.y && slidePos == SlidePosition.RESET && buttonPressed == false) {
             slidePos = SlidePosition.LOW;
             buttonPressed = true;
-        } else if (gamepad2.y && slidePos == SlidePosition.LOW && !buttonPressed) {
+        } else if (gamepad2.y && slidePos == SlidePosition.LOW && buttonPressed == false) {
             slidePos = SlidePosition.HIGH;
             buttonPressed = true;
-        } else if (gamepad2.y == false){
-            buttonPressed = false;
+        } else if (gamepad2.y && buttonPressed == true){
         }
 
-        if (gamepad2.a && slidePos == SlidePosition.HIGH && !buttonPressed) {
+        if (gamepad2.a && slidePos == slidePos.HIGH && buttonPressed == false) {
             slidePos = SlidePosition.LOW;
             buttonPressed = true;
-        } else if (gamepad2.a && slidePos == SlidePosition.LOW && !buttonPressed) {
+        } else if (gamepad2.a && slidePos == SlidePosition.LOW && buttonPressed == false) {
             slidePos = SlidePosition.RESET;
             buttonPressed = true;
-        } else if (gamepad2.a == false){
-            buttonPressed = false;
+        } else if (gamepad2.a && buttonPressed == true){
+
         }
 
         if (gamepad2.y && slidePos == SlidePosition.RESET)
