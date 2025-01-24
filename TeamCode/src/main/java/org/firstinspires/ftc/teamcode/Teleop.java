@@ -92,11 +92,11 @@ Right bumper / Left bumper || open / close claw
             robot.clawMoveServo.setPosition(1);
         }
 
-        if (gamepad2.left_stick_x == 0 && gamepad1.left_stick_y == 0) {
+     /*   if (gamepad2.left_stick_x == 0 && gamepad1.left_stick_y == 0) {
             robot.move(0, 0, 0);
         }
-
-        if (gamepad1.dpad_down) {
+*/
+       /* if (gamepad1.dpad_down) {
             start -= 0.01;
             robot.clawMoveServo.setPosition(start);
         }
@@ -104,7 +104,7 @@ Right bumper / Left bumper || open / close claw
         if (gamepad1.dpad_up) {
             start += 0.01;
             robot.clawMoveServo.setPosition(start);
-        }
+        } */
         if (gamepad2.left_bumper) {
             robot.setSuspensionServo(.15);
         } else if (gamepad2.right_bumper) {
