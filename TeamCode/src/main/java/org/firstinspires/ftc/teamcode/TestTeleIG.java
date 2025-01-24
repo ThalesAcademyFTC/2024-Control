@@ -42,7 +42,6 @@ public class TestTeleIG extends OpMode {
         double turn = (gamepad1.right_stick_x / rbtSpd);
 
         int slidePos = 1;
-        //enum { DOWN, MID, TOP } slidePos = DOWN;
         int basketPos = 0;
         boolean buttonPressed = false;
 
