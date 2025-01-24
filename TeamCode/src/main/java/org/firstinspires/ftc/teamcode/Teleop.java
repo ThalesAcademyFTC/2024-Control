@@ -84,11 +84,11 @@ Right bumper / Left bumper || open / close claw
                     robot.basketServo.setPosition(.45);
                 }
 
-        if (gamepad2.left_bumper) {
+        if (gamepad2.left_stick_y >.1) {
             robot.clawMoveServo.setPosition(.25);
         }
 
-        if (gamepad2.right_bumper) {
+        if (gamepad2.left_stick_y < -.1) {
             robot.clawMoveServo.setPosition(1);
         }
 
