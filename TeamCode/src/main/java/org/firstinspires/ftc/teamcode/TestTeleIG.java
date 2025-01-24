@@ -8,7 +8,14 @@ public class TestTeleIG extends OpMode {
 
     Goldfish robot;
 
-    int slidePos = 1; //Basket Position
+    enum SlidePosition {
+        RESET,
+        LOW,
+        HIGH
+    }
+
+    SlidePosition slidePos = SlidePosition.RESET;
+
     boolean buttonPressed = false;
 
     double rbtSpd = 1.75;
@@ -41,31 +48,31 @@ public class TestTeleIG extends OpMode {
         double x = (gamepad1.left_stick_x / rbtSpd);
         double turn = (gamepad1.right_stick_x / rbtSpd);
 
-        int slidePos = 1;
-        int basketPos = 0;
         boolean buttonPressed = false;
 
         // Move the robot using the transformed inputs
         robot.move(x, y, turn);
 
 
-                    //Slide motor code below//
-        if (gamepad2.y && slidePos == 1) {
-            slidePos += 1;
-            //robot.lowSlideBucket();
-        } else if (gamepad2.y && slidePos == 2) {
-            slidePos += 1;
-            //robot.highSlideBucket();
+        // Slide motor code below
+        if (gamepad2.y && slidePos == SlidePosition.RESET) {
+            slidePos = SlidePosition.LOW;
+        } else if (gamepad2.y && slidePos == SlidePosition.LOW) {
+            slidePos = SlidePosition.HIGH;
         } else {
+
         }
 
-        if (gamepad2.a && slidePos == 3) {
-            slidePos -= 1;
-            //robot.lowSlideBucket();
-        } else if (gamepad2.a && slidePos == 2) {
-            slidePos -= 1;
-            //robot.resetSlide();
-        } else { }
+        if (gamepad2.a && slidePos == SlidePosition.HIGH) {
+            slidePos = SlidePosition.LOW;
+        } else if (gamepad2.a && slidePos == SlidePosition.LOW) {
+            slidePos = SlidePosition.RESET;
+        } else {
+
+        }
+
+
+        if (gamepad2.y && slidePos == SlidePosition.RESET)
 
 
         telemetry.update();
