@@ -31,7 +31,10 @@ public class Teleop extends OpMode {
         telemetry.addData("slidePos", basketPos);
         telemetry.update();
 
+/*
+Right bumper / Left bumper || open / close claw
 
+ */
 
         double y = (-gamepad1.left_stick_y / rbtSpd);
         double x = (gamepad1.left_stick_x / rbtSpd);
@@ -70,39 +73,6 @@ public class Teleop extends OpMode {
             robot.armMotor.setPower(0);
         }
 
-
-/*
-        if (gamepad2.y && buttonPressed == false && basketPos < 3) {
-            buttonPressed = true;
-            basketPos += 1;
-
-            if (basketPos == 3) {
-                robot.highSlideBucket();
-            } else if (basketPos == 2) {
-                robot.lowSlideBucket();
-            } else if (basketPos == 1) {
-                robot.resetSlide();
-            }
-        } else {
-            buttonPressed = false;
-        }
-
-
-        if (gamepad2.a && buttonPressed == false && basketPos > 1) {
-            buttonPressed = true;
-            basketPos -= 1;
-
-            if (basketPos == 3) {
-                robot.highSlideBucket();
-            } else if (basketPos == 2) {
-                robot.lowSlideBucket();
-            } else if (basketPos == 1) {
-                robot.resetSlide();
-            }
-        } else {
-            buttonPressed = false;
-        }
-*/
 
                 if (gamepad2.dpad_up) {
                     robot.basketServo.setPosition(.85);
