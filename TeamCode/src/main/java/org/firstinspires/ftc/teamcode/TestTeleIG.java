@@ -42,7 +42,6 @@ public class TestTeleIG extends OpMode {
         double turn = (gamepad1.right_stick_x / rbtSpd);
 
         int slidePos = 1;
-        //enum { DOWN, MID, TOP } slidePos = DOWN;
         int basketPos = 0;
         boolean buttonPressed = false;
 
@@ -63,7 +62,7 @@ public class TestTeleIG extends OpMode {
         if (gamepad2.a && slidePos == 3) {
             slidePos -= 1;
             //robot.lowSlideBucket();
-        } else if (gamepad2.y && slidePos == 2) {
+        } else if (gamepad2.a && slidePos == 2) {
             slidePos -= 1;
             //robot.resetSlide();
         } else { }
