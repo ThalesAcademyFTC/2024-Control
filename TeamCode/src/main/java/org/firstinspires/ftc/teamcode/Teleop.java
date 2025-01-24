@@ -32,12 +32,12 @@ public class Teleop extends OpMode {
         telemetry.update();
 
 
+
         double y = (-gamepad1.left_stick_y / rbtSpd);
         double x = (gamepad1.left_stick_x / rbtSpd);
         double turn = (gamepad1.right_stick_x / rbtSpd);
 
-
-        //robot.move(x, y, turn);
+        // Move the robot using the transformed inputs
         robot.move(x, y, turn);
 
         if (gamepad2.right_trigger > 0.1) {
@@ -71,7 +71,7 @@ public class Teleop extends OpMode {
         }
 
 
-
+/*
         if (gamepad2.y && buttonPressed == false && basketPos < 3) {
             buttonPressed = true;
             basketPos += 1;
@@ -102,23 +102,23 @@ public class Teleop extends OpMode {
         } else {
             buttonPressed = false;
         }
+*/
 
-/*
-                if (gamepad2.y) {
+                if (gamepad2.dpad_up) {
                     robot.basketServo.setPosition(.85);
                 }
-                if (gamepad2.b) {
+                if (gamepad2.dpad_right) {
                     robot.basketServo.setPosition(.6);
                 }
-                if (gamepad2.a) {
+                if (gamepad2.dpad_down) {
                     robot.basketServo.setPosition(.45);
                 }
-*/
-        if (gamepad2.dpad_down) {
+
+        if (gamepad2.left_bumper) {
             robot.clawMoveServo.setPosition(.25);
         }
 
-        if (gamepad2.dpad_up) {
+        if (gamepad2.right_bumper) {
             robot.clawMoveServo.setPosition(1);
         }
 
@@ -156,3 +156,6 @@ i tell em scat skiddle skebabble got hit with a bottle and put in the hospital f
 i confess its a shame when you living in a city thats the size of a box and nobody knows yo name
 glad i came- to my senses like quick quick got sick sick to my stomach
 overcometh by thoughts of me and her together right? so when i asked her out she says i wasnt her type */
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    //Rest in peace Billy Dignam </3
