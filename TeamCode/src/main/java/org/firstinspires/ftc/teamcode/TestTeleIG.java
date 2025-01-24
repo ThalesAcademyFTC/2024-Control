@@ -31,6 +31,7 @@ public class TestTeleIG extends OpMode {
     double start = 0.5;
 
     @Override
+
     public void loop() {
 
         telemetry.addData("basketServo", robot.basketServo.getPosition());
@@ -55,22 +56,26 @@ public class TestTeleIG extends OpMode {
 
 
         // Slide motor code below
-        if (gamepad2.y && slidePos == SlidePosition.RESET) {
+
+        if (gamepad2.y && slidePos == SlidePosition.RESET && !buttonPressed) {
             slidePos = SlidePosition.LOW;
-        } else if (gamepad2.y && slidePos == SlidePosition.LOW) {
+            buttonPressed = true;
+        } else if (gamepad2.y && slidePos == SlidePosition.LOW && !buttonPressed) {
             slidePos = SlidePosition.HIGH;
-        } else {
-
+            buttonPressed = true;
+        } else if (gamepad2.y == false){
+            buttonPressed = false;
         }
 
-        if (gamepad2.a && slidePos == SlidePosition.HIGH) {
+        if (gamepad2.a && slidePos == SlidePosition.HIGH && !buttonPressed) {
             slidePos = SlidePosition.LOW;
-        } else if (gamepad2.a && slidePos == SlidePosition.LOW) {
+            buttonPressed = true;
+        } else if (gamepad2.a && slidePos == SlidePosition.LOW && !buttonPressed) {
             slidePos = SlidePosition.RESET;
-        } else {
-
+            buttonPressed = true;
+        } else if (gamepad2.a == false){
+            buttonPressed = false;
         }
-
 
         if (gamepad2.y && slidePos == SlidePosition.RESET)
 
