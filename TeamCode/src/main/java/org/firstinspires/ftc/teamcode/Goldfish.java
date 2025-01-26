@@ -262,13 +262,13 @@ public  class Goldfish {
     public void armDump() {
         setArmTicks(-10, 0.5);
         clawMoveServo.setPosition(1);
-        clawServo.setPosition(.95);
+        clawServo.setPosition(.9);
     }
 
     public void armCollect() {
+        clawServo.setPosition(.9);
         setArmTicks(-1600, 0.5);
         clawMoveServo.setPosition(.25);
-        clawServo.setPosition(.6);
     }
 
     public void setArmMotor(double power) {

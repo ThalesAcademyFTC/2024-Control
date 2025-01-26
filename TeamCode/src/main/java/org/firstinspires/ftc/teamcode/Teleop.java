@@ -19,7 +19,7 @@ public class Teleop extends OpMode {
 
     SlidePosition slidePos = SlidePosition.RESET;
 
-    double rbtSpd = 1.75;
+    double rbtSpd = 1;
 
     @Override
     public void init() {
@@ -28,8 +28,6 @@ public class Teleop extends OpMode {
         robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
 
     }
-
-    double start = 0.5;
 
     @Override
     public void loop() {
@@ -57,14 +55,18 @@ Right bumper / Left bumper || open / close claw
             robot.closeClaw();
         }
 
-        if (gamepad2.left_stick_y > .25) {
+        if (gamepad2.left_stick_y > .15) {
             robot.armToBasket();
-            robot.clawMoveServo.setPosition(0.25);
         } else if (gamepad2.left_stick_y < -.25) {
             robot.armAwayBasket();
-            robot.clawMoveServo.setPosition(1);
         } else {
             robot.armMotor.setPower(0);
+        }
+
+        if (gamepad2.left_stick_y > 0.7) {
+            robot.clawMoveServo.setPosition(0.25);
+        } else if (gamepad2.left_stick_y < -0.7) {
+            robot.clawMoveServo.setPosition(1);
         }
 
      /*   if (gamepad2.left_stick_x == 0 && gamepad1.left_stick_y == 0) {

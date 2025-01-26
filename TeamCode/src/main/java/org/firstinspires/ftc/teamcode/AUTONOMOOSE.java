@@ -10,7 +10,7 @@ public class AUTONOMOOSE extends LinearOpMode {
     public Goldfish robot;
     public ElapsedTime runtime = new ElapsedTime();
 
-    double rest = .75;
+    double rest = 75;
 
 
     public void runOpMode() {
@@ -22,11 +22,13 @@ public class AUTONOMOOSE extends LinearOpMode {
 
         robot.armCollect();
         robot.waitForArmMotor();
+        robot.clawServo.setPosition(.6);
+        robot.rest(rest);
         robot.armDump();
         robot.waitForArmMotor();
         robot.armReset();
+        robot.basketRest();
         robot.waitForArmMotor();
-
 
 
 
