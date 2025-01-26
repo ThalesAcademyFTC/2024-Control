@@ -49,7 +49,6 @@ public class TestTeleIG extends OpMode {
         double x = (gamepad1.left_stick_x / rbtSpd);
         double turn = (gamepad1.right_stick_x / rbtSpd);
 
-        boolean buttonPressed = false;
 
         // Move the robot using the transformed inputs
         robot.move(x, y, turn);
@@ -60,24 +59,27 @@ public class TestTeleIG extends OpMode {
         if (gamepad2.y && slidePos == SlidePosition.RESET && buttonPressed == false) {
             slidePos = SlidePosition.LOW;
             buttonPressed = true;
+            robot.lowSlideBucket();
         } else if (gamepad2.y && slidePos == SlidePosition.LOW && buttonPressed == false) {
             slidePos = SlidePosition.HIGH;
             buttonPressed = true;
-        } else if (gamepad2.y && buttonPressed == true){
+            robot.highSlideBucket();
         }
+
 
         if (gamepad2.a && slidePos == slidePos.HIGH && buttonPressed == false) {
             slidePos = SlidePosition.LOW;
             buttonPressed = true;
+            robot.lowSlideBucket();
         } else if (gamepad2.a && slidePos == SlidePosition.LOW && buttonPressed == false) {
             slidePos = SlidePosition.RESET;
             buttonPressed = true;
-        } else if (gamepad2.a && buttonPressed == true){
-
+            robot.resetSlide();
         }
 
-        if (gamepad2.y && slidePos == SlidePosition.RESET)
-
+        if (!gamepad2.y && !gamepad2.a){
+            buttonPressed = false;
+        }
 
         telemetry.update();
     }
