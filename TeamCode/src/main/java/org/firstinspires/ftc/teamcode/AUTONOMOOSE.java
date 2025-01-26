@@ -17,20 +17,17 @@ public class AUTONOMOOSE extends LinearOpMode {
 
         robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
 
-        robot.basketServo.setPosition(rest);
 
         waitForStart();
 
-        robot.moveArmInches(8, .3);
+        robot.armCollect();
         robot.waitForArmMotor();
-        robot.setSlideInches(37, .4);
-        robot.moveArmInches(-10, .3);
-        robot.waitForSlideMotors(); // waiting for slide to be at topmost position
-            sleep(100);
-        robot.basketUp();
-            sleep(500);
-        robot.setSlideInches(-37, .2);
-        robot.waitForSlideMotors();
+        robot.armDump();
+        robot.waitForArmMotor();
+        robot.armReset();
+        robot.waitForArmMotor();
+
+
 
 
 

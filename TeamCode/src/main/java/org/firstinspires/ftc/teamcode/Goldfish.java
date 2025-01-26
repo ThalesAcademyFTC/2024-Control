@@ -200,6 +200,7 @@ public  class Goldfish {
                 clawMoveServo = hwMap.servo.get("clawMoveServo");
                 basketServo = hwMap.servo.get("basketServo");
                 suspensionServo = hwMap.servo.get("suspensionServo");
+                armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 slideMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -256,37 +257,18 @@ public  class Goldfish {
         }
     }
 
+    public void armReset() { setArmTicks(-500, 0.5); }
 
-    public void moveLeft(double speed) {
-        move(-speed, 0, 0);
+    public void armDump() {
+        setArmTicks(-10, 0.5);
+        clawMoveServo.setPosition(1);
+        clawServo.setPosition(.95);
     }
 
-    public void moveRight(double speed) {
-        move(speed, 0, 0);
-    }
-
-    public void moveForward(double speed) {
-        move(0, speed, 0);
-    }
-
-    public void moveBackward(double speed) {
-        move(0, -speed, 0);
-    }
-
-    public void turnLeft(double speed) {
-        move(0, 0, -speed);
-    }
-
-    public void turnRight(double speed) {
-        move(0, 0, speed);
-    }
-
-    public void liftArm() {
-        armMotor.setPower(0.75);
-    }
-
-    public void lowerArm() {
-        armMotor.setPower(-0.5);
+    public void armCollect() {
+        setArmTicks(-1600, 0.5);
+        clawMoveServo.setPosition(.25);
+        clawServo.setPosition(.6);
     }
 
     public void setArmMotor(double power) {
@@ -317,16 +299,12 @@ public  class Goldfish {
     }
 
     public void basketDown() {
-        basketServo.setPosition(.6);
+        basketServo.setPosition(.45);
     }
 
-    public void basketUp() {
-        basketServo.setPosition(.9);
-    }
+    public void basketUp() { basketServo.setPosition(.85); }
 
-    public void basketRest() {
-        basketServo.setPosition(0.75);
-    }
+    public void basketRest() { basketServo.setPosition(0.6); }
 
     public void armToBasket() {
         armMotor.setPower(-.4);
@@ -334,6 +312,16 @@ public  class Goldfish {
 
     public void armAwayBasket() {
         armMotor.setPower(.4);
+    }
+
+    public void setArmTicks(int tickTarget, double speed) {
+
+        armMotor.setTargetPosition(tickTarget);
+
+        setArmMotor(speed);
+
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
     }
 
 

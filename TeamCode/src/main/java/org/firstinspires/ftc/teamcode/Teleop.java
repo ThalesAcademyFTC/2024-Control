@@ -57,14 +57,14 @@ Right bumper / Left bumper || open / close claw
         */
 
 
-        if (gamepad2.right_stick_y > 0.25) {
+       /* if (gamepad2.right_stick_y > 0.25) {
             robot.lowerSlide();
         } else if (gamepad2.right_stick_y < -0.25) {
             robot.liftSlide();
         } else {
             robot.slideMotor.setPower(0);
             robot.slideMotor2.setPower(0);
-        }
+        }*/
 
         if (gamepad2.left_stick_y > .25) {
             robot.armAwayBasket();
@@ -75,15 +75,15 @@ Right bumper / Left bumper || open / close claw
         }
 
 
-                if (gamepad2.dpad_up) {
-                    robot.basketServo.setPosition(.85);
-                }
-                if (gamepad2.dpad_right) {
-                    robot.basketServo.setPosition(.6);
-                }
-                if (gamepad2.dpad_down) {
-                    robot.basketServo.setPosition(.45);
-                }
+        if (gamepad2.dpad_up) {
+            robot.basketUp();
+        }
+        if (gamepad2.dpad_right) {
+            robot.basketRest();
+        }
+        if (gamepad2.dpad_down) {
+            robot.basketDown();
+        }
 
         if (gamepad2.left_stick_y >.1) {
             robot.clawMoveServo.setPosition(.25);
@@ -111,6 +111,20 @@ Right bumper / Left bumper || open / close claw
         } else if (gamepad2.right_bumper) {
             robot.setSuspensionServo(.8);
         }
+
+        if (gamepad2.y) {
+            robot.highSlideBucket();
+        }
+
+        if (gamepad2.b) {
+            robot.lowSlideBucket();
+        }
+
+        if (gamepad2.a) {
+            robot.resetSlide();
+        }
+
+
         telemetry.update();
     }
 }

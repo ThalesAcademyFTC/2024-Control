@@ -19,6 +19,7 @@ public class bucketLeftAuton extends LinearOpMode {
         long rest = 50;
 
         robot.basketDown();
+        robot.armReset();
 
         waitForStart();
 
@@ -29,7 +30,7 @@ public class bucketLeftAuton extends LinearOpMode {
         //Moves to bucket
         robot.moveArmInches(7, 1);
         robot.basketServo.setPosition(0.65);
-        robot.moveDiagonalSW(24, speed);
+        robot.moveDiagonalSW(30, speed);
             sleep(rest);
         robot.turnLeftDegrees(45, speed);
         robot.basketRest();
