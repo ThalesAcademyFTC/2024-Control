@@ -11,6 +11,14 @@ public class Teleop extends OpMode {
     int basketPos = 1; //Basket Position
     boolean buttonPressed = false;
 
+    enum SlidePosition {
+        RESET,
+        LOW,
+        HIGH
+    }
+
+    SlidePosition slidePos = SlidePosition.RESET;
+
     double rbtSpd = 1.75;
 
     @Override
@@ -46,51 +54,17 @@ Right bumper / Left bumper || open / close claw
         if (gamepad2.right_trigger > 0.1) {
             robot.openClaw();
         } else if (gamepad2.left_trigger > 0.1) {
-
             robot.closeClaw();
         }
 
-        /*
-        if (robot.isColor("green")) {
-            robot.moveForward(0.5);
-        }
-        */
-
-
-       /* if (gamepad2.right_stick_y > 0.25) {
-            robot.lowerSlide();
-        } else if (gamepad2.right_stick_y < -0.25) {
-            robot.liftSlide();
-        } else {
-            robot.slideMotor.setPower(0);
-            robot.slideMotor2.setPower(0);
-        }*/
-
         if (gamepad2.left_stick_y > .25) {
-            robot.armAwayBasket();
-        } else if (gamepad2.left_stick_y < -.25) {
             robot.armToBasket();
+            robot.clawMoveServo.setPosition(0.25);
+        } else if (gamepad2.left_stick_y < -.25) {
+            robot.armAwayBasket();
+            robot.clawMoveServo.setPosition(1);
         } else {
             robot.armMotor.setPower(0);
-        }
-
-
-        if (gamepad2.dpad_up) {
-            robot.basketUp();
-        }
-        if (gamepad2.dpad_right) {
-            robot.basketRest();
-        }
-        if (gamepad2.dpad_down) {
-            robot.basketDown();
-        }
-
-        if (gamepad2.left_stick_y >.1) {
-            robot.clawMoveServo.setPosition(.25);
-        }
-
-        if (gamepad2.left_stick_y < -.1) {
-            robot.clawMoveServo.setPosition(1);
         }
 
      /*   if (gamepad2.left_stick_x == 0 && gamepad1.left_stick_y == 0) {
@@ -106,23 +80,49 @@ Right bumper / Left bumper || open / close claw
             start += 0.01;
             robot.clawMoveServo.setPosition(start);
         } */
-        if (gamepad2.left_bumper) {
+
+
+        if (gamepad2.dpad_up) {
             robot.setSuspensionServo(.15);
-        } else if (gamepad2.right_bumper) {
+        } else if (gamepad2.dpad_down) {
             robot.setSuspensionServo(.8);
         }
 
-        if (gamepad2.y) {
+        // Slide motor code below
+
+        if (gamepad2.y && slidePos == SlidePosition.RESET && buttonPressed == false) {
+            slidePos = SlidePosition.LOW;
+            buttonPressed = true;
+            robot.lowSlideBucket();
+        } else if (gamepad2.y && slidePos == SlidePosition.LOW && buttonPressed == false) {
+            slidePos = SlidePosition.HIGH;
+            buttonPressed = true;
             robot.highSlideBucket();
         }
 
-        if (gamepad2.b) {
-            robot.lowSlideBucket();
-        }
 
-        if (gamepad2.a) {
+        if (gamepad2.a && slidePos == SlidePosition.HIGH && buttonPressed == false) {
+            slidePos = SlidePosition.LOW;
+            buttonPressed = true;
+            robot.lowSlideBucket();
+        } else if (gamepad2.a && slidePos == SlidePosition.LOW && buttonPressed == false) {
+            slidePos = SlidePosition.RESET;
+            buttonPressed = true;
             robot.resetSlide();
         }
+
+        if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
+            robot.basketRest();
+        } else if (gamepad2.left_bumper){
+            robot.basketDown();
+        } else if (gamepad2.right_bumper){
+            robot.basketUp();
+        }
+
+        if (!gamepad2.y && !gamepad2.a){
+            buttonPressed = false;
+        }
+
 
 
         telemetry.update();

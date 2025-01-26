@@ -200,7 +200,7 @@ public  class Goldfish {
                 clawMoveServo = hwMap.servo.get("clawMoveServo");
                 basketServo = hwMap.servo.get("basketServo");
                 suspensionServo = hwMap.servo.get("suspensionServo");
-                armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                //armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 slideMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
 

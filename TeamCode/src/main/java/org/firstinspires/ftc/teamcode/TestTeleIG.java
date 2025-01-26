@@ -14,7 +14,10 @@ public class TestTeleIG extends OpMode {
         HIGH
     }
 
+
+
     SlidePosition slidePos = SlidePosition.RESET;
+
 
     boolean buttonPressed = false;
 
@@ -37,12 +40,11 @@ public class TestTeleIG extends OpMode {
         telemetry.addData("basketServo", robot.basketServo.getPosition());
         telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
         telemetry.addData("slidePos", slidePos);
-        telemetry.addData("buttonPressed?", buttonPressed);
+        telemetry.addData("AY Pressed?", buttonPressed);
         telemetry.addData("Motor 1 Current Pos", robot.slideMotor.getCurrentPosition());
         telemetry.addData("Motor 2 Current Pos", robot.slideMotor2.getCurrentPosition());
         telemetry.addData("Motor 1 Target Pos", robot.slideMotor.getTargetPosition());
         telemetry.addData("Motor 2 Target Pos", robot.slideMotor2.getTargetPosition());
-
 
 
         double y = (-gamepad1.left_stick_y / rbtSpd);
@@ -77,9 +79,26 @@ public class TestTeleIG extends OpMode {
             robot.resetSlide();
         }
 
+        if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
+            robot.basketRest();
+        } else if (gamepad2.left_bumper){
+            robot.basketUp();
+        } else if (gamepad2.right_bumper){
+            robot.basketDown();
+        }
+
+        if (gamepad2.right_trigger > 0.1) {
+            robot.closeClaw();
+        } else if (gamepad2.left_trigger > 0.1) {
+            robot.openClaw();
+        }
+
+
         if (!gamepad2.y && !gamepad2.a){
             buttonPressed = false;
         }
+
+
 
         telemetry.update();
     }
