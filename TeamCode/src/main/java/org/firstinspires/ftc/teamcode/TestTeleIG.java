@@ -59,18 +59,22 @@ public class TestTeleIG extends OpMode {
         if (gamepad2.y && slidePos == SlidePosition.RESET && buttonPressed == false) {
             slidePos = SlidePosition.LOW;
             buttonPressed = true;
+            robot.lowSlideBucket();
         } else if (gamepad2.y && slidePos == SlidePosition.LOW && buttonPressed == false) {
             slidePos = SlidePosition.HIGH;
             buttonPressed = true;
+            robot.highSlideBucket();
         }
 
 
         if (gamepad2.a && slidePos == slidePos.HIGH && buttonPressed == false) {
             slidePos = SlidePosition.LOW;
             buttonPressed = true;
+            robot.lowSlideBucket();
         } else if (gamepad2.a && slidePos == SlidePosition.LOW && buttonPressed == false) {
             slidePos = SlidePosition.RESET;
             buttonPressed = true;
+            robot.resetSlide();
         }
 
         if (!gamepad2.y && !gamepad2.a){
