@@ -66,6 +66,7 @@ public class TestTeleIG extends OpMode {
         } else if (gamepad2.y && buttonPressed == true){
         }
 
+
         if (gamepad2.a && slidePos == slidePos.HIGH && buttonPressed == false) {
             slidePos = SlidePosition.LOW;
             buttonPressed = true;
@@ -76,8 +77,9 @@ public class TestTeleIG extends OpMode {
 
         }
 
-        if (gamepad2.y && slidePos == SlidePosition.RESET)
-
+        while (!gamepad2.y || !gamepad2.a && buttonPressed == true){
+            buttonPressed = false;
+        }
 
         telemetry.update();
     }
