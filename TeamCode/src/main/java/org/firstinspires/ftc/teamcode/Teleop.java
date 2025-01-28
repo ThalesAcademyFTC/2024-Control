@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.transition.Slide;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -18,6 +20,8 @@ public class Teleop extends OpMode {
     }
 
     SlidePosition slidePos = SlidePosition.RESET;
+
+    int ready = 0;
 
     double rbtSpd = 1;
 
@@ -63,9 +67,9 @@ Right bumper / Left bumper || open / close claw
             robot.armMotor.setPower(0);
         }
 
-        if (gamepad2.left_stick_y > 0.7) {
+        if (robot.armMotor.getCurrentPosition() >= 500) {
             robot.clawMoveServo.setPosition(0.25);
-        } else if (gamepad2.left_stick_y < -0.7) {
+        } else if (robot.armMotor.getCurrentPosition() < 500) {
             robot.clawMoveServo.setPosition(1);
         }
 
@@ -83,6 +87,26 @@ Right bumper / Left bumper || open / close claw
             robot.clawMoveServo.setPosition(start);
         } */
 
+        /* pseudocode :DDDD
+        button is pressed
+        arm moves back
+        bucket comes down
+        claw lets go
+        arm goes back
+        bucket goes to rest
+         */
+        if (gamepad2.dpad_left && slidePos == SlidePosition.RESET && ready == 0) {
+            ready = 1;
+            robot.clawMoveServo.setPosition(1);
+            robot.basketDown();
+            robot.armToBasket();
+            robot.waitForArmMotor();
+            robot.openClaw();
+            robot.armReset();
+            robot.basketRest();
+        } else if (gamepad2.a && slidePos == SlidePosition.RESET && ready == 1){
+            ready = 0;
+        }
 
         if (gamepad2.dpad_up) {
             robot.setSuspensionServo(.15);

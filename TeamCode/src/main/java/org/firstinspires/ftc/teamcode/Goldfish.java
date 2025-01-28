@@ -64,9 +64,9 @@ public  class Goldfish {
 
 
     //constants for arm and slide
-    int SLIDE_LOW_BUCKET = 2400;
+    int SLIDE_LOW_BUCKET = 2750;
 
-    int SLIDE_HIGH_BUCKET = 4300;
+    int SLIDE_HIGH_BUCKET = 5000;
     private VisionPortal visionPortal;
     private AprilTagProcessor aprilTag;
 
