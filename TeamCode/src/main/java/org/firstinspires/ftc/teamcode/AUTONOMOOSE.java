@@ -10,27 +10,26 @@ public class AUTONOMOOSE extends LinearOpMode {
     public Goldfish robot;
     public ElapsedTime runtime = new ElapsedTime();
 
-    double rest = .75;
+    double rest = 75;
 
 
     public void runOpMode() {
 
         robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
 
-        robot.basketServo.setPosition(rest);
 
         waitForStart();
 
-        robot.moveArmInches(8, .3);
+        robot.armCollect();
         robot.waitForArmMotor();
-        robot.setSlideInches(37, .4);
-        robot.moveArmInches(-10, .3);
-        robot.waitForSlideMotors(); // waiting for slide to be at topmost position
-            sleep(100);
-        robot.basketUp();
-            sleep(500);
-        robot.setSlideInches(-37, .2);
-        robot.waitForSlideMotors();
+        robot.clawServo.setPosition(.6);
+        robot.rest(rest);
+        robot.armDump();
+        robot.waitForArmMotor();
+        robot.armReset();
+        robot.basketRest();
+        robot.waitForArmMotor();
+
 
 
 
