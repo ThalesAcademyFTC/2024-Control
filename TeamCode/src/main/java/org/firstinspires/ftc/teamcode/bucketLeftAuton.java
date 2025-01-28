@@ -19,62 +19,59 @@ public class bucketLeftAuton extends LinearOpMode {
         long rest = 50;
 
         robot.basketDown();
-        robot.armReset();
+        robot.armDump();
 
         waitForStart();
 
         //IMPORTANT!!!
         //BUCKET ON THE ROBOT SHOULD BE FACING THE PLAYING FIELD BUCKET
-
+        //Arm and basket extend out
+        robot.armReset();
+        robot.basketRest();
 
         //Moves to bucket
-        robot.moveArmInches(7, 1);
-        robot.basketServo.setPosition(0.65);
         robot.moveDiagonalSW(30, speed);
             sleep(rest);
         robot.turnLeftDegrees(45, speed);
-        robot.basketRest();
             sleep(rest);
 
         //Robot prepares to dump a sample
         robot.highSlideBucket();
-        robot.moveBackwardInches(8, speed);
         robot.waitForSlideMotors();
-            sleep(rest);
+        robot.moveBackwardInches(9, speed);
 
         //Robot places a sample
-        robot.moveBackwardInches(1, speed);
         robot.basketDown();
         robot.basketUp();
         robot.waitForMotors();
             sleep(rest);
 
         //Robot backs up and limbs reset
-        robot.moveForwardInches(2,speed);
+        robot.moveForwardInches(3,speed);
         robot.resetSlide();
         robot.basketRest();
-        robot.waitForSlideMotors();
-            sleep(rest);
+        sleep(rest);
 
         //SECOND CYCLE
         //Robot turns and moves to the middle sample
         robot.turnLeftDegrees(45,speed);
         robot.moveDiagonalNW(2, speed);
         robot.moveForwardInches(40,speed);
-        robot.moveRightInches(5, speed);
 
         //Robot picks up middle sample
+        robot.armCollect();
         robot.openClaw();
-        robot.armAwayBasket();
-        robot.moveForwardInches(2,speed);
+        robot.waitForArmMotor();
+        robot.moveRightInches(5, speed);
         robot.closeClaw();
 
         //Robot returns to the bucket while placing sample in the basket
+        robot.armDump();
+        robot.basketUp();
         robot.turnRightDegrees(45, speed);
         robot.openClaw();
-        robot.armAwayBasket();
+        robot.armReset();
         robot.basketRest();
-        robot.armToBasket();
         robot.moveBackwardInches(38, speed);
         sleep(rest);
 
@@ -87,8 +84,8 @@ public class bucketLeftAuton extends LinearOpMode {
         //Robot places a sample
         robot.basketDown();
         robot.basketUp();
-        sleep(850);
         robot.moveForwardInches(2, speed);
+        robot.resetSlide();
         sleep(rest);
         robot.turnRightDegrees(45, speed);
 
