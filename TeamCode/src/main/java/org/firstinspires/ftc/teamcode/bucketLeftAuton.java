@@ -25,6 +25,9 @@ public class bucketLeftAuton extends LinearOpMode {
 
         //IMPORTANT!!!
         //BUCKET ON THE ROBOT SHOULD BE FACING THE PLAYING FIELD BUCKET
+
+
+
         //Arm and basket extend out
         robot.armReset();
         robot.basketRest();

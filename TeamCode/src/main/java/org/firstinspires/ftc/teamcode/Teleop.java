@@ -39,6 +39,7 @@ public class Teleop extends OpMode {
         telemetry.addData("basketServo", robot.basketServo.getPosition());
         telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
         telemetry.addData("slidePos", basketPos);
+        telemetry.addData("armPOS", robot.armMotor.getCurrentPosition());
         telemetry.update();
 
 /*
