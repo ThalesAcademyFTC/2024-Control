@@ -39,6 +39,7 @@ public class Teleop extends OpMode {
         telemetry.addData("basketServo", robot.basketServo.getPosition());
         telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
         telemetry.addData("slidePos", basketPos);
+        telemetry.addData("armPos", robot.armMotor.getCurrentPosition());
         telemetry.update();
 
 /*
@@ -53,9 +54,9 @@ Right bumper / Left bumper || open / close claw
         // Move the robot using the transformed inputs
         robot.move(x, y, turn);
 
-        if (gamepad2.right_trigger > 0.1) {
+        if (gamepad2.right_trigger > 0.3) {
             robot.openClaw();
-        } else if (gamepad2.left_trigger > 0.1) {
+        } else if (gamepad2.left_trigger > 0.3) {
             robot.closeClaw();
         }
 
@@ -67,52 +68,17 @@ Right bumper / Left bumper || open / close claw
             robot.armMotor.setPower(0);
         }
 
-        if (robot.armMotor.getCurrentPosition() >= 500) {
-            robot.clawMoveServo.setPosition(0.25);
-        } else if (robot.armMotor.getCurrentPosition() < 500) {
+        if (robot.armMotor.getCurrentPosition() >= -1000) {
             robot.clawMoveServo.setPosition(1);
-        }
+        } else robot.clawMoveServo.setPosition(0.25);
 
-     /*   if (gamepad2.left_stick_x == 0 && gamepad1.left_stick_y == 0) {
-            robot.move(0, 0, 0);
-        }
-*/
-       /* if (gamepad1.dpad_down) {
-            start -= 0.01;
-            robot.clawMoveServo.setPosition(start);
-        }
-
-        if (gamepad1.dpad_up) {
-            start += 0.01;
-            robot.clawMoveServo.setPosition(start);
-        } */
-
-        /* pseudocode :DDDD
-        button is pressed
-        arm moves back
-        bucket comes down
-        claw lets go
-        arm goes back
-        bucket goes to rest
-         */
-        if (gamepad2.dpad_left && slidePos == SlidePosition.RESET && ready == 0) {
-            ready = 1;
-            robot.clawMoveServo.setPosition(1);
-            robot.basketDown();
-            robot.armToBasket();
-            robot.waitForArmMotor();
-            robot.openClaw();
-            robot.armReset();
-            robot.basketRest();
-        } else if (gamepad2.a && slidePos == SlidePosition.RESET && ready == 1){
-            ready = 0;
-        }
 
         if (gamepad2.dpad_up) {
             robot.setSuspensionServo(.15);
         } else if (gamepad2.dpad_down) {
             robot.setSuspensionServo(.8);
         }
+
 
         // Slide motor code below
 
