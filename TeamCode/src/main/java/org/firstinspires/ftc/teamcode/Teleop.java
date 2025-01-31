@@ -23,7 +23,7 @@ public class Teleop extends OpMode {
 
     int ready = 0;
 
-    double rbtSpd = 1;
+    double rbtSpd = 1.2;
 
     @Override
     public void init() {
@@ -68,15 +68,15 @@ Right bumper / Left bumper || open / close claw
             robot.armMotor.setPower(0);
         }
 
-        if (robot.armMotor.getCurrentPosition() >= -1000) {
+        if (robot.armMotor.getCurrentPosition() >= -500) {
             robot.clawMoveServo.setPosition(1);
-        } else robot.clawMoveServo.setPosition(0.25);
+        } else robot.clawMoveServo.setPosition(0.35);
 
 
         if (gamepad2.dpad_up) {
-            robot.setSuspensionServo(.15);
+            robot.setSuspensionServo(0);
         } else if (gamepad2.dpad_down) {
-            robot.setSuspensionServo(.8);
+            robot.setSuspensionServo(.75);
         }
 
 

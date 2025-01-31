@@ -203,6 +203,8 @@ public  class Goldfish {
                 //armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 slideMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
+                slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                slideMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 allMotors = new DcMotor[]{motorFL, motorFR, motorBL, motorBR};
 
