@@ -26,7 +26,6 @@ public class Test2Tele extends OpMode {
     @Override
     public void init() {
 
-
         robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
 
     }

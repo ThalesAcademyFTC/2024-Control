@@ -22,13 +22,9 @@ public class AUTONOMOOSE extends LinearOpMode {
 
         robot.armCollect();
         robot.waitForArmMotor();
-        robot.clawServo.setPosition(.6);
-        robot.rest(rest);
-        robot.armDump();
-        robot.waitForArmMotor();
-        robot.armReset();
-        robot.basketRest();
-        robot.waitForArmMotor();
+        robot.openClaw();
+
+        sleep(10000);
 
 
 

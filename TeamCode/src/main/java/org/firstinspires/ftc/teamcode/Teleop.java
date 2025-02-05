@@ -56,9 +56,9 @@ Right bumper / Left bumper || open / close claw
         robot.move(x, y, turn);
 
         if (gamepad2.right_trigger > 0.3) {
-            robot.openClaw();
-        } else if (gamepad2.left_trigger > 0.3) {
             robot.closeClaw();
+        } else if (gamepad2.left_trigger > 0.3) {
+            robot.openClaw();
         }
 
         if (gamepad2.left_stick_y > .15) {

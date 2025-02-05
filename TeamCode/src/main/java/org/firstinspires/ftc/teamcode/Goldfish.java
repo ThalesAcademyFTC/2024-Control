@@ -200,10 +200,10 @@ public  class Goldfish {
                 clawMoveServo = hwMap.servo.get("clawMoveServo");
                 basketServo = hwMap.servo.get("basketServo");
                 suspensionServo = hwMap.servo.get("suspensionServo");
-                //armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 slideMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
                 slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 slideMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 allMotors = new DcMotor[]{motorFL, motorFR, motorBL, motorBR};
 
@@ -261,14 +261,13 @@ public  class Goldfish {
     public void armReset() { setArmTicks(-500, 0.5); }
 
     public void armDump() {
-        setArmTicks(-10, 0.5);
+        setArmTicks(-10, 1);
         clawMoveServo.setPosition(1);
-        clawServo.setPosition(.9);
     }
 
     public void armCollect() {
         clawServo.setPosition(.9);
-        setArmTicks(-1600, 0.5);
+        setArmTicks(-1625, 1);
         clawMoveServo.setPosition(.25);
     }
 
@@ -292,11 +291,11 @@ public  class Goldfish {
 
 
     public void openClaw() {
-        clawServo.setPosition(.6);
+        clawServo.setPosition(.9);
     }
 
     public void closeClaw() {
-        clawServo.setPosition(.9);
+        clawServo.setPosition(.6);
     }
 
     public void basketDown() {
@@ -344,15 +343,15 @@ public  class Goldfish {
     }
 
     public void resetSlide() {
-        setSlideInches(0, 0.75);
+        setSlideInches(0, 1);
     }
 
     public void lowSlideBucket() {
-        setSlideInches(SLIDE_LOW_BUCKET, 0.75);
+        setSlideInches(SLIDE_LOW_BUCKET, 1);
     }
 
     public void highSlideBucket() {
-        setSlideInches(SLIDE_HIGH_BUCKET, 0.75);
+        setSlideInches(SLIDE_HIGH_BUCKET, 1);
     }
 
     public void setSuspensionServo(double position) {
