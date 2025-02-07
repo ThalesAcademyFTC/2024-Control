@@ -297,7 +297,7 @@ public  class Goldfish {
     }
 
     public void closeClaw() {
-        clawServo.setPosition(.6);
+        clawServo.setPosition(.4);
     }
 
     public void basketDown() {
@@ -599,6 +599,15 @@ public  class Goldfish {
                     finished = true;
                 }
              }
+        }
+
+        public void waitForBasket() {
+            boolean finished = false;
+                    while(auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
+                        if (basketServo != basketServo) {
+
+                        }
+                    }
         }
 
 

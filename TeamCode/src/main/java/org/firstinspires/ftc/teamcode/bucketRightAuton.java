@@ -16,8 +16,10 @@ public class bucketRightAuton extends LinearOpMode {
         robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
 
         double speed = 0.7;
-        long rest = 100;
-        int x = 0;
+        long rest = 50;
+
+        robot.basketDown();
+        robot.armDump();
 
         waitForStart();
 
@@ -33,11 +35,23 @@ public class bucketRightAuton extends LinearOpMode {
         will park in the observation zone.
         */
 
-        //Robot moves to the low bar
+        //Arm extends
         robot.armReset();
-        robot.moveLeftInches(15,speed);
+
+        //Robot moves to the low bar
+        robot.moveForwardInches(27, speed);
+        robot.armCollect();
+        robot.clawMoveServo.setPosition(0.4);
         robot.waitForArmMotor();
-        robot.moveArmInches(2,speed);
+        sleep(rest);
+
+        //Robot clips a specimen on the low bar
+
+
+        //Robot moves over to the three alliance samples
+        robot.moveRightInches(36, speed);
+        robot.moveForwardInches(23, speed);
+        robot.moveRightInches(8, speed);
 
 
     }
