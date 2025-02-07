@@ -64,7 +64,7 @@ public  class Goldfish {
 
 
     //constants for arm and slide
-    int SLIDE_LOW_BUCKET = 2750;
+    int SLIDE_LOW_BUCKET = 2850;
 
     int SLIDE_HIGH_BUCKET = 4320;
     private VisionPortal visionPortal;
@@ -308,7 +308,7 @@ public  class Goldfish {
     }
 
     public void closeClaw() {
-        clawServo.setPosition(.6);
+        clawServo.setPosition(.4);
     }
 
     public void basketDown() {
@@ -616,6 +616,15 @@ public  class Goldfish {
                     finished = true;
                 }
              }
+        }
+
+        public void waitForBasket() {
+            boolean finished = false;
+                    while(auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
+                        if (basketServo != basketServo) {
+
+                        }
+                    }
         }
 
 
