@@ -47,10 +47,10 @@ public  class Goldfish {
     public Telemetry telem;
 
     //defining global variables
-    public DcMotor motorFL, motorFR, motorBL, motorBR;
+    public DcMotorEx motorFL, motorFR, motorBL, motorBR;
 
     public DcMotorEx armMotor, slideMotor, slideMotor2;
-    public DcMotor[] allMotors;
+    public DcMotorEx[] allMotors;
 
     public Servo clawServo, basketServo, clawMoveServo, suspensionServo;
 
@@ -178,20 +178,27 @@ public  class Goldfish {
                 //  colorSensor = hwMap.colorSensor.get("colorSensor");
 
                 // Initialize motors
+                /*
                 motorFL = hwMap.dcMotor.get("motorFL");
                 motorFR = hwMap.dcMotor.get("motorFR");
                 motorBL = hwMap.dcMotor.get("motorBL");
                 motorBR = hwMap.dcMotor.get("motorBR");
-
-                motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
-                // motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
-                motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
-                // motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
+                */
 
 
 
                 // Initialize the webcam using the configured name in the Robot Controller
                 //  webcamName = hwMap.get(WebcamName.class, "Webcam 1");
+
+                motorFL = (DcMotorEx) hwMap.dcMotor.get("motorFL");
+                motorFR = (DcMotorEx) hwMap.dcMotor.get("motorFR");
+                motorBL = (DcMotorEx) hwMap.dcMotor.get("motorBL");
+                motorBR = (DcMotorEx) hwMap.dcMotor.get("motorBR");
+
+                motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
+                // motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
+                // motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
                 armMotor = (DcMotorEx) hwMap.dcMotor.get("armMotor");
                 slideMotor = (DcMotorEx) hwMap.dcMotor.get("slideMotor");
@@ -207,7 +214,11 @@ public  class Goldfish {
                 armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
-                allMotors = new DcMotor[]{motorFL, motorFR, motorBL, motorBR};
+                allMotors = new DcMotorEx[]{motorFL, motorFR, motorBL, motorBR};
+
+                for (DcMotorEx x : allMotors) {
+                    x.setTargetPositionTolerance(15);
+                }
 
                 // Create and configure the AprilTag processor
               /*  aprilTag = new AprilTagProcessor.Builder()
@@ -269,8 +280,8 @@ public  class Goldfish {
 
     public void armCollect() {
         clawServo.setPosition(.9);
-        setArmTicks(-1625, 1);
-        clawMoveServo.setPosition(0.6);
+        setArmTicks(-1700, 1);
+        clawMoveServo.setPosition(0.62);
     }
 
     public void setArmMotor(double power) {
@@ -309,11 +320,11 @@ public  class Goldfish {
     public void basketRest() { basketServo.setPosition(0.6); }
 
     public void armToBasket() {
-        armMotor.setPower(-.4);
+        armMotor.setPower(-1);
     }
 
     public void armAwayBasket() {
-        armMotor.setPower(.4);
+        armMotor.setPower(1);
     }
 
     public void setArmTicks(int tickTarget, double speed) {
@@ -418,13 +429,13 @@ public  class Goldfish {
         motorBL.setTargetPosition( -tickTarget);
         motorBR.setTargetPosition( tickTarget);
 
-        for(DcMotor x: allMotors) {
+        for(DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
 
         move(speed, 0, 0);
 
-        for (DcMotor x: allMotors) {
+        for (DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
@@ -446,7 +457,7 @@ public  class Goldfish {
 
         //resetDriveEncoders();
 
-        for(DcMotor x: allMotors) {
+        for(DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
         motorFL.setTargetPosition(tickTarget);
@@ -454,21 +465,24 @@ public  class Goldfish {
         motorBL.setTargetPosition(0);
         motorBR.setTargetPosition(tickTarget);
 
-        for (DcMotor x: allMotors) {
+        for (DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
-        for (DcMotor x: allMotors) {
+        for (DcMotorEx x: allMotors) {
             x.setPower(speed);
         }
-        //resetDriveEncoders();
 
         waitForMotors();
+
+        resetDriveEncoders();
+
     }
 
     public void moveDiagonalSW(double inches, double speed) {
 
         moveDiagonalNE(-inches, speed);
+
     }
 
     public void moveDiagonalNW(double inches, double speed) {
@@ -481,19 +495,19 @@ public  class Goldfish {
         motorBL.setTargetPosition( tickTarget);
         motorBR.setTargetPosition(0);
 
-        for(DcMotor x: allMotors) {
+        for(DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
 
         move(-speed, speed, 0);
 
-        for (DcMotor x: allMotors) {
+        for (DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
         waitForMotors();
 
-        //resetDriveEncoders();
+        resetDriveEncoders();
 
     }
 
@@ -515,17 +529,15 @@ public  class Goldfish {
         motorBL.setTargetPosition( tickTarget);
         motorBR.setTargetPosition( -tickTarget);
 
-        for(DcMotor x: allMotors) {
+        for(DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
 
         move(0, 0, speed);
 
-        for(DcMotor x: allMotors) {
+        for(DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-
-        waitForMotors();
 
         resetDriveEncoders();
 
@@ -534,6 +546,8 @@ public  class Goldfish {
     public void turnLeftDegrees(int degrees, double speed) {
 
         turnRightDegrees(-degrees, -speed);
+
+        resetDriveEncoders();
 
     }
 
@@ -549,11 +563,11 @@ public  class Goldfish {
             armMotor.setPower(0);
         }
 
-        for(DcMotor x: allMotors) {
+        for(DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
 
-        for(DcMotor x: allMotors) {
+        for(DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
@@ -564,6 +578,9 @@ public  class Goldfish {
             boolean finished = false;
             while (auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
                 if (armMotor.isBusy()) {
+                    telem.addData("arm motor", "%7d / % 7d", armMotor.getCurrentPosition(), armMotor.getTargetPosition());
+                    telem.update();
+                } else if (armMotor.isBusy()) {
                     telem.addData("arm motor", "%7d / % 7d", armMotor.getCurrentPosition(), armMotor.getTargetPosition());
                     telem.update();
                 } else {
