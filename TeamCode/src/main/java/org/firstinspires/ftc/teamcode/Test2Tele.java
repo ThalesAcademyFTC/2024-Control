@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.transition.Slide;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "Teleop")
-public class Teleop extends OpMode {
+@TeleOp(name = "Test2Tele")
+public class Test2Tele extends OpMode {
 
     Goldfish robot;
 
@@ -28,12 +26,7 @@ public class Teleop extends OpMode {
     @Override
     public void init() {
 
-
         robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
-
-        telemetry.addData("Slide Position", robot.slideMotor.getCurrentPosition());
-        telemetry.addData("Slide Position 2", robot.slideMotor2.getCurrentPosition());
-
 
     }
 
@@ -44,10 +37,6 @@ public class Teleop extends OpMode {
         telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
         telemetry.addData("slidePos", basketPos);
         telemetry.addData("armPos", robot.armMotor.getCurrentPosition());
-        telemetry.addData("Slide Velocity", robot.slideMotor.getVelocity());
-
-        telemetry.addData("slide motor 1", "%7d / % 7d", robot.slideMotor.getCurrentPosition(), robot.slideMotor.getTargetPosition());
-        telemetry.addData("slide motor 2", "%7d / % 7d", robot.slideMotor2.getCurrentPosition(), robot.slideMotor2.getTargetPosition());
         telemetry.update();
 
 /*
@@ -63,30 +52,16 @@ Right bumper / Left bumper || open / close claw
         robot.move(x, y, turn);
 
         if (gamepad2.right_trigger > 0.3) {
-            robot.closeClaw();
-        } else if (gamepad2.left_trigger > 0.3) {
             robot.openClaw();
+        } else if (gamepad2.left_trigger > 0.3) {
+            robot.closeClaw();
         }
 
-        if (gamepad2.left_stick_y > .15) {
-            robot.armToBasket();
-        } else if (gamepad2.left_stick_y < -.25) {
-            robot.armAwayBasket();
-        } else {
-            robot.armMotor.setPower(0);
-        }
-
+/*
         if (robot.armMotor.getCurrentPosition() >= -500) {
-            robot.clawMoveServo.setPosition(0.85);
-        } else robot.clawMoveServo.setPosition(0.6);
-
-
-        if (gamepad2.dpad_up) {
-            robot.setSuspensionServo(0);
-        } else if (gamepad2.dpad_down) {
-            robot.setSuspensionServo(.75);
-        }
-
+            robot.clawMoveServo.setPosition(1);
+        } else robot.clawMoveServo.setPosition(0.35);
+*/
 
         // Slide motor code below
 
@@ -111,18 +86,21 @@ Right bumper / Left bumper || open / close claw
             robot.resetSlide();
         }
 
-        if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
-            robot.basketRest();
-        } else if (gamepad2.left_bumper){
-            robot.basketDown();
-        } else if (gamepad2.right_bumper){
-            robot.basketUp();
-        }
-
         if (!gamepad2.y && !gamepad2.a){
             buttonPressed = false;
         }
 
+
+        // This may take a little while but it will make our lives infinitely easier
+        if (gamepad1.dpad_down && robot.clawServo.getPosition() == 0) {
+            robot.basketUp();
+            robot.armDump();
+            robot.waitForArmMotor();
+            robot.openClaw();
+            robot.armReset();
+            robot.waitForArmMotor();
+            robot.basketRest();
+        }
 
         telemetry.update();
     }
