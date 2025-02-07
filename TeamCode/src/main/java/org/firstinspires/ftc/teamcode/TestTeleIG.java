@@ -58,44 +58,8 @@ public class TestTeleIG extends OpMode {
 
         // Slide motor code below
 
-        if (gamepad2.y && slidePos == SlidePosition.RESET && buttonPressed == false) {
-            slidePos = SlidePosition.LOW;
-            buttonPressed = true;
-            robot.lowSlideBucket();
-        } else if (gamepad2.y && slidePos == SlidePosition.LOW && buttonPressed == false) {
-            slidePos = SlidePosition.HIGH;
-            buttonPressed = true;
-            robot.highSlideBucket();
-        }
-
-
-        if (gamepad2.a && slidePos == slidePos.HIGH && buttonPressed == false) {
-            slidePos = SlidePosition.LOW;
-            buttonPressed = true;
-            robot.lowSlideBucket();
-        } else if (gamepad2.a && slidePos == SlidePosition.LOW && buttonPressed == false) {
-            slidePos = SlidePosition.RESET;
-            buttonPressed = true;
-            robot.resetSlide();
-        }
-
-        if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
-            robot.basketRest();
-        } else if (gamepad2.left_bumper){
-            robot.basketUp();
-        } else if (gamepad2.right_bumper){
-            robot.basketDown();
-        }
-
-        if (gamepad2.right_trigger > 0.1) {
-            robot.closeClaw();
-        } else if (gamepad2.left_trigger > 0.1) {
-            robot.openClaw();
-        }
-
-
-        if (!gamepad2.y && !gamepad2.a){
-            buttonPressed = false;
+        if (gamepad2.dpad_down) {
+            robot.clawMoveServo.setPosition(0.5);
         }
 
 

@@ -31,6 +31,10 @@ public class Teleop extends OpMode {
 
         robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
 
+        telemetry.addData("Slide Position", robot.slideMotor.getCurrentPosition());
+        telemetry.addData("Slide Position 2", robot.slideMotor2.getCurrentPosition());
+
+
     }
 
     @Override
@@ -41,6 +45,9 @@ public class Teleop extends OpMode {
         telemetry.addData("slidePos", basketPos);
         telemetry.addData("armPos", robot.armMotor.getCurrentPosition());
         telemetry.addData("Slide Velocity", robot.slideMotor.getVelocity());
+
+        telemetry.addData("slide motor 1", "%7d / % 7d", robot.slideMotor.getCurrentPosition(), robot.slideMotor.getTargetPosition());
+        telemetry.addData("slide motor 2", "%7d / % 7d", robot.slideMotor2.getCurrentPosition(), robot.slideMotor2.getTargetPosition());
         telemetry.update();
 
 /*
@@ -70,8 +77,8 @@ Right bumper / Left bumper || open / close claw
         }
 
         if (robot.armMotor.getCurrentPosition() >= -500) {
-            robot.clawMoveServo.setPosition(1);
-        } else robot.clawMoveServo.setPosition(0.35);
+            robot.clawMoveServo.setPosition(0.85);
+        } else robot.clawMoveServo.setPosition(0.6);
 
 
         if (gamepad2.dpad_up) {
@@ -115,7 +122,6 @@ Right bumper / Left bumper || open / close claw
         if (!gamepad2.y && !gamepad2.a){
             buttonPressed = false;
         }
-
 
 
         telemetry.update();

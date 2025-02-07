@@ -38,13 +38,11 @@ public class bucketLeftAuton extends LinearOpMode {
         //Robot prepares to dump a sample
         robot.highSlideBucket();
         robot.waitForSlideMotors();
-        robot.moveBackwardInches(9, speed/2);
+        robot.moveBackwardInches(9, speed/1.5);
 
 
         //Robot dumps a sample
         robot.basketUp();
-        robot.waitForMotors();
-            sleep(rest);
 
         //Robot backs up and limbs reset
         robot.moveForwardInches(3,speed);
@@ -57,13 +55,12 @@ public class bucketLeftAuton extends LinearOpMode {
         robot.turnLeftDegrees(45,speed);
         // Work for a scooby snack <3
         sleep(rest);
-        robot.moveForwardInches(8,speed);
-        sleep(rest);
+        robot.armCollect();
+        robot.moveForwardInches(6,speed*1.5);
+        robot.waitForArmMotor();
 
         //Robot picks up middle sample
-        robot.armCollect();
         robot.moveRightInches(7, speed);
-        robot.waitForArmMotor();
         robot.closeClaw();
         sleep(350);
 
@@ -71,32 +68,31 @@ public class bucketLeftAuton extends LinearOpMode {
         robot.armDump();
         robot.basketDown();
         robot.turnRightDegrees(45, speed);
-        robot.waitForArmMotor();
         robot.openClaw();
-        sleep(rest);
+        sleep(rest*2);
+        robot.clawMoveServo.setPosition(0.6);
+        sleep(500);
         robot.armReset();
         robot.basketRest();
-        robot.moveBackwardInches(10, speed);
-        sleep(rest);
-/*
+        robot.moveBackwardInches(7, speed);
+
         //Robot prepares to dump a sample
         robot.highSlideBucket();
-        robot.moveBackwardInches(2, speed);
         robot.waitForSlideMotors();
-        sleep(rest);
+        robot.moveBackwardInches(3, speed);
 
         //Robot places a sample
         robot.basketDown();
+        sleep(rest*2);
         robot.basketUp();
-        robot.moveForwardInches(2, speed);
+        robot.moveForwardInches(3, speed);
         robot.resetSlide();
-        sleep(rest);
         robot.turnRightDegrees(45, speed);
-
+        robot.waitForSlideMotors();
         //Robot parks
         //Robot can park in two places. COMMENT OUT whichever one you don't need.
 
-
+/*
         //robot parks in the inspection zone
         robot.moveRightInches(118, speed);
 

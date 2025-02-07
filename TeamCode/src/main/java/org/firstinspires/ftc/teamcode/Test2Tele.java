@@ -86,14 +86,6 @@ Right bumper / Left bumper || open / close claw
             robot.resetSlide();
         }
 
-        if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
-            robot.basketRest();
-        } else if (gamepad2.left_bumper){
-            robot.basketDown();
-        } else if (gamepad2.right_bumper){
-            robot.basketUp();
-        }
-
         if (!gamepad2.y && !gamepad2.a){
             buttonPressed = false;
         }
