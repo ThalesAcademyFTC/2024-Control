@@ -56,11 +56,11 @@ public class bucketLeftAuton extends LinearOpMode {
         // Work for a scooby snack <3
         sleep(rest);
         robot.armCollect();
-        robot.moveForwardInches(6,speed*1.5);
+        robot.moveForwardInches(7,speed*1.5);
         robot.waitForArmMotor();
 
         //Robot picks up middle sample
-        robot.moveRightInches(7, speed);
+        robot.moveRightInches(6, speed);
         robot.closeClaw();
         sleep(350);
 
@@ -74,7 +74,7 @@ public class bucketLeftAuton extends LinearOpMode {
         sleep(500);
         robot.armReset();
         robot.basketRest();
-        robot.moveBackwardInches(7, speed);
+        robot.moveBackwardInches(9, speed);
 
         //Robot prepares to dump a sample
         robot.highSlideBucket();
@@ -82,9 +82,9 @@ public class bucketLeftAuton extends LinearOpMode {
         robot.moveBackwardInches(3, speed);
 
         //Robot places a sample
-        robot.basketDown();
-        sleep(rest*2);
         robot.basketUp();
+        sleep(400);
+        robot.basketDown();
         robot.moveForwardInches(3, speed);
         robot.resetSlide();
         robot.turnRightDegrees(45, speed);
