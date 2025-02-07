@@ -49,9 +49,17 @@ public class bucketRightAuton extends LinearOpMode {
 
 
         //Robot moves over to the three alliance samples
+        robot.moveBackwardInches(3, speed);
         robot.moveRightInches(36, speed);
         robot.moveForwardInches(23, speed);
+        robot.openClaw();
         robot.moveRightInches(8, speed);
+
+
+        //robot picks up sample
+        robot.closeClaw();
+        robot.moveBackwardInches(47, speed);
+
 
 
     }
