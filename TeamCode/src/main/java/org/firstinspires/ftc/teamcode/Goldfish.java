@@ -280,7 +280,7 @@ public  class Goldfish {
 
     public void armCollect() {
         clawServo.setPosition(.9);
-        setArmTicks(-1700, 1);
+        setArmTicks(-1707, 1);
         clawMoveServo.setPosition(0.62);
     }
 
@@ -320,11 +320,11 @@ public  class Goldfish {
     public void basketRest() { basketServo.setPosition(0.6); }
 
     public void armToBasket() {
-        armMotor.setPower(-1);
+        armMotor.setPower(-7);
     }
 
     public void armAwayBasket() {
-        armMotor.setPower(1);
+        armMotor.setPower(0.7);
     }
 
     public void setArmTicks(int tickTarget, double speed) {
@@ -538,6 +538,8 @@ public  class Goldfish {
         for(DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
+
+        waitForMotors();
 
         resetDriveEncoders();
 

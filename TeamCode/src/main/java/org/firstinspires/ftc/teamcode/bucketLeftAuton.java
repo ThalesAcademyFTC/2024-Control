@@ -19,7 +19,10 @@ public class bucketLeftAuton extends LinearOpMode {
         long rest = 50;
 
         robot.basketDown();
-        robot.armDump();
+        robot.openClaw();
+        sleep(200);
+        robot.armReset();
+        robot.clawMoveServo.setPosition(0.6);
 
         waitForStart();
 
@@ -33,13 +36,14 @@ public class bucketLeftAuton extends LinearOpMode {
         robot.basketRest();
 
         //Moves to bucket
-        robot.moveDiagonalSW(30, speed);
+        robot.highSlideBucket();
+        robot.moveDiagonalSW(26, speed);
         robot.turnLeftDegrees(45, speed);
 
         //Robot prepares to dump a sample
-        robot.highSlideBucket();
         robot.waitForSlideMotors();
-        robot.moveBackwardInches(9, speed/1.5);
+        robot.moveBackwardInches(9, speed*0.5);
+        sleep(200);
 
 
         //Robot dumps a sample
@@ -48,54 +52,60 @@ public class bucketLeftAuton extends LinearOpMode {
         //Robot backs up and limbs reset
         robot.moveForwardInches(3,speed);
         robot.resetSlide();
-        robot.basketRest();
+        robot.basketDown();
         sleep(rest);
 
         //SECOND CYCLE
         //Robot turns and moves to the middle sample
+
         robot.turnLeftDegrees(45,speed);
-        // Work for a scooby snack <3
-        sleep(rest);
         robot.armCollect();
-        robot.moveForwardInches(7,speed*1.5);
+        robot.moveLeftInches(3,speed);
+        robot.moveForwardInches(7.25,speed*0.75);
         robot.waitForArmMotor();
 
         //Robot picks up middle sample
-        robot.moveRightInches(6, speed);
+        robot.moveRightInches(2, speed);
         robot.closeClaw();
-        sleep(350);
+        robot.moveRightInches(2,speed);
+        sleep(150);
 
         //Robot returns to the bucket while placing sample in the basket
         robot.armDump();
-        robot.basketDown();
-        robot.turnRightDegrees(45, speed);
+        robot.waitForArmMotor();
         robot.openClaw();
         sleep(rest*2);
         robot.clawMoveServo.setPosition(0.6);
-        sleep(500);
+        sleep(200);
         robot.armReset();
+        sleep(200);
         robot.basketRest();
-        robot.moveBackwardInches(9, speed);
+
+        //dump 2
+        robot.highSlideBucket();
+        robot.moveBackwardInches(5,speed);
+        robot.turnRightDegrees(45,speed);
 
         //Robot prepares to dump a sample
-        robot.highSlideBucket();
-        robot.waitForSlideMotors();
-        robot.moveBackwardInches(3, speed);
+        sleep(2000);
+        robot.moveBackwardInches(3, speed*0.75);
 
         //Robot places a sample
         robot.basketUp();
         sleep(400);
-        robot.basketDown();
+        robot.basketRest();
         robot.moveForwardInches(3, speed);
         robot.resetSlide();
         robot.turnRightDegrees(45, speed);
-        robot.waitForSlideMotors();
+        robot.basketDown();
         //Robot parks
         //Robot can park in two places. COMMENT OUT whichever one you don't need.
 
-/*
+
         //robot parks in the inspection zone
-        robot.moveRightInches(118, speed);
+        robot.moveDiagonalNW(24, speed);
+        robot.moveLeftInches(12, speed);
+        robot.moveForwardInches(5, speed);
 
         //robot parks near the sample prison
         /*robot.moveDiagonalNE(32, speed);
