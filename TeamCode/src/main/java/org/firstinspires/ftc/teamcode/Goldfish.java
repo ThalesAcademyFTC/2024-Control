@@ -50,6 +50,7 @@ public  class Goldfish {
     public DcMotorEx motorFL, motorFR, motorBL, motorBR;
 
     public DcMotorEx armMotor, slideMotor, slideMotor2;
+
     public DcMotorEx[] allMotors;
 
     public Servo clawServo, basketServo, clawMoveServo, suspensionServo;
@@ -220,6 +221,9 @@ public  class Goldfish {
                     x.setTargetPositionTolerance(15);
                 }
 
+                slideMotor.setTargetPositionTolerance(15);
+                slideMotor2.setTargetPositionTolerance(15);
+
                 // Create and configure the AprilTag processor
               /*  aprilTag = new AprilTagProcessor.Builder()
                     .setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)   // Set which AprilTag family to look for
@@ -280,7 +284,7 @@ public  class Goldfish {
 
     public void armCollect() {
         clawServo.setPosition(.9);
-        setArmTicks(-1707, 1);
+        setArmTicks(-1701, 1);
         clawMoveServo.setPosition(0.62);
     }
 
@@ -320,7 +324,7 @@ public  class Goldfish {
     public void basketRest() { basketServo.setPosition(0.6); }
 
     public void armToBasket() {
-        armMotor.setPower(-7);
+        armMotor.setPower(-0.7);
     }
 
     public void armAwayBasket() {
@@ -429,13 +433,16 @@ public  class Goldfish {
         motorBL.setTargetPosition( -tickTarget);
         motorBR.setTargetPosition( tickTarget);
 
-        for(DcMotorEx x: allMotors) {
+        for (DcMotor x : allMotors) {
+
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         }
 
-        move(speed, 0, 0);
+        move(0, speed, 0);
 
-        for (DcMotorEx x: allMotors) {
+        for (DcMotor x : allMotors) {
+
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
@@ -465,12 +472,18 @@ public  class Goldfish {
         motorBL.setTargetPosition(0);
         motorBR.setTargetPosition(tickTarget);
 
-        for (DcMotorEx x: allMotors) {
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        for (DcMotor x : allMotors) {
+
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         }
 
-        for (DcMotorEx x: allMotors) {
-            x.setPower(speed);
+        move(0, speed, 0);
+
+        for (DcMotor x : allMotors) {
+
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
         waitForMotors();
@@ -495,25 +508,23 @@ public  class Goldfish {
         motorBL.setTargetPosition( tickTarget);
         motorBR.setTargetPosition(0);
 
-        for(DcMotorEx x: allMotors) {
+
+        for (DcMotor x : allMotors) {
+
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         }
 
-        move(-speed, speed, 0);
+        move(0, speed, 0);
 
-        for (DcMotorEx x: allMotors) {
+        for (DcMotor x : allMotors) {
+
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
         waitForMotors();
 
         resetDriveEncoders();
-
-    }
-
-    public void moveDiagonalSE(double inches, double speed) {
-
-        moveDiagonalNW(-inches, -speed);
 
     }
 
@@ -538,8 +549,6 @@ public  class Goldfish {
         for(DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-
-        waitForMotors();
 
         resetDriveEncoders();
 

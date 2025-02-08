@@ -21,8 +21,9 @@ public class bucketLeftAuton extends LinearOpMode {
         robot.basketDown();
         robot.openClaw();
         sleep(200);
-        robot.armReset();
         robot.clawMoveServo.setPosition(0.6);
+        sleep(200);
+        robot.armReset();
 
         waitForStart();
 
@@ -58,49 +59,48 @@ public class bucketLeftAuton extends LinearOpMode {
         //SECOND CYCLE
         //Robot turns and moves to the middle sample
 
-        robot.turnLeftDegrees(45,speed);
         robot.armCollect();
+        robot.turnLeftDegrees(45,speed);
         robot.moveLeftInches(3,speed);
         robot.moveForwardInches(7.25,speed*0.75);
-        robot.waitForArmMotor();
 
         //Robot picks up middle sample
         robot.moveRightInches(2, speed);
         robot.closeClaw();
-        robot.moveRightInches(2,speed);
-        sleep(150);
+        robot.moveRightInches(3,speed);
 
         //Robot returns to the bucket while placing sample in the basket
         robot.armDump();
+        robot.moveBackwardInches(5,speed);
         robot.waitForArmMotor();
         robot.openClaw();
         sleep(rest*2);
         robot.clawMoveServo.setPosition(0.6);
         sleep(200);
         robot.armReset();
-        sleep(200);
+        sleep(100);
         robot.basketRest();
+        sleep(100);
 
         //dump 2
         robot.highSlideBucket();
         robot.moveBackwardInches(5,speed);
         robot.turnRightDegrees(45,speed);
+        robot.waitForSlideMotors();
 
         //Robot prepares to dump a sample
-        sleep(2000);
         robot.moveBackwardInches(3, speed*0.75);
 
         //Robot places a sample
         robot.basketUp();
         sleep(400);
-        robot.basketRest();
+        robot.basketDown();
         robot.moveForwardInches(3, speed);
         robot.resetSlide();
         robot.turnRightDegrees(45, speed);
-        robot.basketDown();
+
         //Robot parks
         //Robot can park in two places. COMMENT OUT whichever one you don't need.
-
 
         //robot parks in the inspection zone
         robot.moveDiagonalNW(24, speed);
