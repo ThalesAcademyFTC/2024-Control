@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "Teleop")
+@TeleOp(name = "TeleopNew")
 public class TeleopNew extends OpMode {
 
     Goldfish robot;
@@ -31,7 +31,7 @@ public class TeleopNew extends OpMode {
 
     int ready = 0;
 
-    double rbtSpd = 1.2;
+    double rbtSpd = 1;
 
     @Override
     public void init() {
@@ -86,19 +86,24 @@ Right bumper / Left bumper || open / close claw
 
         if (robot.armMotor.getCurrentPosition() >= -500) {
             robot.clawMoveServo.setPosition(0.85);
-        } else robot.clawMoveServo.setPosition(0.62);
-
-        if (robot.armMotor.getCurrentPosition() >= -150)
             robot.basketDown();
             basketPos = BasketPosition.PICKUP;
-
-
-        if (gamepad2.dpad_up && gamepad1.dpad_up) {
-            robot.setSuspensionServo(0);
-        } else if (gamepad2.dpad_down && gamepad1.dpad_down) {
-            robot.setSuspensionServo(.75);
+            buttonPressed2 = true;
+        } else {
+            robot.clawMoveServo.setPosition(0.64);
+            buttonPressed2 = false;
         }
 
+        if (gamepad1.a) {
+            robot.setSuspensionServo(0.66);
+        } else if (gamepad1.a) {
+            robot.setSuspensionServo(1);
+        }
+
+        if (gamepad1.dpad_up)    { robot.moveForward(0.25); }
+        if (gamepad1.dpad_down)  { robot.moveBackward(0.25); }
+        if (gamepad1.dpad_left)  { robot.moveLeft(0.25); }
+        if (gamepad1.dpad_right) { robot.moveRight(0.25); }
 
         // Slide motor code below
 
@@ -128,24 +133,12 @@ Right bumper / Left bumper || open / close claw
 
         // basket
 
-        if (gamepad2.left_bumper && basketPos == BasketPosition.REST) {
-            basketPos = BasketPosition.PICKUP;
+        if (!gamepad2.left_bumper && !gamepad2.right_bumper && buttonPressed2 == false) {
+            robot.basketRest();
+        } else if (gamepad2.left_bumper){
             robot.basketDown();
-        } else if (gamepad2.left_bumper && basketPos == BasketPosition.PICKUP) {
-            basketPos = BasketPosition.REST;
-            robot.basketRest();
-        } else if (gamepad2.left_bumper && basketPos == BasketPosition.DROP) {
-            basketPos = BasketPosition.REST;
-            robot.basketRest();
-        }
-
-        if (gamepad2.right_bumper) {
+        } else if (gamepad2.right_bumper){
             robot.basketUp();
-            basketPos = BasketPosition.DROP;
-
-        } else if (!gamepad2.right_bumper && basketPos == BasketPosition.REST || !gamepad2.right_bumper && basketPos == BasketPosition.PICKUP) {
-                robot.basketRest();
-            basketPos = BasketPosition.REST;
         }
 
 

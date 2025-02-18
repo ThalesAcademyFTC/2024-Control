@@ -284,8 +284,8 @@ public  class Goldfish {
 
     public void armCollect() {
         clawServo.setPosition(.9);
-        setArmTicks(-1701, 1);
-        clawMoveServo.setPosition(0.62);
+        setArmTicks(-1685, 1);
+        clawMoveServo.setPosition(0.64);
     }
 
     public void setArmMotor(double power) {
@@ -311,12 +311,10 @@ public  class Goldfish {
         clawServo.setPosition(.9);
     }
 
-    public void closeClaw() {
-        clawServo.setPosition(.4);
-    }
+    public void closeClaw() { clawServo.setPosition(.4); }
 
     public void basketDown() {
-        basketServo.setPosition(.3);
+        basketServo.setPosition(.475);
     }
 
     public void basketUp() { basketServo.setPosition(.85); }
@@ -387,6 +385,23 @@ public  class Goldfish {
 
        // waitForArmMotor();
     }
+
+    public void moveForward(double speed){
+        motorFL.setPower(1);
+        motorFR.setPower(1);
+        motorBL.setPower(1);
+        motorBR.setPower(1);
+    }
+    public void moveBackward(double speed){ moveForward (-speed); }
+
+    public void moveLeft(double speed){
+        motorFL.setPower(1);
+        motorFR.setPower(-1);
+        motorBL.setPower(-1);
+        motorBR.setPower(1);
+    }
+
+    public void moveRight(double speed){ moveLeft (-speed);}
 
     public void moveForwardInches( double inches, double speed) {
         int tickTarget = (int) Math.round(inches * inchtick);
@@ -486,11 +501,13 @@ public  class Goldfish {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
+
         waitForMotors();
 
         resetDriveEncoders();
 
     }
+
 
     public void moveDiagonalSW(double inches, double speed) {
 
@@ -534,7 +551,6 @@ public  class Goldfish {
 
         resetDriveEncoders();
 
-        
         motorFL.setTargetPosition( tickTarget);
         motorFR.setTargetPosition( -tickTarget);
         motorBL.setTargetPosition( tickTarget);
@@ -549,6 +565,8 @@ public  class Goldfish {
         for(DcMotorEx x: allMotors) {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
+
+        waitForMotors();
 
         resetDriveEncoders();
 

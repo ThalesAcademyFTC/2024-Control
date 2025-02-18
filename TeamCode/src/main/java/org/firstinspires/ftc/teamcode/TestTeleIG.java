@@ -52,14 +52,18 @@ public class TestTeleIG extends OpMode {
         double turn = (gamepad1.right_stick_x / rbtSpd);
 
 
-        // Move the robot using the transformed inputs
-        robot.move(x, y, turn);
-
-
         // Slide motor code below
-
-        if (gamepad2.dpad_down) {
-            robot.clawMoveServo.setPosition(0.5);
+        if (gamepad2.a) {
+            robot.clawMoveServo.setPosition(0);
+        }
+        if (gamepad2.b) {
+            robot.clawMoveServo.setPosition(0.25);
+        }
+        if (gamepad2.x) {
+            robot.clawMoveServo.setPosition(0.75);
+        }
+        if (gamepad2.y) {
+            robot.clawMoveServo.setPosition(1);
         }
 
 

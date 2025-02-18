@@ -31,8 +31,7 @@ public class bucketLeftAuton extends LinearOpMode {
         //BUCKET ON THE ROBOT SHOULD BE FACING THE PLAYING FIELD BUCKET
 
 
-
-        //Arm and basket extend out
+        //reset to start
         robot.armReset();
         robot.basketRest();
 
@@ -40,37 +39,35 @@ public class bucketLeftAuton extends LinearOpMode {
         robot.highSlideBucket();
         robot.moveDiagonalSW(26, speed);
         robot.turnLeftDegrees(45, speed);
-
-        //Robot prepares to dump a sample
         robot.waitForSlideMotors();
         robot.moveBackwardInches(9, speed*0.5);
         sleep(200);
 
 
-        //Robot dumps a sample
+        //Robot dumps first sample
         robot.basketUp();
-
-        //Robot backs up and limbs reset
         robot.moveForwardInches(3,speed);
         robot.resetSlide();
         robot.basketDown();
         sleep(rest);
 
         //SECOND CYCLE
-        //Robot turns and moves to the middle sample
 
+        //Robot turns and moves to the middle sample
         robot.armCollect();
-        robot.turnLeftDegrees(45,speed);
-        robot.moveLeftInches(3,speed);
-        robot.moveForwardInches(7.25,speed*0.75);
+        robot.turnLeftDegrees(40,speed);
+        robot.moveLeftInches(5,speed);
+        robot.moveForwardInches(7,speed*0.75);
 
         //Robot picks up middle sample
+        robot.armMotor.setTargetPosition(-1705);
+        robot.clawMoveServo.setPosition(0.57);
         robot.moveRightInches(2, speed);
         robot.closeClaw();
-        robot.moveRightInches(3,speed);
-
-        //Robot returns to the bucket while placing sample in the basket
+        robot.moveRightInches(2,speed);
         robot.armDump();
+
+        //robot moves to bucket
         robot.moveBackwardInches(5,speed);
         robot.waitForArmMotor();
         robot.openClaw();
@@ -80,37 +77,33 @@ public class bucketLeftAuton extends LinearOpMode {
         robot.armReset();
         sleep(100);
         robot.basketRest();
-        sleep(100);
 
-        //dump 2
+        //dump second sample
         robot.highSlideBucket();
-        robot.moveBackwardInches(5,speed);
         robot.turnRightDegrees(45,speed);
+        robot.moveDiagonalNW(-4,speed);
         robot.waitForSlideMotors();
+        robot.moveBackwardInches(3,speed*0.75);
 
-        //Robot prepares to dump a sample
-        robot.moveBackwardInches(3, speed*0.75);
-
-        //Robot places a sample
+        //dump
         robot.basketUp();
-        sleep(400);
+        sleep(350);
         robot.basketDown();
         robot.moveForwardInches(3, speed);
         robot.resetSlide();
         robot.turnRightDegrees(45, speed);
+        robot.armDump();
 
         //Robot parks
-        //Robot can park in two places. COMMENT OUT whichever one you don't need.
-
-        //robot parks in the inspection zone
         robot.moveDiagonalNW(24, speed);
-        robot.moveLeftInches(12, speed);
-        robot.moveForwardInches(5, speed);
-
-        //robot parks near the sample prison
-        /*robot.moveDiagonalNE(32, speed);
-        robot.moveForwardInches(24, speed);
-        robot.moveRightInches(8, speed);*/
+        robot.moveLeftInches(28, speed);
+        robot.turnRightDegrees(185, speed);
+        robot.highSlideBucket();
+        robot.moveBackwardInches(6, speed);
+        robot.waitForSlideMotors();
+        robot.moveBackwardInches(8, speed);
+        //dont forget to close your code next time ;) (i would hate it if things were deleted
+        // because they were closed wrong and didnt get saved)
 
 
     }

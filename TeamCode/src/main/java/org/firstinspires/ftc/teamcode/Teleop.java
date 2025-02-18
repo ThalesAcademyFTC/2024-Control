@@ -78,13 +78,13 @@ Right bumper / Left bumper || open / close claw
 
         if (robot.armMotor.getCurrentPosition() >= -500) {
             robot.clawMoveServo.setPosition(0.85);
-        } else robot.clawMoveServo.setPosition(0.62);
+        } else robot.clawMoveServo.setPosition(0.6);
 
 
         if (gamepad2.dpad_up) {
-            robot.setSuspensionServo(0);
+            robot.setSuspensionServo(0.66);
         } else if (gamepad2.dpad_down) {
-            robot.setSuspensionServo(.75);
+            robot.setSuspensionServo(1);
         }
 
 
