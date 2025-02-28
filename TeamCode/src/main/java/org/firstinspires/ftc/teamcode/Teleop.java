@@ -2,8 +2,12 @@ package org.firstinspires.ftc.teamcode;
 
 import android.transition.Slide;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.IMU;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp(name = "Teleop")
 public class Teleop extends OpMode {
@@ -34,6 +38,10 @@ public class Teleop extends OpMode {
         telemetry.addData("Slide Position", robot.slideMotor.getCurrentPosition());
         telemetry.addData("Slide Position 2", robot.slideMotor2.getCurrentPosition());
 
+        RevHubOrientationOnRobot.LogoFacingDirection logoDir = RevHubOrientationOnRobot.LogoFacingDirection.UP;
+        RevHubOrientationOnRobot.UsbFacingDirection usbDir = RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
+        RevHubOrientationOnRobot orientation = new RevHubOrientationOnRobot(logoDir, usbDir);
+        robot.IMU.initialize(new IMU.Parameters(orientation));
 
     }
 
@@ -48,6 +56,8 @@ public class Teleop extends OpMode {
 
         telemetry.addData("slide motor 1", "%7d / % 7d", robot.slideMotor.getCurrentPosition(), robot.slideMotor.getTargetPosition());
         telemetry.addData("slide motor 2", "%7d / % 7d", robot.slideMotor2.getCurrentPosition(), robot.slideMotor2.getTargetPosition());
+
+        telemetry.addData("YAW", robot.IMU.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
         telemetry.update();
 
 /*

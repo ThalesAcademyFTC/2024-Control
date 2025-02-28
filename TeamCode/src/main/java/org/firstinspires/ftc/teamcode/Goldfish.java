@@ -57,6 +57,8 @@ public  class Goldfish {
 
     public WebcamName webcamName;
 
+    public IMU IMU;
+
     double inchtick = 50;
 
     double armInchTick = 116.27907;
@@ -214,6 +216,7 @@ public  class Goldfish {
                 armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+                IMU = (IMU) hwMap.get("imu");
 
                 allMotors = new DcMotorEx[]{motorFL, motorFR, motorBL, motorBR};
 

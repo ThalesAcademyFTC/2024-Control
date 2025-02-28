@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class bucketRightAuton extends LinearOpMode {
+public class lowBarRightAuton extends LinearOpMode {
 
     public Goldfish robot;
     public ElapsedTime runtime = new ElapsedTime();
@@ -19,7 +19,7 @@ public class bucketRightAuton extends LinearOpMode {
         long rest = 50;
 
         robot.basketDown();
-        robot.armDump();
+        robot.armReset();
 
         waitForStart();
 
@@ -35,31 +35,40 @@ public class bucketRightAuton extends LinearOpMode {
         will park in the observation zone.
         */
 
-        //Arm extends
-        robot.armReset();
-
         //Robot moves to the low bar
-        robot.moveForwardInches(27, speed);
-        robot.armCollect();
-        robot.clawMoveServo.setPosition(0.4);
-        robot.waitForArmMotor();
-        sleep(rest);
+        robot.moveForwardInches(23, speed);
 
         //Robot clips a specimen on the low bar
-
+        robot.setArmTicks(-1700, 1);
+        robot.waitForArmMotor();
+        robot.openClaw();
+        robot.moveBackwardInches(3, speed);
+        robot.armReset();
+        robot.waitForArmMotor();
+        robot.closeClaw();
 
         //Robot moves over to the three alliance samples
-        robot.moveBackwardInches(3, speed);
         robot.moveRightInches(36, speed);
         robot.moveForwardInches(23, speed);
+
+        //robot opens claw and moves towards the sample
         robot.openClaw();
         robot.moveRightInches(8, speed);
 
-
         //robot picks up sample
         robot.closeClaw();
-        robot.moveBackwardInches(47, speed);
 
+        //robot moves sample to basket
+        robot.armDump();
+        robot.basketDown();
+        robot.waitForArmMotor();
+
+        //robot returns to observation zone with a sample
+        robot.moveBackwardInches(47, speed);
+        robot.moveRightInches(21, speed);
+
+        /* sample will be used in teleop period for scoring on the bucket (may change depending on
+        alliance members' strategy) */
 
 
     }
