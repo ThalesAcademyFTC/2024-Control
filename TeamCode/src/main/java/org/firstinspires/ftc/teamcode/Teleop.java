@@ -22,38 +22,28 @@ public class Teleop extends OpMode {
     SlidePosition slidePos = SlidePosition.RESET;
 
     int ready = 0;
-
     double rbtSpd = 1.2;
 
     @Override
     public void init() {
 
-
         robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
 
         telemetry.addData("Slide Position", robot.slideMotor.getCurrentPosition());
         telemetry.addData("Slide Position 2", robot.slideMotor2.getCurrentPosition());
-
-
-    }
-
-    @Override
-    public void loop() {
-
         telemetry.addData("basketServo", robot.basketServo.getPosition());
         telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
         telemetry.addData("slidePos", basketPos);
         telemetry.addData("armPos", robot.armMotor.getCurrentPosition());
         telemetry.addData("Slide Velocity", robot.slideMotor.getVelocity());
-
         telemetry.addData("slide motor 1", "%7d / % 7d", robot.slideMotor.getCurrentPosition(), robot.slideMotor.getTargetPosition());
         telemetry.addData("slide motor 2", "%7d / % 7d", robot.slideMotor2.getCurrentPosition(), robot.slideMotor2.getTargetPosition());
+
+    }
+    @Override
+    public void loop() {
+
         telemetry.update();
-
-/*
-Right bumper / Left bumper || open / close claw
-
- */
 
         double y = (-gamepad1.left_stick_y / rbtSpd);
         double x = (gamepad1.left_stick_x / rbtSpd);
@@ -67,11 +57,13 @@ Right bumper / Left bumper || open / close claw
         } else if (gamepad2.left_trigger > 0.3) {
             robot.openClaw();
         }
-
+        // when left stick is up, the arm goes to the basket
         if (gamepad2.left_stick_y > .15) {
             robot.armToBasket();
+        // if the left stick is down then the arm goes away from the basket
         } else if (gamepad2.left_stick_y < -.25) {
             robot.armAwayBasket();
+        // if neither of these, then the arm does not move
         } else {
             robot.armMotor.setPower(0);
         }

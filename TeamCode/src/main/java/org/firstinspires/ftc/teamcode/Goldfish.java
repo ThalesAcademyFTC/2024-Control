@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.opM
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -57,11 +58,17 @@ public  class Goldfish {
 
     public WebcamName webcamName;
 
+    public IMU IMU;
+
     double inchtick = 50;
 
     double armInchTick = 116.27907;
 
     double TICKS_PER_INCH = 50;
+
+    public double rbtSpd = 1.2;
+
+
 
 
     //constants for arm and slide
@@ -214,6 +221,15 @@ public  class Goldfish {
                 armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+
+
+                // Retrieve the IMU from the hardware map
+                IMU = hwMap.get(IMU.class, "IMU");
+                // Adjust the orientation parameters to match your robot
+                IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot
+                        (RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
+                        RevHubOrientationOnRobot.UsbFacingDirection.UP));
+                IMU.initialize(parameters);
 
                 allMotors = new DcMotorEx[]{motorFL, motorFR, motorBL, motorBR};
 
@@ -418,7 +434,6 @@ public  class Goldfish {
 
         }
 
-        move(0, speed, 0);
 
         for (DcMotor x : allMotors) {
 
