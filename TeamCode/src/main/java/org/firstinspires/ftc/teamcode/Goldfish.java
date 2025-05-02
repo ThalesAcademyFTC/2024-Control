@@ -221,6 +221,7 @@ public  class Goldfish {
                 armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+                IMU = (IMU) hwMap.get("imu");
 
 
                 // Retrieve the IMU from the hardware map
