@@ -22,8 +22,6 @@ public class distaneLightingTeleop extends OpMode {
     @Override
     public void init() {
 
-        robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
-
         // makes a function to recieve the distance named "distanceSensor"
         distanceSensor = hardwareMap.get(Rev2mDistanceSensor.class, "distanceSensor");
 
