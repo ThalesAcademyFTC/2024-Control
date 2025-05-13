@@ -42,16 +42,16 @@ public class distaneLightingTeleop extends OpMode {
         // adds telem data for distance // distance replaces %.3f so that it shows "distance ___ cm"
         telemetry.addData("distance", "%.3f cm", distance);
 
-        // if distance is less than 5cm LED glows red
-        if (distance <= 30 && distance > 15) { redLED.enable(false); greenLED.enable(true); }
+        // if distance is from 30-45 cm the LED glows red
+        if      (distance <= 45 && distance > 30)   { redLED.enable(false); greenLED.enable(true); }
 
-        // if distance is less than 10 cm LED glows yellow
-        else if (distance <= 15 && distance > 5) { redLED.enable(true); greenLED.enable(true); }
+        // if distance is from 15-30 cm the LED glows yellow
+        else if (distance <= 30 && distance > 15)    { redLED.enable(true); greenLED.enable(true); }
 
-        // if distance is less than 15 cm LED glows green
-        else if (distance <= 5) { redLED.enable(true); greenLED.enable(false); }
+        // if distance is less than 15 cm the LED glows green
+        else if (distance <= 15 && distance > 0)    { redLED.enable(true); greenLED.enable(false); }
 
-        // if distance is above 15 then LEDs turn off
+        // if distance is above 45 cm then LEDs turn off
         else { redLED.enable(false); greenLED.enable(false); }
 
 
