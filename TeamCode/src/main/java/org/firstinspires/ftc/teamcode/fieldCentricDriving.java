@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.LED;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@TeleOp(name = "fieldLightingTeleop")
+@TeleOp(name = "fieldCentricTeleop")
 public class fieldCentricDriving extends OpMode {
 
     Goldfish robot;
