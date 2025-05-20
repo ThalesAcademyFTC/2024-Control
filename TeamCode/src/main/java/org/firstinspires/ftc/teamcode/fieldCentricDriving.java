@@ -23,29 +23,6 @@ public class fieldCentricDriving extends OpMode {
     @Override
     public void init() {
 
-//      -=-=-=-=-=-=-=-=-=-=-=-=-// VARIABLES //-=-=-=-=-=-=-=-=-=-=-=-=-
-
-        // sets x y variables for moving
-        double y = -gamepad1.left_stick_y; // Y stick value is reversed
-        double x = gamepad1.left_stick_x;
-        // turning
-        double rx = gamepad1.right_stick_x;
-
-        // The value of where the robot is facing
-        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-
-        // Rotate the movement direction counter to the bot's rotation
-        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
-
-        rotX = rotX * 1.1;  // Counteract imperfect strafing
-
-        // motor power variables
-        double motorFLPower = (rotY + rotX + rx) / rbtSpd;
-        double motorBLPower = (rotY - rotX + rx) / rbtSpd;
-        double motorFRPower = (rotY - rotX - rx) / rbtSpd;
-        double motorBRPower = (rotY + rotX - rx) / rbtSpd;
-
 //      -=-=-=-=-=-=-=-=-=-=-=-=-// CLASSES //-=-=-=-=-=-=-=-=-=-=-=-=-
 
         robot = new Goldfish(this, Goldfish.Drivetrain.MECHANUM);
@@ -69,19 +46,6 @@ public class fieldCentricDriving extends OpMode {
         // this confirms the parameters
         imu.initialize(parameters);
 
-//      -=-=-=-=-=-=-=-=-=-=-=-=-// TELEMETRY //-=-=-=-=-=-=-=-=-=-=-=-=-
-
-        telemetry.addData("controller Y: ", gamepad1.left_stick_y);
-
-        telemetry.addData("FL:", motorFLPower);
-        telemetry.addData("FR:", motorFRPower);
-        telemetry.addData("BL:", motorBLPower);
-        telemetry.addData("BR:", motorBRPower);
-
-        telemetry.addData("controller X:", gamepad1.left_stick_x);
-        telemetry.addData("robot heading:", botHeading);
-        telemetry.addData("rotX:", rotX);
-        telemetry.addData("rotY:", rotY);
 
 
     }
@@ -89,9 +53,8 @@ public class fieldCentricDriving extends OpMode {
     @Override
     public void loop() {
 
-//      -=-=-=-=-=-=-=-=-=-=-=-=-// TELEMETRY pt. 2 //-=-=-=-=-=-=-=-=-=-=-=-=-
 
-
+//      -=-=-=-=-=-=-=-=-=-=-=-=-// VARIABLES //-=-=-=-=-=-=-=-=-=-=-=-=-
 
 //      -=-=-=-=-=-=-=-=-=-=-=-=-// VARIABLES //-=-=-=-=-=-=-=-=-=-=-=-=-
 

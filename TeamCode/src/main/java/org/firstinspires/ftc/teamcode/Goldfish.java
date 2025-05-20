@@ -38,11 +38,6 @@ public  class Goldfish {
         MECHANUM
     }
 
-    public enum Team {
-        RED,
-        BLUE
-    }
-
     public Drivetrain drive;
 
     public Telemetry telem;
