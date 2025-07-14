@@ -49,7 +49,7 @@ public  class Goldfish {
 
     public DcMotorEx[] allMotors;
 
-    public Servo clawServo, basketServo, clawMoveServo, suspensionServo;
+    public Servo clawServo, basketServo, /*clawMoveServo,*/ suspensionServo;
 
     public WebcamName webcamName;
 
@@ -207,7 +207,7 @@ public  class Goldfish {
                 slideMotor = (DcMotorEx) hwMap.dcMotor.get("slideMotor");
                 slideMotor2 = (DcMotorEx) hwMap.dcMotor.get("slideMotor2");
                 clawServo = hwMap.servo.get("clawServo");
-                clawMoveServo = hwMap.servo.get("clawMoveServo");
+                //clawMoveServo = hwMap.servo.get("clawMoveServo");
                 basketServo = hwMap.servo.get("basketServo");
                 suspensionServo = hwMap.servo.get("suspensionServo");
                 slideMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -291,13 +291,13 @@ public  class Goldfish {
 
     public void armDump() {
         setArmTicks(-10, 1);
-        clawMoveServo.setPosition(0.85);
+        //clawMoveServo.setPosition(0.85);
     }
 
     public void armCollect() {
         clawServo.setPosition(.9);
         setArmTicks(-1685, 1);
-        clawMoveServo.setPosition(0.64);
+        //clawMoveServo.setPosition(0.64);
     }
 
     public void setArmMotor(double power) {

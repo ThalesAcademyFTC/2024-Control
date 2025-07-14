@@ -21,8 +21,8 @@ public class bucketLeftAuton extends LinearOpMode {
         robot.basketDown();
         robot.openClaw();
         sleep(200);
-        robot.clawMoveServo.setPosition(0.6);
-        sleep(200);
+        //robot.clawMoveServo.setPosition(0.6);
+        //sleep(200);
         robot.armReset();
 
         waitForStart();
@@ -61,7 +61,7 @@ public class bucketLeftAuton extends LinearOpMode {
 
         //Robot picks up middle sample
         robot.armMotor.setTargetPosition(-1705);
-        robot.clawMoveServo.setPosition(0.57);
+        //robot.clawMoveServo.setPosition(0.57);
         robot.moveRightInches(2, speed);
         robot.closeClaw();
         robot.moveRightInches(2,speed);
@@ -72,8 +72,8 @@ public class bucketLeftAuton extends LinearOpMode {
         robot.waitForArmMotor();
         robot.openClaw();
         sleep(rest*2);
-        robot.clawMoveServo.setPosition(0.6);
-        sleep(200);
+        //robot.clawMoveServo.setPosition(0.6);
+        //sleep(200);
         robot.armReset();
         sleep(100);
         robot.basketRest();
