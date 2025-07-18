@@ -418,6 +418,8 @@ public  class Goldfish {
     public void moveForwardInches( double inches, double speed) {
         int tickTarget = (int) Math.round(inches * inchtick);
 
+        resetDriveEncoders();
+
         motorFL.setTargetPosition(tickTarget);
         motorBR.setTargetPosition(tickTarget);
         motorBL.setTargetPosition(tickTarget);
@@ -430,6 +432,7 @@ public  class Goldfish {
 
         }
 
+        move(speed, 0, 0);
 
         for (DcMotor x : allMotors) {
 

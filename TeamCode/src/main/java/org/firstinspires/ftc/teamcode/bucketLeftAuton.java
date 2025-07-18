@@ -38,9 +38,9 @@ public class bucketLeftAuton extends LinearOpMode {
         //Moves to bucket
         robot.highSlideBucket();
         robot.moveDiagonalSW(26, speed);
-        robot.turnLeftDegrees(45, speed);
+        robot.turnLeftDegrees(45, speed/2);
         robot.waitForSlideMotors();
-        robot.moveBackwardInches(9, speed*0.5);
+        robot.moveBackwardInches(   7, speed/4);
         sleep(200);
 
 
@@ -54,13 +54,12 @@ public class bucketLeftAuton extends LinearOpMode {
         //SECOND CYCLE
 
         //Robot turns and moves to the middle sample
-        robot.armCollect();
         robot.turnLeftDegrees(40,speed);
         robot.moveLeftInches(5,speed);
-        robot.moveForwardInches(7,speed*0.75);
+        robot.armCollect();
+        robot.moveForwardInches(6,speed*0.75);
 
-        //Robot picks up middle sample
-        robot.armMotor.setTargetPosition(-1705);
+
         //robot.clawMoveServo.setPosition(0.57);
         robot.moveRightInches(2, speed);
         robot.closeClaw();
@@ -68,7 +67,7 @@ public class bucketLeftAuton extends LinearOpMode {
         robot.armDump();
 
         //robot moves to bucket
-        robot.moveBackwardInches(5,speed);
+        robot.moveBackwardInches(4,speed);
         robot.waitForArmMotor();
         robot.openClaw();
         sleep(rest*2);
@@ -80,10 +79,11 @@ public class bucketLeftAuton extends LinearOpMode {
 
         //dump second sample
         robot.highSlideBucket();
-        robot.turnRightDegrees(45,speed);
-        robot.moveDiagonalNW(-4,speed);
         robot.waitForSlideMotors();
-        robot.moveBackwardInches(3,speed*0.75);
+        robot.turnRightDegrees(45,speed);
+        //robot.moveDiagonalNW(-4,speed);
+        robot.moveRightInches(3, speed/2);
+        robot.moveBackwardInches(3, speed/2);
 
         //dump
         robot.basketUp();
@@ -96,12 +96,12 @@ public class bucketLeftAuton extends LinearOpMode {
 
         //Robot parks
         robot.moveDiagonalNW(24, speed);
-        robot.moveLeftInches(28, speed);
-        robot.turnRightDegrees(185, speed);
+        robot.moveLeftInches(28, speed/2);
+        robot.turnRightDegrees(160, speed);
         robot.highSlideBucket();
-        robot.moveBackwardInches(6, speed);
+        robot.moveBackwardInches(6, speed/5);
         robot.waitForSlideMotors();
-        robot.moveBackwardInches(8, speed);
+        robot.moveBackwardInches(8, speed/5);
         //dont forget to close your code next time ;) (i would hate it if things were deleted
         // because they were closed wrong and didnt get saved)
 
