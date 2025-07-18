@@ -22,7 +22,7 @@ public class bucketLeftAutonNew extends LinearOpMode {
         robot.openClaw();
         sleep(200);
         //robot.clawMoveServo.setPosition(0.6);
-        sleep(200);
+        //sleep(200);
         robot.armReset();
 
         waitForStart();

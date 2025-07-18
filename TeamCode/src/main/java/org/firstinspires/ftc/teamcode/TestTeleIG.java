@@ -38,7 +38,7 @@ public class TestTeleIG extends OpMode {
     public void loop() {
 
         telemetry.addData("basketServo", robot.basketServo.getPosition());
-        telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
+        //telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
         telemetry.addData("slidePos", slidePos);
         telemetry.addData("AY Pressed?", buttonPressed);
         telemetry.addData("Motor 1 Current Pos", robot.slideMotor.getCurrentPosition());

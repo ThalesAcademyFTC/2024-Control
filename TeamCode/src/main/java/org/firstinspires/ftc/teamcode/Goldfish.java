@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
+//import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
@@ -49,11 +49,11 @@ public  class Goldfish {
 
     public DcMotorEx[] allMotors;
 
-    public Servo clawServo, basketServo, /*clawMoveServo,*/ suspensionServo;
+    public Servo clawServo, basketServo, clawMoveServo, suspensionServo;
 
     public WebcamName webcamName;
 
-    public IMU IMU;
+//    public IMU IMU;
 
     double inchtick = 50;
 
@@ -61,7 +61,7 @@ public  class Goldfish {
 
     double TICKS_PER_INCH = 50;
 
-    public double rbtSpd = 1.2;
+    public double robotSpeed = 1;
 
 
 
@@ -207,7 +207,7 @@ public  class Goldfish {
                 slideMotor = (DcMotorEx) hwMap.dcMotor.get("slideMotor");
                 slideMotor2 = (DcMotorEx) hwMap.dcMotor.get("slideMotor2");
                 clawServo = hwMap.servo.get("clawServo");
-                //clawMoveServo = hwMap.servo.get("clawMoveServo");
+                clawMoveServo = hwMap.servo.get("clawMoveServo");
                 basketServo = hwMap.servo.get("basketServo");
                 suspensionServo = hwMap.servo.get("suspensionServo");
                 slideMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -216,7 +216,7 @@ public  class Goldfish {
                 armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-                IMU = (IMU) hwMap.get("imu");
+/*                IMU = (IMU) hwMap.get("imu");
 
 
                 // Retrieve the IMU from the hardware map
@@ -225,8 +225,8 @@ public  class Goldfish {
                 IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot
                         (RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                         RevHubOrientationOnRobot.UsbFacingDirection.UP));
-                IMU.initialize(parameters);
-
+                .initialize(parameters);
+*/
                 allMotors = new DcMotorEx[]{motorFL, motorFR, motorBL, motorBR};
 
                 for (DcMotorEx x : allMotors) {
@@ -276,10 +276,10 @@ public  class Goldfish {
                 double FRpower = (y - x - turn) / denominator;
                 double BRpower = (y + x - turn) / denominator;
 
-                motorFL.setPower(FLpower);
-                motorBL.setPower(BLpower);
-                motorFR.setPower(FRpower);
-                motorBR.setPower(BRpower);
+                motorFL.setPower(FLpower*robotSpeed);
+                motorBL.setPower(BLpower*robotSpeed);
+                motorFR.setPower(FRpower*robotSpeed);
+                motorBR.setPower(BRpower*robotSpeed);
 
                 break; //breakdance
 
@@ -326,7 +326,7 @@ public  class Goldfish {
     public void closeClaw() { clawServo.setPosition(.4); }
 
     public void basketDown() {
-        basketServo.setPosition(.475);
+        basketServo.setPosition(.4);
     }
 
     public void basketUp() { basketServo.setPosition(.85); }

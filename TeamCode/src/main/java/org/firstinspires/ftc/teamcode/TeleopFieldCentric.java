@@ -32,7 +32,7 @@ public class TeleopFieldCentric extends OpMode {
         telemetry.addData("Slide Position", robot.slideMotor.getCurrentPosition());
         telemetry.addData("Slide Position 2", robot.slideMotor2.getCurrentPosition());
         telemetry.addData("basketServo", robot.basketServo.getPosition());
-        telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
+        //telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
         telemetry.addData("slidePos", basketPos);
         telemetry.addData("armPos", robot.armMotor.getCurrentPosition());
         telemetry.addData("Slide Velocity", robot.slideMotor.getVelocity());

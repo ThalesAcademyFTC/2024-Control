@@ -14,6 +14,8 @@ public class Teleop extends OpMode {
     boolean buttonPressed = false;
     boolean buttonPressed2 = false;
 
+    boolean buttonPressed3 = false;
+
     enum SlidePosition {
         RESET,
         LOW,
@@ -26,12 +28,19 @@ public class Teleop extends OpMode {
         PICKUP
     }
 
+    enum SprintSpeed {
+        NORMAL,
+        SLOW
+    }
+
     SlidePosition slidePos = SlidePosition.RESET;
 
     BasketPosition basketPos = BasketPosition.RESET;
 
+    SprintSpeed robotSpeed = SprintSpeed.NORMAL;
+
     int ready = 0;
-    double rbtSpd = 1.2;
+    double rbtSpd = 0.75;
 
     @Override
     public void init() {
@@ -111,21 +120,21 @@ public class Teleop extends OpMode {
             buttonPressed = true;
             robot.resetSlide();
         }
-
+/*
         if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
             robot.basketRest();
         } else if (gamepad2.left_bumper){
             robot.basketDown();
-            robot.rest(500);
-            robot.basketRest();
-        } else if (gamepad2.right_bumper){
+        } else if (gamepad2.right_bumper && buttonPressed2 == false){
+            buttonPressed2 = true;
             robot.basketUp();
         }
-
+*/
         if (!gamepad2.y && !gamepad2.a){
             buttonPressed = false;
         }
-/*
+
+
         if (gamepad2.left_bumper && basketPos == BasketPosition.DROP && buttonPressed2 == false) {
             basketPos = BasketPosition.RESET;
             buttonPressed2 = true;
@@ -133,7 +142,7 @@ public class Teleop extends OpMode {
         } else if (gamepad2.left_bumper && basketPos == BasketPosition.RESET && buttonPressed2 == false) {
             basketPos = BasketPosition.PICKUP;
             buttonPressed2 = true;
-            robot.basketUp();
+            robot.basketDown();
         }
 
 
@@ -144,13 +153,32 @@ public class Teleop extends OpMode {
         } else if (gamepad2.right_bumper && basketPos == BasketPosition.RESET && buttonPressed2 == false) {
             basketPos = BasketPosition.DROP;
             buttonPressed2 = true;
-            robot.basketDown();
+            robot.basketUp();
         }
 
         if (!gamepad2.left_bumper && !gamepad2.right_bumper){
             buttonPressed2 = false;
         }
-*/
+
+        /*if (gamepad1.left_trigger && SprintSpeed.NORMAL == robotSpeed && buttonPressed3 == false) {
+            robotSpeed = SprintSpeed.SLOW;
+            buttonPressed3 = true;
+            robot.robotSpeed = 0.5;
+        } else if (gamepad1.right_trigger && SprintSpeed.SLOW == robotSpeed && buttonPressed3 == true)
+            robotSpeed = SprintSpeed.NORMAL;
+            buttonPressed3 = false;
+            robot.robotSpeed = 1; */
+
+
+        if (gamepad1.left_trigger >= 0.25) {
+            rbtSpd = 0.25;
+        } else if (gamepad1.right_trigger >= 0.25) {
+            rbtSpd = 1.25;
+        } else {
+            rbtSpd = 0.75;
+        }
+
+
 
         telemetry.update();
     }
