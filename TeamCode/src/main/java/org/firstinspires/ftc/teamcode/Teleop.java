@@ -63,9 +63,9 @@ public class Teleop extends OpMode {
 
         telemetry.update();
 
-        double y = (-gamepad1.left_stick_y / rbtSpd);
-        double x = (gamepad1.left_stick_x / rbtSpd);
-        double turn = (gamepad1.right_stick_x / rbtSpd);
+        double y = (-gamepad1.left_stick_y * rbtSpd);
+        double x = (gamepad1.left_stick_x * rbtSpd);
+        double turn = (gamepad1.right_stick_x * rbtSpd);
 
         // Move the robot using the transformed inputs
         robot.move(x, y, turn);
@@ -173,9 +173,9 @@ public class Teleop extends OpMode {
         if (gamepad1.left_trigger >= 0.25) {
             rbtSpd = 0.25;
         } else if (gamepad1.right_trigger >= 0.25) {
-            rbtSpd = 1.25;
-        } else {
             rbtSpd = 0.75;
+        } else {
+            rbtSpd = 0.50;
         }
 
 

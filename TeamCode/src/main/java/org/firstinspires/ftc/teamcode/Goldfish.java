@@ -334,11 +334,11 @@ public  class Goldfish {
     public void basketRest() { basketServo.setPosition(0.6); }
 
     public void armToBasket() {
-        armMotor.setPower(-0.7);
+        armMotor.setPower(-0.4);
     }
 
     public void armAwayBasket() {
-        armMotor.setPower(0.7);
+        armMotor.setPower(0.4);
     }
 
     public void setArmTicks(int tickTarget, double speed) {

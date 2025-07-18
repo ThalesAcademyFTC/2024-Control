@@ -21,7 +21,7 @@ public class TestTeleIG extends OpMode {
 
     boolean buttonPressed = false;
 
-    double rbtSpd = 1.75;
+    double rbtSpd = 0.75;
 
     @Override
     public void init() {
@@ -37,33 +37,25 @@ public class TestTeleIG extends OpMode {
 
     public void loop() {
 
-        telemetry.addData("basketServo", robot.basketServo.getPosition());
-        //telemetry.addData("servoMoveArm", robot.clawMoveServo.getPosition());
-        telemetry.addData("slidePos", slidePos);
-        telemetry.addData("AY Pressed?", buttonPressed);
-        telemetry.addData("Motor 1 Current Pos", robot.slideMotor.getCurrentPosition());
-        telemetry.addData("Motor 2 Current Pos", robot.slideMotor2.getCurrentPosition());
-        telemetry.addData("Motor 1 Target Pos", robot.slideMotor.getTargetPosition());
-        telemetry.addData("Motor 2 Target Pos", robot.slideMotor2.getTargetPosition());
 
 
-        double y = (-gamepad1.left_stick_y / rbtSpd);
-        double x = (gamepad1.left_stick_x / rbtSpd);
-        double turn = (gamepad1.right_stick_x / rbtSpd);
+        double y = (-gamepad1.left_stick_y * rbtSpd);
+        double x = (gamepad1.left_stick_x * rbtSpd);
+        double turn = (gamepad1.right_stick_x * rbtSpd);
 
 
         // Slide motor code below
         if (gamepad2.a) {
-            robot.clawMoveServo.setPosition(0);
+            rbtSpd = 0.25;
         }
         if (gamepad2.b) {
-            robot.clawMoveServo.setPosition(0.25);
+            rbtSpd = 0.5;
         }
         if (gamepad2.x) {
-            robot.clawMoveServo.setPosition(0.75);
+            rbtSpd = 0.75;
         }
         if (gamepad2.y) {
-            robot.clawMoveServo.setPosition(1);
+            rbtSpd = 1;
         }
 
 
